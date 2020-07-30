@@ -1,5 +1,17 @@
 # devroastproject
 
+# Local Setup
+
+- Fork and clone the repository 
+- Create a virutalenv by running `python -m venv env`
+- Activate virtualenv with `source env/bin/activate` on Unix-like systems, and `env/scripts/activate` on Windows.
+- Create a `.env` file in the `devroast` directory, and add the following environment variables:
+    * `DEBUG`: Set to `True`
+    * `SECRET_KEY`: A random, 60-character, alphanumeric string.
+    * `TIMEZONE`: A valid `pytz` time zone.
+
+# About
+
 devroast.com is a message board where one can ask for feedback on their own website, i.e. for their website to be “roasted” ... We hope that this will be a fun experience, and participants will be “roasted gently.”
 
 This website will be built by a group of programmers under the direction and coaching of Denise Mauldin and other mentors from the PuPPy community (Puget Sound Programming Python.)
