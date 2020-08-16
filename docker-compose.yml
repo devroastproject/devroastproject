@@ -1,0 +1,21 @@
+version: '3.7'
+
+services:
+
+  devroastproject:
+    image: devroastproject
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    env_file:
+      - devroast/.env
+  postgres:
+    image: postgres:12.2-alpine
+    volumes:
+      - ./pgdata/:/var/lib/postgresql/data/devroast
+    ports:
+      - 543:5432
+    env_file:
+      - devroast/.env
