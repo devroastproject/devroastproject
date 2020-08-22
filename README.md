@@ -9,6 +9,12 @@
     * `DEBUG`: Set to `True`
     * `SECRET_KEY`: A random, 60-character, alphanumeric string.
     * `TIMEZONE`: A valid `pytz` time zone.
+    * `DB_HOST`: The Postgres host you are using.
+    * `DB_NAME`: The name of the Postgres database that the API is using.
+    * `DB_USER`: The database user.
+    * `DB_PASS`: The password for the database user.
+    * `DB_PORT`: The port that your Postgres server is listening on. Default is 5432.
+
 
 # About
 
@@ -29,3 +35,4 @@ Any comment can be commented on using the same logic.
 Any verified user will be able to vote a comment up or down.
 
 Any user will be the able to sort comments by 1. most popular, 2. all in sequential order or 3. by @ tag in sequential order.
+
