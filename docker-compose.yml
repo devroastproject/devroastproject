@@ -1,5 +1,9 @@
 version: '3.7'
 
+networks:
+  webservice_network:
+    driver: bridge
+
 services:
 
   devroastproject:
@@ -11,6 +15,9 @@ services:
       - 8000:8000
     env_file:
       - devroast/.env
+    depends_on:
+      - postgres
+
   postgres:
     image: postgres:12.2-alpine
     volumes:
@@ -19,3 +26,10 @@ services:
       - 543:5432
     env_file:
       - devroast/.env
+
+  redis:
+    image: redis:5.0.3-alpine
+    networks:
+      [webservice_network]
+    dns:
+      - 8.8.8.8
