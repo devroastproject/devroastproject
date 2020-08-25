@@ -36,3 +36,31 @@ Any verified user will be able to vote a comment up or down.
 
 Any user will be the able to sort comments by 1. most popular, 2. all in sequential order or 3. by @ tag in sequential order.
 
+# Docker
+
+To start the Django server via docker, run:
+
+docker build .
+
+This will output an image ID at the end of the 'Successfully built' result
+ex: Successfully built e42196958884
+
+Run a container from the image using:
+
+docker run -p 8000:8000 --env-file env.example <IMAGE_ID>
+
+ex: docker run -p 8000:8000 --env-file env.example e42196958884
+
+The -p flag maps the port from your local machine to the port inside the container
+Since the gunicorn runs on --bind 0.0.0.0:8000 then the interior port is 8000
+You can map any port on your machine to that port, but this uses 8000 for convenience
+
+Navigate to http://localhost:8000 should show the Django start page
+
+# Docker compose
+
+To run via docker compose:
+
+cp example.env devroast/.env
+docker-compose build
+docker-compose up
