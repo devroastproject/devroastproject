@@ -6,7 +6,7 @@ networks:
 
 services:
 
-  devroastproject:
+  django:
     image: devroastproject
     build:
       context: .
@@ -17,6 +17,24 @@ services:
       - devroast/.env
     depends_on:
       - postgres
+
+  react:
+    build:
+      context: .
+      dockerfile: Dockerfile.react
+    stdin_open: true
+    ports:
+      - 3000:3000
+    env_file:
+      - devroast/.env
+    depends_on:
+      - postgres
+      - django
+    volumes:
+      - type: bind
+        source: ./frontend/react-frontend
+        target: /app
+      - '/app/node_modules'
 
   postgres:
     image: postgres:12.2-alpine

@@ -130,3 +130,7 @@ dmypy.json
 
 # Custom additons
 .vscode/
+
+# React config
+.config
+frontend/react-frontend/.config
