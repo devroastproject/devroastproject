@@ -6,7 +6,7 @@ networks:
 
 services:
 
-  devroastproject:
+  django:
     image: devroastproject
     build:
       context: .
@@ -20,8 +20,10 @@ services:
 
   postgres:
     image: postgres:12.2-alpine
+    networks:
+      [webservice_network]
     volumes:
-      - ./pgdata/:/var/lib/postgresql/data/devroast
+      - devroast:/var/lib/postgresql/data/
     ports:
       - 543:5432
     env_file:
@@ -33,3 +35,6 @@ services:
       [webservice_network]
     dns:
       - 8.8.8.8
+
+volumes: 
+  devroast:
