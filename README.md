@@ -2,7 +2,7 @@
 
 # Local Setup
 
-- Fork and clone the repository 
+- Fork and clone the repository
 - Create a virutalenv by running `python -m venv env`
 - Activate virtualenv with `source env/bin/activate` on Unix-like systems, and `env/scripts/activate` on Windows.
 - Create a `.env` file in the `devroast` directory, and add the following environment variables:
@@ -36,7 +36,7 @@ Any verified user will be able to vote a comment up or down.
 
 Any user will be the able to sort comments by 1. most popular, 2. all in sequential order or 3. by @ tag in sequential order.
 
-# Docker
+# Docker - Django
 
 To start the Django server via docker, run:
 
@@ -57,10 +57,47 @@ You can map any port on your machine to that port, but this uses 8000 for conven
 
 Navigate to http://localhost:8000 should show the Django start page
 
+# Docker - React
+
+To start the React server via docker, run:
+
+docker build -f Dockerfile.react .
+
+This will output an image ID at the end of the 'Successfully built' result
+
+Run a container from the image using
+
+docker run -p 8001:8000 --env-file env.example <IMAGE_ID>
+
+
 # Docker compose
+
+The docker compose file is configured to run the Django container,
+the React container, a Postgres container, and a Redis container.
 
 To run via docker compose:
 
 cp example.env devroast/.env
 docker-compose build
 docker-compose up
+
+To see what is running:
+
+docker-compose ps
+
+To run in a detached mode:
+
+docker-compose up -d
+
+When detached, to see the logs for the containers
+
+docker-compose logs
+
+to see just the specific container, use the name from teh
+docker-compose.yml file
+
+docker-compose logs react
+
+To stop the containers:
+
+docker-compose stop
