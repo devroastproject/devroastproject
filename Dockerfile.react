@@ -18,7 +18,7 @@ ENV PATH /app/node_modules/.bin:$PATH
 #install app dependencies
 COPY frontend/react-frontend/package.json /app
 COPY frontend/react-frontend/package-lock.json /app
-RUN npm install --silent
+RUN npm install
 
 RUN npm install react-scripts@3.4.1
 
