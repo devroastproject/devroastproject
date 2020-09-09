@@ -8,6 +8,8 @@ services:
 
   django:
     image: devroastproject
+    networks:
+      [webservice_network]
     build:
       context: .
       dockerfile: Dockerfile
@@ -19,6 +21,8 @@ services:
       - postgres
 
   react:
+    networks:
+      [webservice_network]
     build:
       context: .
       dockerfile: Dockerfile.react
@@ -54,5 +58,5 @@ services:
     dns:
       - 8.8.8.8
 
-volumes: 
+volumes:
   devroast:
