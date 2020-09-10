@@ -52,3 +52,7 @@ docker-compose logs <CONTAINER_NAME>
 To stop the containers:
 
 docker-compose stop
+
+# Seeding and Updating the Database
+
+In order to create, and update, new models, you will need to first run `docker-compose build` before you run `makemigations` and `migrate`.
