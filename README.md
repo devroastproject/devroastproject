@@ -1,21 +1,5 @@
 # devroastproject
 
-# Local Setup
-
-- Fork and clone the repository
-- Create a virutalenv by running `python -m venv env`
-- Activate virtualenv with `source env/bin/activate` on Unix-like systems, and `env/scripts/activate` on Windows.
-- Create a `.env` file in the `devroast` directory, and add the following environment variables:
-    * `DEBUG`: Set to `True`
-    * `SECRET_KEY`: A random, 60-character, alphanumeric string.
-    * `TIMEZONE`: A valid `pytz` time zone.
-    * `DB_HOST`: The Postgres host you are using.
-    * `DB_NAME`: The name of the Postgres database that the API is using.
-    * `DB_USER`: The database user.
-    * `DB_PASS`: The password for the database user.
-    * `DB_PORT`: The port that your Postgres server is listening on. Default is 5432.
-
-
 # About
 
 devroast.com is a message board where one can ask for feedback on their own website, i.e. for their website to be “roasted” ... We hope that this will be a fun experience, and participants will be “roasted gently.”
@@ -36,67 +20,34 @@ Any verified user will be able to vote a comment up or down.
 
 Any user will be the able to sort comments by 1. most popular, 2. all in sequential order or 3. by @ tag in sequential order.
 
-# Docker - Django
+# Setup
 
-To start the Django server via docker, run:
+Fork and clone the repository
 
-docker build .
+cd devroast
 
-This will output an image ID at the end of the 'Successfully built' result
-ex: Successfully built e42196958884
+cp env.example devroast/.env
 
-Run a container from the image using:
-
-docker run -p 8000:8000 --env-file env.example <IMAGE_ID>
-
-ex: docker run -p 8000:8000 --env-file env.example e42196958884
-
-The -p flag maps the port from your local machine to the port inside the container
-Since the gunicorn runs on --bind 0.0.0.0:8000 then the interior port is 8000
-You can map any port on your machine to that port, but this uses 8000 for convenience
-
-Navigate to http://localhost:8000 should show the Django start page
-
-# Docker - React
-
-To start the React server via docker, run:
-
-docker build -f Dockerfile.react .
-
-This will output an image ID at the end of the 'Successfully built' result
-
-Run a container from the image using
-
-docker run -p 8001:8000 --env-file env.example <IMAGE_ID>
-
-
-# Docker compose
-
-The docker compose file is configured to run the Django container,
-the React container, a Postgres container, and a Redis container.
-
-To run via docker compose:
-
-cp example.env devroast/.env
 docker-compose build
+
 docker-compose up
+
+# Docker Notes
+To run in a detached mode:
+
+docker-compose up -d
 
 To see what is running:
 
 docker-compose ps
 
-To run in a detached mode:
-
-docker-compose up -d
-
-When detached, to see the logs for the containers
+To see the logs for the containers
 
 docker-compose logs
 
-to see just the specific container, use the name from teh
-docker-compose.yml file
+To see just the specific container, use the name from the docker-compose.yml file
 
-docker-compose logs react
+docker-compose logs <CONTAINER_NAME>
 
 To stop the containers:
 
