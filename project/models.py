@@ -18,4 +18,4 @@ class Project(models.Model):
 
     def __str__(self):
 
-        return self.title + " by " + user 
+        return self.title + " by " + self.user 
