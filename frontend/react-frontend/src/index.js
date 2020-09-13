@@ -5,10 +5,7 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <link
-      rel="stylesheet"
-      href="https://localhost:8000/usr/src/app/staticfiles/test.css"
-    />
+    <link rel="stylesheet" href="172.22.0.4/16/staticfiles/test.css" />
     <h1>Devroast</h1>
     <App />
   </React.StrictMode>,
