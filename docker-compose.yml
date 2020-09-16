@@ -14,9 +14,9 @@ services:
     ports:
       - 8000:8000
     volumes:
-      # - ./app/:/usr/src/app/
+      - ./app/:/usr/src/app/
       - static:/usr/src/app/staticfiles
-      # - media_volume:/usr/src/app/mediafiles
+      - media_volume:/usr/src/app/mediafiles
     env_file:
       - devroast/.env
     depends_on:
@@ -60,4 +60,4 @@ services:
 volumes:
   devroast:
   static:
-  # media_volume:
+  media_volume:

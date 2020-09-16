@@ -3,6 +3,8 @@ FROM python:3.8-alpine
 
 EXPOSE 8000
 
+COPY ./init.sh /usr/local/bin
+
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE 1
 
@@ -31,3 +33,4 @@ COPY --chown=appuser . /app
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "devroast.wsgi"]
+# ENTRYPOINT ["./init.sh"]

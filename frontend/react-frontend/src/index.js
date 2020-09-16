@@ -5,7 +5,8 @@ import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
-    <link rel="stylesheet" href="172.22.0.4/16/staticfiles/test.css" />
+    <link rel="stylesheet" href="http://localhost:8000/staticfiles/test.css" />{" "}
+    {/* stylesheet CDN, change to S3 in production */}
     <h1>Devroast</h1>
     <App />
   </React.StrictMode>,
