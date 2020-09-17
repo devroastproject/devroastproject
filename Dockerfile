@@ -3,8 +3,6 @@ FROM python:3.8-alpine
 
 EXPOSE 8000
 
-COPY ./init.sh /usr/local/bin
-
 # Keeps Python from generating .pyc files in the container
 ENV PYTHONDONTWRITEBYTECODE 1
 
