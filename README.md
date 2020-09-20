@@ -24,31 +24,76 @@ Any user will be the able to sort comments by 1. most popular, 2. all in sequent
 
 Fork and clone the repository
 
-cd devroast
+```
+cd devroastproject
+```
 
+Copy the example file with the necessary environment parameters
+```
 cp env.example devroast/.env
+```
 
+create the devroast volume that will be used to store the postgres data:
+
+```
+docker volume create devroast
+```
+
+create the docker images with
+```
 docker-compose build
+```
 
+start the docker containers with:
+```
 docker-compose up
+```
+
+# Configuration
+
+If the postgres configuration is changed then the devroast volume will
+need to be destroyed (which will also destroy all data in the database)
+and then re-created:
+
+```
+docker volume rm devroastproject_devroast
+docker volume create devroast
+```
+
+This is often the case if there are messages in the postgres logs about
+password authentication failed or Role "postgres" does not exist.
+
+postgres_1  | [27] FATAL:  password authentication failed for user "postgres"
+
+postgres_1  | [27] DETAIL:  Role "postgres" does not exist.
 
 # Docker Notes
 To run in a detached mode:
 
+```
 docker-compose up -d
+```
 
 To see what is running:
 
+```
 docker-compose ps
+```
 
 To see the logs for the containers
 
+```
 docker-compose logs
+```
 
 To see just the specific container, use the name from the docker-compose.yml file
 
+```
 docker-compose logs <CONTAINER_NAME>
+```
 
 To stop the containers:
 
+```
 docker-compose stop
+```
