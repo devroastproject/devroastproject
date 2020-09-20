@@ -34,3 +34,16 @@ class Comment(models.Model):
     def __str__(self):
 
         return self.user + self.body 
+
+
+# Model for comment tags
+class Tag(models.Model):
+
+    # One comment can have many tags, one tag can have many comments
+    comment = models.ManyToManyField(Comment)
+    tagname = models.CharField(max_length=200, help_text="Name of your tag")
+    description = models.CharField(max_length=500, help_text="A brief description of the tag.")
+
+    def __str__(self):
+
+        return self.tagname
