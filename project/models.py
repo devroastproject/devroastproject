@@ -30,6 +30,8 @@ class Comment(models.Model):
     body = models.TextField(help_text="Enter your comment here.")
     neg_votes = models.IntegerField(help_text="Click to vote in favor of this comment.")
     pos_votes = models.IntegerField(help_text="Click to vote against this comment.")
+    # Has a comment been closed or not?
+    closed = models.BooleanField(default=False)
 
     def __str__(self):
 
