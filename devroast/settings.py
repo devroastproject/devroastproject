@@ -46,10 +46,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'users',
     'project',
-<<<<<<< HEAD
     'storages', # static file storage
-=======
->>>>>>> 57265b996520201adf66b8142597ffe20cd52e97
 ]
 
 MIDDLEWARE = [

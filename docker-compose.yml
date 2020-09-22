@@ -14,7 +14,7 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./app/:/usr/src/app/
+      - .:/usr/src/app/
       - static:/usr/src/app/staticfiles
       - media:/usr/src/app/mediafiles
     env_file:
