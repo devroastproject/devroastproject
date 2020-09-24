@@ -32,4 +32,4 @@ RUN pip install -r requirements.txt
 COPY --chown=appuser . /app/code
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "devroast.wsgi"]
+CMD ["sh","/app/startup_scripts.sh"]

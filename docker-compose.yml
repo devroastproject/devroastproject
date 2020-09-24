@@ -1,20 +1,22 @@
-version: '3.7'
+version: "3.7"
 
 networks:
   webservice_network:
     driver: bridge
 
 services:
-
   django:
     image: devroastproject
-    networks:
-      [webservice_network]
+    networks: [webservice_network]
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 8000:8000
+    volumes:
+      - .:/usr/src/app/
+      - static:/usr/src/app/staticfiles
+      - media:/usr/src/app/mediafiles
     env_file:
       - devroast/.env
     depends_on:
@@ -26,8 +28,7 @@ services:
       - .:/app/code
 
   react:
-    networks:
-      [webservice_network]
+    networks: [webservice_network]
     build:
       context: .
       dockerfile: Dockerfile.react
@@ -43,12 +44,11 @@ services:
       - type: bind
         source: ./frontend/react-frontend
         target: /app
-      - '/app/node_modules'
+      - "/app/node_modules"
 
   postgres:
     image: postgres:12.2-alpine
-    networks:
-      [webservice_network]
+    networks: [webservice_network]
     volumes:
       - devroast:/var/lib/postgresql/data/
     ports:
@@ -58,10 +58,11 @@ services:
 
   redis:
     image: redis:5.0.3-alpine
-    networks:
-      [webservice_network]
+    networks: [webservice_network]
     dns:
       - 8.8.8.8
 
 volumes:
   devroast:
+  static:
+  media:
