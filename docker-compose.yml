@@ -19,6 +19,11 @@ services:
       - devroast/.env
     depends_on:
       - postgres
+    restart:
+      always
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app/code
 
   react:
     networks:
