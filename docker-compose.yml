@@ -14,18 +14,18 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - .:/usr/src/app/
+      # neither: no folders appear, but the static doesn't get collected
+      # both: mediafiles and staticfiles appear empty, resets work
+      - .:/usr/src/app/ # without, staticfiles appears full, mediafiles does not appear, resets work
       - static:/usr/src/app/staticfiles
       - media:/usr/src/app/mediafiles
+      - .:/app/code # without, mediafiles and staticfiles appear empty, resets do not work, static is not collected correctly
     env_file:
       - devroast/.env
     depends_on:
       - postgres
-    restart:
-      always
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app/code
+    restart: always
+    command: sh ./startup_scripts.sh
 
   react:
     networks: [webservice_network]
