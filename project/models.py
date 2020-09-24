@@ -15,6 +15,7 @@ class Project(models.Model):
     hosted_url = models.CharField(max_length=250, help_text="Your website's URL.")
 	# A summary of the project
     description = models.TextField(help_text="A brief description of your website.")
+    tag = models.ForeignKey(Tag, on_delete=models.DO_NOTHING)
 
     def __str__(self):
 
