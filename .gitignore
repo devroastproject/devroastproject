@@ -136,4 +136,4 @@ dmypy.json
 frontend/react-frontend/.config
 
 # collected static files
- .staticfiles
+staticfiles/
