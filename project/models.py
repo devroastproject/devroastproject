@@ -15,6 +15,7 @@ class Project(models.Model):
     hosted_url = models.CharField(max_length=250, help_text="Your website's URL.")
 	# A summary of the project
     description = models.TextField(help_text="A brief description of your website.")
+    tag = models.ForeignKey(Tag, on_delete=models.DO_NOTHING)
 
     def __str__(self):
 
@@ -30,7 +31,22 @@ class Comment(models.Model):
     body = models.TextField(help_text="Enter your comment here.")
     neg_votes = models.IntegerField(help_text="Click to vote in favor of this comment.")
     pos_votes = models.IntegerField(help_text="Click to vote against this comment.")
+    # Has a comment been closed or not?
+    closed = models.BooleanField(default=False)
 
     def __str__(self):
 
         return self.user + self.body 
+
+
+# Model for comment tags
+class Tag(models.Model):
+
+    # One comment can have many tags, one tag can have many comments
+    comment = models.ManyToManyField(Comment)
+    tagname = models.CharField(max_length=200, help_text="Name of your tag")
+    description = models.CharField(max_length=500, help_text="A brief description of the tag.")
+
+    def __str__(self):
+
+        return self.tagname
