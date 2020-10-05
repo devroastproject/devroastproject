@@ -23,11 +23,13 @@ WORKDIR /app
 # Make an /app virtualenv with all pre-requisites installed
 RUN cd /app && virtualenv -p python ${VIRTUAL_ENV} && ${VIRTUAL_ENV}/bin/python -m pip install --upgrade pip
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
-COPY requirements.txt /app/
+
+WORKDIR /app/code
+COPY requirements.txt /app/code
 RUN pip install -r requirements.txt
 
 # Copy our current app source over it for fast dev iteration.
-COPY --chown=appuser . /app
+COPY --chown=appuser . /app/code
 
 # During debugging, this entry point will be overridden. For more information, please refer to https://aka.ms/vscode-docker-python-debug
 CMD ["gunicorn", "--bind", "0.0.0.0:8000", "devroast.wsgi"]
