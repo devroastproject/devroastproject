@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'rest_auth.registration',
+    'allauth',
+    'allauth.account',
     'users',
     'project',
     'storages', # static file storage
@@ -163,3 +166,6 @@ REST_FRAMEWORK = {
     ),
     'TEST_REQUEST_DEFAULT_FORMAT': 'json',
 }
+
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED = True
