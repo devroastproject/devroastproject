@@ -6,7 +6,7 @@ from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListMode
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
-from .serializers import UserSerializer
+from .serializers import UserSerializer, PasswordSerializer
 from .permissions import IsOwnerOrReadOnly
 
 
@@ -24,7 +24,7 @@ class UserViewSet(
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
 
     # Function to update a user's password
-    @action(methods=["PUT"], detail=True)
+    @action(methods=["PUT"], detail=True, serializer_class=PasswordSerializer)
     def set_password(self, request, pk):
 
         self.object = self.get_object()
