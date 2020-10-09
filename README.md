@@ -107,4 +107,5 @@ docker-compose stop
 - Register new user (POST, GET): `/api/auth/registration/`
 - Login existing users (POST, GET): `/api/auth/login/`
 - Logout existing user (POST, GET): `/api/auth/logout/`
-
+- Get all existing users (GET): `/api/users/`
+- Get specific user (GET): `/api/users/<int:pk>/`
