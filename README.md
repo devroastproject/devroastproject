@@ -97,3 +97,14 @@ To stop the containers:
 ```
 docker-compose stop
 ```
+
+## API Endpoints
+
+<br>
+
+**User Registration and Auth Endpoints**
+
+- Register new user (POST, GET): `/api/auth/registration/`
+- Login existing users (POST, GET): `/api/auth/login/`
+- Logout existing user (POST, GET): `/api/auth/login/`
+
