@@ -25,7 +25,7 @@ class UserViewSet(
 
     # Function to update a user's password
     @action(methods=["PUT"], detail=True, serializer_class=PasswordSerializer)
-    def set_password(self, request, pk):
+    def change_password(self, request, pk):
 
         self.object = self.get_object()
         serializer = self.get_serializer(data=self.request.data)
