@@ -7,16 +7,15 @@ class Profile(models.Model):
 
     # Define pronoun options for users
     PRONOUNS = (
-        ("He/Him", "Male"),
-        ("She/Her", "Female"),
-        ("They/Them", "NB"),
+        ("Male", "He/Him"),
+        ("Female", "She/Her"),
+        ("NB", "They/Them"),
     )
 
-    user = models.OneToOneField(User)
-    username = models.CharField(length=255, help_text="Your username", unique=True)
-    role = models.CharField(length=255, help_text="Web Developer, Data Engineer, etc")
-    location = models.CharField(length=255, help_text="What city your located in")
-    pronoun = models.CharField(length=6, choices=PRONOUNS)
+    user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
+    role = models.CharField(max_length=255, help_text="Web Developer, Data Engineer, etc")
+    location = models.CharField(max_length=255, help_text="What city your located in")
+    pronoun = models.CharField(max_length=10, choices=PRONOUNS)
 
     def __str__(self):
 
