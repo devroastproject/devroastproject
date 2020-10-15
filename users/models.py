@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
 
     # Define pronoun options for users
-    PRONOUNS = (
+    PRONOUN_OPTIONS = (
         ("Male", "He/Him"),
         ("Female", "She/Her"),
         ("NB", "They/Them"),
@@ -15,7 +15,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
     role = models.CharField(max_length=255, help_text="Web Developer, Data Engineer, etc")
     location = models.CharField(max_length=255, help_text="What city your located in")
-    pronoun = models.CharField(max_length=10, choices=PRONOUNS)
+    pronouns = models.CharField(max_length=10, choices=PRONOUN_OPTIONS)
 
     def __str__(self):
 
