@@ -9,6 +9,13 @@ from users.api.serializers import UserSerializer
 # Test for users viewset
 class UserViewSetTests(APITestCase):
 
+    def setUp(self):
+
+        self.user_data = {
+            "username": "testuser",
+            "password": "testpass",
+        }
+
     # Test user registration
     def test_registration(self):
 
@@ -25,25 +32,15 @@ class UserViewSetTests(APITestCase):
     # Test that a user can login properly
     def test_login(self):
 
-        data = {
-            "username": "testuser",
-            "password": "testpass",
-        }
-
         # Create a test user, and token
         self.user = User.objects.create_user(username='testuser', password='testpass')
         self.token = Token.objects.create(user=self.user)
 
-        response = self.client.post('/api/auth/login/', data=data)
+        response = self.client.post('/api/auth/login/', data=self.user_data)
         self.assertEqual(response.status_code, HTTP_200_OK)
 
     # Test GET requests for all users 
     def test_users(self):
-
-        data = {
-            "username": "testuser",
-            "password": "testpass",
-        }
 
         factory = APIRequestFactory()
 
@@ -56,11 +53,6 @@ class UserViewSetTests(APITestCase):
 
     # GET a single, specific user
     def test_specific_user(self):
-
-        data = {
-            "username": "testuser",
-            "password": "testpass",
-        }
 
         factory = APIRequestFactory()
 
@@ -89,6 +81,10 @@ class UserViewSetTests(APITestCase):
         # Update the test user's email address, and verify that it has been saved to db
         user_instance = User.objects.get(id=1)
         user_instance.email = "test_user@example.com"
+        user_instance.username = "test_user"
+        user_instance.password = "test_password"
         user_instance.save()
 
         self.assertEqual(user_instance.email, "test_user@example.com")
+        self.assertEqual(user_instance.username, "test_user")
+        self.assertEqual(user_instance.password, "test_password")
