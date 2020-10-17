@@ -16,6 +16,7 @@ class Profile(models.Model):
     role = models.CharField(max_length=255, help_text="Web Developer, Data Engineer, etc")
     location = models.CharField(max_length=255, help_text="What city your located in")
     pronouns = models.CharField(max_length=10, choices=PRONOUN_OPTIONS)
+    about = models.TextField(default="Personal summary.", help_text="A little bit about yourself.")
 
     def __str__(self):
 
