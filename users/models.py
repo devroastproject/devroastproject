@@ -7,9 +7,9 @@ class Profile(models.Model):
 
     # Define pronoun options for users
     PRONOUN_OPTIONS = (
-        ("Male", "He/Him"),
-        ("Female", "She/Her"),
-        ("NB", "They/Them"),
+        ("He/Him", "He/Him"),
+        ("She/Her", "She/Her"),
+        ("They/Them", "They/Them"),
     )
 
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
