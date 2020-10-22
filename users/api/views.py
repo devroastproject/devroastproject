@@ -2,12 +2,13 @@ from django.contrib.auth.models import User
 from rest_framework.generics import ListAPIView, UpdateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet, ViewSet
-from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin
+from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
-from .serializers import UserSerializer, PasswordSerializer
-from .permissions import IsOwnerOrReadOnly
+from .serializers import UserSerializer, PasswordSerializer, ProfileSerializer
+from .permissions import IsOwnerOrReadOnly, IsOwnProfileOrReadOnly
+from users.models import Profile
 
 
 # CRUD viewset for User model
@@ -50,3 +51,17 @@ class UserViewSet(
             return Response(response)
 
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST) 
+
+
+class ProfileViewSet(
+    GenericViewSet,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    ListModelMixin,
+    DestroyModelMixin,
+    CreateModelMixin
+):
+
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated, IsOwnProfileOrReadOnly]
