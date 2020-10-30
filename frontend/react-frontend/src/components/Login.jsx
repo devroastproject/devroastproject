@@ -1,9 +1,13 @@
-import React from "react";
+import React, {useState} from "react";
+import LoginForm from "./LoginForm";
+import RegistrationForm from "./RegistrationForm";
 
 const Login = () => {
-return(
+    const [newUser, setNewuser] = useState(false)
+    return(
     <div className='Login'>
-        <h3>Login</h3>
+        {newUser ? <RegistrationForm/> : <LoginForm/>}
+        <button onClick={() => setNewuser(!newUser)}>Register a New Account</button>
     </div>
 )
 };

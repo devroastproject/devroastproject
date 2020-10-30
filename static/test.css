@@ -1,11 +1,14 @@
 body {
-  padding-top: 70px;
+  padding-top: 80px;
 }
 
 div {
   margin: 0 auto;
 }
 
+ul {
+  list-style-type: none;
+}
 nav {
   background-color: whitesmoke;
   position: fixed;
@@ -17,7 +20,8 @@ nav {
   justify-content: center;
   align-items: center;
 }
-nav ul li {
-  height: auto;
-  font-weight: bold;
+li {
+  float: left;
+  display: block;
+  padding: 16px;
 }
