@@ -1,7 +1,7 @@
 from project.models import Project, Comment, Tag
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin
 from rest_framework.viewsets import GenericViewSet
-from users.api.permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnProjectOrReadOnly
 from .serializers import ProjectSerializer
 
 
@@ -17,4 +17,4 @@ class ProjectsViewset(
 
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsOwnProjectOrReadOnly]

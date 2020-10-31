@@ -109,3 +109,8 @@ docker-compose stop
 - Logout existing user (POST, GET): `/api/auth/logout/`
 - Get all existing users (GET): `/api/users/`
 - Get specific user (GET), and change their password: `/api/users/<int:pk>/`
+
+**Projects CRUD Endpoints**
+
+- View all existing projects (GET, POST): `/api/projects/`
+- View/edit details for a single project (GET, PUT, DELETE): `/api/projects/<int:pk>/`
