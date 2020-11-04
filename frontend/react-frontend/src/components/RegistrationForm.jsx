@@ -17,28 +17,28 @@ const RegistrationForm = () => {
     }
 
     return(
-    <div className='RegistrationForm'>
-        <form ref ={form} onSubmit={registerUser}>
-            <label htmlFor='user'>
-                User Name 
-                <input type='text' name='username'/>
-            </label>
-            <label htmlFor='email'>
-            Email 
-                <input type='text' name='email' />
-            </label>
-            <label htmlFor='password1'>
-                Password 
-                <input type='text' name='password1' />
-            </label>
-            <label htmlFor='password2'>
-                Confirm Password 
-                <input type='text' name='password2' />
-            </label>
-            <br />
-                <input type="submit" value="Submit" />
-        </form>
-    </div>
+        <div className='RegistrationForm'>
+            <form ref ={form} onSubmit={registerUser}>
+                <label htmlFor='user'>
+                    User Name 
+                    <input type='text' name='username'/>
+                </label>
+                <label htmlFor='email'>
+                    Email 
+                    <input type='text' name='email' />
+                </label>
+                <label htmlFor='password1'>
+                    Password 
+                    <input type='text' name='password1' />
+                </label>
+                <label htmlFor='password2'>
+                    Confirm Password 
+                    <input type='text' name='password2' />
+                </label>
+                <br />
+                    <input type="submit" value="Submit" />
+            </form>
+        </div>
 )
 };
 
