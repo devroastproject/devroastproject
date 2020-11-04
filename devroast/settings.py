@@ -171,3 +171,4 @@ REST_FRAMEWORK = {
 
 SITE_ID = 1
 ACCOUNT_EMAIL_REQUIRED = True
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
