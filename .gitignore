@@ -139,4 +139,4 @@ frontend/react-frontend/.config
 staticfiles/
 
 # migrations
-frontend/migrations/
+**/migrations/
