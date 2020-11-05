@@ -6,7 +6,7 @@ const Nav = () => {
     <nav>
       <h2>DevRoast</h2>
       <ul>
-      <Link to="/">
+        <Link to="/">
           <li>Home</li>
         </Link>
         <Link to="/login">

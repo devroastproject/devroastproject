@@ -19,7 +19,7 @@ const RegistrationForm = () => {
     return(
         <div className='RegistrationForm'>
             <form ref ={form} onSubmit={registerUser}>
-                <label htmlFor='user'>
+                <label htmlFor='username'>
                     User Name 
                     <input type='text' name='username'/>
                 </label>
