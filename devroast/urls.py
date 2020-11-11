@@ -18,7 +18,6 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
-
 urlpatterns = [
     path("admin/", admin.site.urls),
     # Add REST auth URLs
@@ -26,4 +25,5 @@ urlpatterns = [
     # URLs for users app
     path("api/", include("users.api.urls")),
     path("api/auth/registration/", include("rest_auth.registration.urls")),
+    path("accounts/", include('allauth.urls'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # Adds static file route, ONLY WORKS IN DEBUG MODE

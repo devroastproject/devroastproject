@@ -140,3 +140,6 @@ staticfiles/
 
 # migrations
 **/migrations/
+
+# email logs
+emails/
