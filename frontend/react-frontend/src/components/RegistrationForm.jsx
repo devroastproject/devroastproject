@@ -19,7 +19,7 @@ const RegistrationForm = () => {
     return(
         <div className='RegistrationForm'>
             <form ref ={form} onSubmit={registerUser}>
-                <label htmlFor='user'>
+                <label htmlFor='username'>
                     User Name 
                     <input type='text' name='username'/>
                 </label>
@@ -36,7 +36,7 @@ const RegistrationForm = () => {
                     <input type='text' name='password2' />
                 </label>
                 <br />
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Register New User" />
             </form>
         </div>
 )

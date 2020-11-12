@@ -137,3 +137,9 @@ frontend/react-frontend/.config
 
 # collected static files
 staticfiles/
+
+# migrations
+**/migrations/
+
+# email logs
+emails/
