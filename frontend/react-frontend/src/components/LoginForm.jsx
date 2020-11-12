@@ -13,7 +13,8 @@ const LoginForm = () => {
             headers: {'Content-Type': 'application/json'}, 
             body: data
         })
-        console.log(res)
+        const key = await res.json()
+        console.log(key)
     }
 
     return(
@@ -21,18 +22,18 @@ const LoginForm = () => {
             <form ref ={form} onSubmit={LoginUser}>
                 <label htmlFor='user'>
                     User Name 
-                    <input type='text' name='username' defaultValue={'wogga'}/>
+                    <input type='text' name='username' defaultValue={'sherp'}/>
                 </label>
                 <label htmlFor='password'>
                     Password 
-                    <input type='text' name='password' defaultValue={'pbkdf2_sha256$180000$Q7b1RtYsPQXg$0+7lLIqaQ1YFNJxK//E08QSdedtR0YBSIeym2fEHxig='}/>
+                    <input type='text' name='password' defaultValue={'flerpy22'}/>
                 </label>
                 <label htmlFor='email'>
                     Email 
-                    <input type='text' name='email' defaultValue={"wogga@wagga.com"} />
+                    <input type='text' name='email' defaultValue={"sorp@sherp.com"} />
                 </label>
                 <br />
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Login" />
             </form>
         </div>
 )

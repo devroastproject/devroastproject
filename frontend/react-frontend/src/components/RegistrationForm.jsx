@@ -36,7 +36,7 @@ const RegistrationForm = () => {
                     <input type='text' name='password2' />
                 </label>
                 <br />
-                    <input type="submit" value="Submit" />
+                    <input type="submit" value="Register New User" />
             </form>
         </div>
 )

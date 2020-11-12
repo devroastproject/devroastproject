@@ -7,7 +7,8 @@ const Login = () => {
     return(
     <div className='Login'>
         {newUser ? <RegistrationForm/> : <LoginForm/>}
-        <button onClick={() => setNewuser(!newUser)}>Register a New Account</button>
+        <br/>
+        <button onClick={() => setNewuser(!newUser)}>{newUser ? 'Login' : 'Register a New Account'}</button>
     </div>
 )
 };
