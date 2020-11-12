@@ -3,11 +3,12 @@ import LoginForm from "./LoginForm";
 import RegistrationForm from "./RegistrationForm";
 
 const Login = () => {
-    const [newUser, setNewuser] = useState(true)
+    const [newUser, setNewuser] = useState(false)
     return(
     <div className='Login'>
         {newUser ? <RegistrationForm/> : <LoginForm/>}
-        <button onClick={() => setNewuser(!newUser)}>Register a New Account</button>
+        <br/>
+        <button onClick={() => setNewuser(!newUser)}>{newUser ? 'Login' : 'Register a New Account'}</button>
     </div>
 )
 };
