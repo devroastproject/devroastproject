@@ -180,3 +180,8 @@ ACCOUNT_EMAIL_REQUIRED = True
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'emails')
 ACCOUNT_EMAIL_VERIFICATION = "optional"
+
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:3000",
+]
