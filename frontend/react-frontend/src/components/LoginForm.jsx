@@ -1,36 +1,39 @@
-import React, {useRef} from "react";
+import React, {useState} from "react";
 
 const LoginForm = () => {
 
-    const form = useRef(null)
+    const testdata = {
+        'username': 'user',
+        'password': 'userspword',
+        'email': 'user@example.com'
+    }
 
-    const LoginUser = async e => {
+    const [data, setData] = useState(testdata)
+
+    const loginUser = async e => {
         e.preventDefault()
-        const data = new FormData(form.current)
         const res = await fetch('http://localhost:8000/api/auth/login/',{
             method: 'POST', 
-            mode: 'no-cors', 
             headers: {'Content-Type': 'application/json'}, 
-            body: data
-        })
-        const key = await res.json()
-        console.log(key)
+            body: JSON.stringify(data)
+        }).then(r =>{return r.json()}).catch(e => console.log(e))
+        console.log(res)
     }
 
     return(
         <div className='RegistrationForm'>
-            <form ref ={form} onSubmit={LoginUser}>
+            <form  onSubmit={loginUser}>
                 <label htmlFor='user'>
                     User Name 
-                    <input type='text' name='username' defaultValue={'sherp'}/>
+                    <input type='text' name='username' onChange ={ e => setData({...data, 'username': e.target.value})} defaultValue={'user'}/>
                 </label>
                 <label htmlFor='password'>
                     Password 
-                    <input type='text' name='password' defaultValue={'flerpy22'}/>
+                    <input type='text' name='password' onChange ={ e => setData({...data, 'password': e.target.value})} defaultValue={'userspword'}/>
                 </label>
                 <label htmlFor='email'>
                     Email 
-                    <input type='text' name='email' defaultValue={"sorp@sherp.com"} />
+                    <input type='text' name='email' onChange ={ e => setData({...data, 'email': e.target.value})} defaultValue={"user@example.com"}/>
                 </label>
                 <br />
                     <input type="submit" value="Login" />
