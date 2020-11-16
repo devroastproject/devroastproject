@@ -1,14 +1,11 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
+import UserContext from "../context/UserContext";
 
 const LoginForm = () => {
+    
+    const {user, setUser} = useContext(UserContext)
 
-    const testdata = {
-        'username': 'user',
-        'password': 'userspword',
-        'email': 'user@example.com'
-    }
-
-    const [data, setData] = useState(testdata)
+    const [data, setData] = useState({})
 
     const loginUser = async e => {
         e.preventDefault()
@@ -18,6 +15,7 @@ const LoginForm = () => {
             body: JSON.stringify(data)
         }).then(r =>{return r.json()}).catch(e => console.log(e))
         console.log(res)
+        setUser({...user, 'key':res['key']})
     }
 
     return(
@@ -25,15 +23,15 @@ const LoginForm = () => {
             <form  onSubmit={loginUser}>
                 <label htmlFor='user'>
                     User Name 
-                    <input type='text' name='username' onChange ={ e => setData({...data, 'username': e.target.value})} defaultValue={'user'}/>
-                </label>
-                <label htmlFor='password'>
-                    Password 
-                    <input type='text' name='password' onChange ={ e => setData({...data, 'password': e.target.value})} defaultValue={'userspword'}/>
+                    <input type='text' name='username' onChange ={ e => setData({...data, 'username': e.target.value})}/>
                 </label>
                 <label htmlFor='email'>
                     Email 
-                    <input type='text' name='email' onChange ={ e => setData({...data, 'email': e.target.value})} defaultValue={"user@example.com"}/>
+                    <input type='text' name='email' onChange ={ e => setData({...data, 'email': e.target.value})}/>
+                </label>
+                <label htmlFor='password'>
+                    Password 
+                    <input type='password' name='password' onChange ={ e => setData({...data, 'password': e.target.value})}/>
                 </label>
                 <br />
                     <input type="submit" value="Login" />
