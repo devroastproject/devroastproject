@@ -6,7 +6,7 @@ import UserContext from './context/UserContext'
 
 function App() {
   
-  const [user, setUser] = useState({'key': 'testkey'})
+  const [user, setUser] = useState({'key': null})
 
   return (
     <Router>
