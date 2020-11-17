@@ -1,13 +1,14 @@
 import React, {useState, useContext} from "react";
 import UserContext from "../context/UserContext";
-
+import { useHistory } from 'react-router';
 const Login = () => {
-    // CONTEXT
+    // user context
     const {user, setUser} = useContext(UserContext) // user info
 
-    // LOCAL STATE
+    // local state
     const [data, setData] = useState({})    // form input data
     const [newUser, setNewUser] = useState(false)   // boolean controls login/registration
+    let history = useHistory()
 
     const loginURL = 'http://localhost:8000/api/auth/login/'
     const registerURL = 'http://localhost:8000/api/auth/registration/'
@@ -19,8 +20,11 @@ const Login = () => {
             method: 'POST', 
             headers: {'Content-Type': 'application/json'}, 
             body: JSON.stringify(data)
-        }).then(r =>{return r.json()}).catch(e => console.log(e))
-        setUser({...user, 'key': res['key']})   // update user key in context
+        })
+        .then(r =>{return r.json()})
+        .catch(e => console.log(e))
+        setUser({...user, key: res['key']})   // update user key in context
+        history.push("/")   // redirect to home
     }
 
     return(
@@ -34,7 +38,7 @@ const Login = () => {
                     Email 
                     <input type='text' name='email' onChange ={ e => setData({...data, 'email': e.target.value})}/>
                 </label>
-                {newUser ?  // conditionally render password fields 
+                {newUser ?  // registration password fields 
                 <>
                     <label htmlFor='password1'>
                         Password 
@@ -45,7 +49,7 @@ const Login = () => {
                         <input type='password' name='password2' onChange ={ e => setData({...data, 'password2': e.target.value})}/>
                     </label>
                 </>
-                : 
+                : // login password fields
                     <label htmlFor='password'>
                         Password 
                         <input type='password' name='password' onChange ={ e => setData({...data, 'password': e.target.value})}/>

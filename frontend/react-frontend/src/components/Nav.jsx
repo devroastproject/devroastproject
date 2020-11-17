@@ -10,10 +10,10 @@ const Nav = () => {
       <h2>DevRoast</h2>
       <ul>
         <Link to="/"> <li>Home</li> </Link>
-        {user['key'] ? 
+        {user.info ? // if logged in 
         <>
-          <li>{user['key']} is Logged In </li> 
-          <Link to="/"> <li onClick={() => setUser({...user, 'key':null})}> Log Out </li> </Link> 
+          <li>{user.info.username} is Logged In </li> {/* render user name */}
+          <Link to="/"> <li onClick={() => setUser({...user, key: null, info: null})}> Log Out </li> </Link> {/* render logout button, resets user state */}
         </>
         : <Link to="/login"> <li>Log In</li> </Link> }
       </ul>
