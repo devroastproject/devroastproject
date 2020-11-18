@@ -1,6 +1,7 @@
 import React, {useState, useContext} from "react";
 import UserContext from "../context/UserContext";
 import { useHistory } from 'react-router';
+import { useEffect } from "react";
 const Login = () => {
     // user context
     const {user, setUser} = useContext(UserContext) // user info
@@ -24,8 +25,11 @@ const Login = () => {
         .then(r =>{return r.json()})
         .catch(e => console.log(e))
         setUser({...user, key: res['key']})   // update user key in context
-        history.push("/")   // redirect to home
     }
+    
+    useEffect( () => {
+        if (user['key']) { history.push("/")}   // redirect to home
+    });
 
     return(
         <div className='LoginForm'>
