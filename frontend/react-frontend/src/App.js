@@ -19,7 +19,7 @@ function App() {
         'Content-Type': 'application/json', 
         'Authorization': `Token ${token}`}, 
     })
-    .then(r =>{return r.json()})
+    .then(r =>{if (r.status === 200){return r.json()}}) // save info if request was good
     .catch(e => console.log(e))
     return res
   }
