@@ -24,11 +24,13 @@ const Login = () => {
         })
         .then(r =>{return r.json()})
         .catch(e => console.log(e))
-        setUser({...user, key: res['key']})   // update user key in context
+        if (res['key']){        // if user token returned, add to context
+            setUser({...user, token: `Token ${res['key']}`})   
+        }
     }
     
     useEffect( () => {
-        if (user['key']) { history.push("/")}   // redirect to home
+        if (user.token) { history.push("/")}   // redirect to home
     });
 
     return(

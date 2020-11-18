@@ -8,26 +8,21 @@ function App() {
   
   // user state
   const [user, setUser] = useState({
-    key: null,
+    token: null,
     info: null
   })
   
-  const retrieveUser = async (token) => {
-    const res = await fetch("http://localhost:8000/api/users/me", { // api call to current user
-      method: 'GET', 
-      headers: {
-        'Content-Type': 'application/json', 
-        'Authorization': `Token ${token}`}, 
-    })
-    .then(r =>{if (r.status === 200){return r.json()}}) // save info if request was good
-    .catch(e => console.log(e))
-    return res
-  }
-  
   useEffect(() => {
-    if (user.key && !user.info) {   // trigger api call if the token has been retrieved, but if the user has not been fetched
+    if (user.token && !user.info) {   // trigger api call if the token has been retrieved, but if the user has not been fetched
       (async () => {
-        let userinfo = await retrieveUser(user.key)
+        let userinfo = await fetch("http://localhost:8000/api/users/me", { // api call to current user
+          method: 'GET', 
+          headers: {
+            'Content-Type': 'application/json', 
+            'Authorization': user.token}, 
+          })
+        .then(r =>{if (r.status === 200){return r.json()}}) // save info if request was good
+        .catch(e => console.log(e))
         setUser({...user, info: userinfo})
       })()
     }}, [user]);              // trigger effect if user is modified
