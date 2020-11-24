@@ -52,6 +52,13 @@ class UserViewSet(
 
         return Response(serializer.errors, status=HTTP_400_BAD_REQUEST) 
 
+    # returns current user
+    def get_object(self):
+        if self.kwargs['pk'] == 'me':
+            return self.request.user
+        else:
+            return super().get_object()
+
 
 class ProfileViewSet(
     GenericViewSet,
