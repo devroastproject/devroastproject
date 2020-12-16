@@ -1,7 +1,7 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import UserContext from "../context/UserContext";
 import { useHistory } from 'react-router';
-import { useEffect } from "react";
+
 const Login = () => {
     // user context
     const {user, setUser} = useContext(UserContext) // user info
