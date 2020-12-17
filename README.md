@@ -28,7 +28,7 @@ Fork and clone the repository
 cd devroastproject
 ```
 
-Rename `env.example` `.env`
+Rename `env.example` to `.env`, and change the values that need to be changed.
 
 create the devroast volume that will be used to store the postgres data:
 
