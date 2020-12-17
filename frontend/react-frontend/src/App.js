@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import UserContext from './context/UserContext'
+import Profile from "./components/Profile";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
 
@@ -34,10 +35,8 @@ function App() {
           <Nav/>
           <Switch>
               <Route exact path="/" render={() => <h1>HOME</h1>} />
-              <Route
-                path="/login"
-                component={Login}
-              />
+              <Route path="/login" component={Login} />
+              <Route path="/profile" component={Profile}/>
             </Switch>
         </div>
         </UserContext.Provider>
