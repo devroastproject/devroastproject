@@ -50,9 +50,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'users',
-    'project',
-    'storages', # static file storage
+    'users.apps.UsersConfig',
+    'project.apps.ProjectConfig',
 ]
 
 MIDDLEWARE = [
