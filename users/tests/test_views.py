@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK
 from rest_framework.authtoken.models import Token
-from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
+from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate, APIClient
 
 from users.api.serializers import UserSerializer
 
@@ -88,3 +88,27 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(user_instance.email, "test_user@example.com")
         self.assertEqual(user_instance.username, "test_user")
         self.assertEqual(user_instance.password, "test_password")
+
+
+    def test_change_password(self):
+
+        client = APIClient()
+        user_1 = User.objects.create_user(id=1, username="testuser1", password="testpass", email="testuser1@example.com")
+        user_2 = User.objects.create_user(id=2, username="testuser2", password="testpass", email="testuser2@example.com")
+
+        pw_change_data = {
+            'old_password': 'testpass',
+            'new_password': 'userspword'
+        }
+
+        no_cred_response = client.put('/api/users/me/change_password/', data=pw_change_data)
+        self.assertNotEqual(no_cred_response.status_code, 200)
+
+        token = Token.objects.create(user=user_1)
+        client.credentials(HTTP_AUTHORIZATION='Token '+ token.key)
+
+        correct_cred_response = client.put('/api/users/1/change_password/', data=pw_change_data)
+        self.assertEqual(correct_cred_response.status_code, 200)
+        
+        wrong_cred_response = client.put('/api/users/2/change_password/', data=pw_change_data)
+        self.assertNotEqual(wrong_cred_response.status_code, 200)
