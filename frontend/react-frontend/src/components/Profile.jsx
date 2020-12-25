@@ -1,5 +1,6 @@
 import UserContext from "../context/UserContext";
 import React, { useContext, useState } from "react";
+import { callApi } from "../services/api";
 import { useHistory } from 'react-router';
 import { Link } from "react-router-dom";
 
@@ -12,18 +13,8 @@ const Profile = () => {
 
     const changePassword = async e => {
       e.preventDefault()
-      let url = "http://localhost:8000/api/users/me/change_password/"
-      const res = await fetch(url, {
-          method: 'PUT', 
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': user.token
-          }, 
-          body: JSON.stringify(data)
-      })
-      .then(r =>{return r})
-      .catch(e => console.log(e))
-      if (res.status === 200){    // forward to home on success
+      const res = await callApi("users/me/change_password/",'PUT', data, user.token)
+      if (res){    // forward to home on success
         history.push("/")
       }
   }

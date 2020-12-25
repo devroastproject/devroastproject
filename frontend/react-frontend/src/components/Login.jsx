@@ -1,5 +1,6 @@
 import React, {useState, useContext, useEffect} from "react";
 import UserContext from "../context/UserContext";
+import { callApi } from "../services/api";
 import { useHistory } from 'react-router';
 
 const Login = () => {
@@ -11,21 +12,12 @@ const Login = () => {
     const [newUser, setNewUser] = useState(false)   // boolean controls login/registration
     let history = useHistory()
 
-    const loginURL = 'http://localhost:8000/api/auth/login/'
-    const registerURL = 'http://localhost:8000/api/auth/registration/'
-
     const loginUser = async e => {
         e.preventDefault()
-        let url = newUser ? registerURL : loginURL
-        const res = await fetch(url, {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify(data)
-        })
-        .then(r =>{return r.json()})
-        .catch(e => console.log(e))
-        if (res['key']){        // if user token returned, add to context
-            setUser({...user, token: `Token ${res['key']}`})   
+        let url = newUser ? 'auth/registration/' : 'auth/login/'
+        const res = await callApi(url, 'POST', data)
+        if (res.key){        // if user token returned, add to context
+            setUser({...user, token: `Token ${res.key}`})   
         }
     }
     
