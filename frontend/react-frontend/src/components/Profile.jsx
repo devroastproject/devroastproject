@@ -17,7 +17,7 @@ const Profile = () => {
       if (res){    // forward to home on success
         history.push("/")
       }
-  }
+    }
 
     return (
       <div className='Profile'>

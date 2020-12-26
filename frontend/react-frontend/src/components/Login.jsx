@@ -2,6 +2,7 @@ import React, {useState, useContext, useEffect} from "react";
 import UserContext from "../context/UserContext";
 import { callApi } from "../services/api";
 import { useHistory } from 'react-router';
+import Input from "./Input";
 
 const Login = () => {
     // user context
@@ -28,30 +29,15 @@ const Login = () => {
     return(
         <div className='LoginForm'>
             <form  onSubmit={loginUser}>
-                <label htmlFor='user'>
-                    User Name 
-                    <input type='text' name='username' onChange ={ e => setData({...data, 'username': e.target.value})}/>
-                </label>
-                <label htmlFor='email'>
-                    Email 
-                    <input type='text' name='email' onChange ={ e => setData({...data, 'email': e.target.value})}/>
-                </label>
+                <Input name='username' type='text' label='User Name' setter={setData} data={data}/>
+                <Input name='email' type='email' label='Email' setter={setData} data={data}/>
                 {newUser ?  // registration password fields 
                 <>
-                    <label htmlFor='password1'>
-                        Password 
-                        <input type='password' name='password1' onChange ={ e => setData({...data, 'password1': e.target.value})}/>
-                    </label>
-                    <label htmlFor='password2'>
-                        Confirm Password 
-                        <input type='password' name='password2' onChange ={ e => setData({...data, 'password2': e.target.value})}/>
-                    </label>
+                    <Input name='password1' type='password' label='Password' setter={setData} data={data}/>
+                    <Input name='password2' type='password' label='Confirm Password' setter={setData} data={data}/>
                 </>
                 : // login password fields
-                    <label htmlFor='password'>
-                        Password 
-                        <input type='password' name='password' onChange ={ e => setData({...data, 'password': e.target.value})}/>
-                    </label>
+                    <Input name='password' type='password' label='Password' setter={setData} data={data}/>
                 }
                 <br />
                     <input type="submit" value={newUser ? 'Register' : "Log In"} />
