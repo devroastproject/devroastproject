@@ -3,8 +3,6 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK
 from rest_framework.authtoken.models import Token
 from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
 
-from users.api.serializers import UserSerializer
-
 
 # Test for users viewset
 class UserViewSetTests(APITestCase):
@@ -20,6 +18,9 @@ class UserViewSetTests(APITestCase):
             'old_password': 'testpass',
             'new_password': 'userspword'
         }
+
+        # Create an API factory instance for use in tests
+        self.factory = APIRequestFactory()
 
     # Test user registration
     def test_registration(self):
@@ -47,25 +48,21 @@ class UserViewSetTests(APITestCase):
     # Test GET requests for all users 
     def test_users(self):
 
-        factory = APIRequestFactory()
-
         # Create a test user, and token
         self.user = User.objects.create_user(username="testuser", password="testpass")
         self.token = Token.objects.create(user=self.user)
 
-        response = factory.get("/api/users/")
+        response = self.factory.get("/api/users/")
         force_authenticate(request=response, user=self.user)
 
     # GET a single, specific user
     def test_specific_user(self):
 
-        factory = APIRequestFactory()
-
         # Create a test user, and token
         self.user = User.objects.create_user(id=1, username="testuser", password="testpass")
         self.token = Token.objects.create(user=self.user)
 
-        response = factory.get("/api/users/1")
+        response = self.factory.get("/api/users/1")
         force_authenticate(request=response, user=self.user)
 
     # Test updating a User's account info (email address)
