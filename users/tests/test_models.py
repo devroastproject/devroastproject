@@ -36,7 +36,7 @@ class UserModelTests(TestCase):
     # Test that a default profile is automatically created after user registration
     def test_profile_creation(self):
 
-        test_profile = Profile.objects.get(user=User.objects.get(username=self.test_profile.user))
+        test_profile = self.test_profile
         self.assertEqual(test_profile.user, User.objects.get(username="rswanson"))
         self.assertEqual(test_profile.role, "Director, Pawnee Parks and Recreation.")
         self.assertEqual(test_profile.location, "Pawnee, IN")
