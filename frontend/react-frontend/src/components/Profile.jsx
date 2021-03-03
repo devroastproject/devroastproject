@@ -3,8 +3,8 @@ import React, { useContext } from "react";
 import { callApi } from "../services/api";
 import { useHistory } from 'react-router';
 import { Link } from "react-router-dom";
-import {useInput} from "./useInput";
-
+import { useInput } from "./useInput";
+import Message from "./Message";
 
 const Profile = () => {
     const {user, setUser} = useContext(UserContext)
@@ -22,8 +22,12 @@ const Profile = () => {
         'new_password': newpw
       }
       const res = await callApi("users/me/change_password/", 'PUT', data, user.token)
-      if (res){    // forward to home on success
+      console.log(res)
+      if (res.code === 200){    // forward to home on success
+        setUser({...user, message: <Message message={res.message} type="success"/>})   
         history.push("/")
+      } else {
+        setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
       }
     }
 
@@ -37,7 +41,7 @@ const Profile = () => {
                 {newpwInput}
                 {confpwInput}      
                 <br />
-                <input type="submit" value={'Update Password'} disabled={(newpw === confpw) ? "" : "disabled" }/>
+                <input type="submit" value={'Update Password'} disabled={(newpw && confpw && newpw === confpw) ? "" : "disabled" }/>
               </form>
             </div>
           : 

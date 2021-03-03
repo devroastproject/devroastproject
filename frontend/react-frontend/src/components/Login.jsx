@@ -3,6 +3,7 @@ import UserContext from "../context/UserContext";
 import { callApi } from "../services/api";
 import { useHistory } from 'react-router';
 import { useInput } from "./useInput";
+import Message from "./Message";
 
 const Login = () => {
     // user context
@@ -34,6 +35,8 @@ const Login = () => {
         const res = await callApi(url, 'POST', data)
         if (res.key){        // if user token returned, add to context
             setUser({...user, token: `Token ${res.key}`})   
+        } else {
+            setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
         }
     }
     
