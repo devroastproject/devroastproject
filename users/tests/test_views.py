@@ -13,6 +13,11 @@ class UserViewSetTests(APITestCase):
             "username": "testuser",
             "password": "testpass",
         }
+        
+        self.pw_change_data = {
+            'old_password': 'testpass',
+            'new_password': 'userspword'
+        }
 
         # Create an API factory instance for use in tests
         self.factory = APIRequestFactory()
@@ -85,3 +90,31 @@ class UserViewSetTests(APITestCase):
         self.assertEqual(user_instance.email, "test_user@example.com")
         self.assertEqual(user_instance.username, "test_user")
         self.assertEqual(user_instance.password, "test_password")
+
+
+    def test_change_own_password(self):
+
+        user = User.objects.create_user(id=1, username="testuser", password="testpass", email="testuser@example.com")
+
+        no_token_response = self.client.put('/api/users/me/change_password/', data= self.pw_change_data)
+
+        token = Token.objects.create(user=user)
+        self.client.credentials(HTTP_AUTHORIZATION='Token '+ token.key)
+        token_response = self.client.put('/api/users/me/change_password/', data= self.pw_change_data)
+        
+        self.assertEqual(no_token_response.status_code, 401)
+        self.assertEqual(token_response.status_code, 200)
+        
+
+    def test_change_others_password(self):
+        
+        user_2 = User.objects.create_user(id=2, username="testuser_2", password="testpass2", email="testuser2@example.com")
+
+        no_token_response = self.client.put('/api/users/1/change_password/', data= self.pw_change_data)
+
+        token = Token.objects.create(user=user_2)
+        self.client.credentials(HTTP_AUTHORIZATION='Token '+ token.key)
+        token_response = self.client.put('/api/users/1/change_password/', data= self.pw_change_data)
+        
+        self.assertEqual(no_token_response.status_code, 401)
+        self.assertEqual(token_response.status_code, 404)

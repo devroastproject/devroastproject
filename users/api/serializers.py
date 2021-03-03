@@ -10,7 +10,10 @@ class UserSerializer(ModelSerializer):
 
         model = User
         fields = ("username", "email", "password", "date_joined")
-        write_only_fields = ("password")
+        extra_kwargs = {
+            'password': {'write_only': True},
+            'email': {'write_only': True}
+            }
 
 
 # Serializer for updating passwords
