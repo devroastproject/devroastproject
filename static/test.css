@@ -25,3 +25,18 @@ li {
   display: block;
   padding: 16px;
 }
+
+.message {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  background-color: lightgray;
+}
+
+.success {
+  color: green;
+}
+
+.failure {
+  color: red;
+}
