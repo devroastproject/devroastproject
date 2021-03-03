@@ -1,31 +1,42 @@
 import React, {useState, useContext, useEffect} from "react";
 import UserContext from "../context/UserContext";
+import { callApi } from "../services/api";
 import { useHistory } from 'react-router';
+import { useInput } from "./useInput";
+import Message from "./Message";
 
 const Login = () => {
     // user context
     const {user, setUser} = useContext(UserContext) // user info
 
     // local state
-    const [data, setData] = useState({})    // form input data
     const [newUser, setNewUser] = useState(false)   // boolean controls login/registration
     let history = useHistory()
-
-    const loginURL = 'http://localhost:8000/api/auth/login/'
-    const registerURL = 'http://localhost:8000/api/auth/registration/'
+    const [username, userInput] = useInput({type: 'text', label: 'User Name'});
+    const [email, emailInput] = useInput({type: 'email', label: 'Email'});
+    const [password1, pw1Input] = useInput({type: 'password', label: 'Password'});
+    const [password2, pw2Input] = useInput({type: 'password', label: 'Confirm Password'});
+  
 
     const loginUser = async e => {
         e.preventDefault()
-        let url = newUser ? registerURL : loginURL
-        const res = await fetch(url, {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'}, 
-            body: JSON.stringify(data)
-        })
-        .then(r =>{return r.json()})
-        .catch(e => console.log(e))
-        if (res['key']){        // if user token returned, add to context
-            setUser({...user, token: `Token ${res['key']}`})   
+        let data = {
+            'username': username,
+            'email': email,
+        }
+        if (newUser) {
+            data['password1'] = password1
+            data['password2'] = password2
+        } else { 
+            data['password'] = password1
+        }
+        let url = newUser ? 'auth/registration/' : 'auth/login/'
+        
+        const res = await callApi(url, 'POST', data)
+        if (res.key){        // if user token returned, add to context
+            setUser({...user, token: `Token ${res.key}`})   
+        } else {
+            setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
         }
     }
     
@@ -35,41 +46,18 @@ const Login = () => {
 
     return(
         <div className='LoginForm'>
-            <form  onSubmit={loginUser}>
-                <label htmlFor='user'>
-                    User Name 
-                    <input type='text' name='username' onChange ={ e => setData({...data, 'username': e.target.value})}/>
-                </label>
-                <label htmlFor='email'>
-                    Email 
-                    <input type='text' name='email' onChange ={ e => setData({...data, 'email': e.target.value})}/>
-                </label>
-                {newUser ?  // registration password fields 
-                <>
-                    <label htmlFor='password1'>
-                        Password 
-                        <input type='password' name='password1' onChange ={ e => setData({...data, 'password1': e.target.value})}/>
-                    </label>
-                    <label htmlFor='password2'>
-                        Confirm Password 
-                        <input type='password' name='password2' onChange ={ e => setData({...data, 'password2': e.target.value})}/>
-                    </label>
-                </>
-                : // login password fields
-                    <label htmlFor='password'>
-                        Password 
-                        <input type='password' name='password' onChange ={ e => setData({...data, 'password': e.target.value})}/>
-                    </label>
-                }
-                <br />
-                    <input type="submit" value={newUser ? 'Register' : "Log In"} />
+            <form onSubmit={loginUser}>
+                {userInput}
+                {emailInput}
+                {newUser ? <> {pw1Input} {pw2Input} </> : pw1Input}
+                <br/>
+                <input type="submit" value={newUser ? 'Register' : "Log In"} />
             </form>
-
             <br/> {/* button toggles Log In / Register New User     */}
                 <button onClick={() => setNewUser(!newUser)}>
                     {newUser ? 'Login an Existing User' : 'Register a New Account'}
                 </button>
-        </div>
-)};
+        </div>)
+};
 
 export default Login;
