@@ -13,11 +13,7 @@ const Nav = () => {
         {user.info ? // if logged in 
         <>
           <Link to="/profile"> <li>{user.info.username} is Logged In </li> </Link> {/* render user name */}
-<<<<<<< HEAD
-          <Link to="/"> <li onClick={() => setUser({...user, token: null, info: null})}> Log Out </li> </Link> {/* render logout button, resets user state */}
-=======
           <Link to="/"> <li id="logout" onClick={ () => logOut(user, setUser) }> Log Out </li> </Link> {/* render logout button, resets user state */}
->>>>>>> 5eab878 (added token and token time to storage)
         </>
         : <Link to="/login"> <li>Log In</li> </Link> }
       </ul>

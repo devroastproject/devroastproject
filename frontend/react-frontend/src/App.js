@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import UserContext from './context/UserContext';
 import Profile from "./components/Profile";
-import Projects from "./components/Projects";
 import { logOut } from "./services/logout";
 import { callApi } from "./services/api";
 import Login from "./components/Login";
