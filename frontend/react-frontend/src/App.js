@@ -17,6 +17,12 @@ function App() {
   
   // get user info with token
   useEffect(() => {
+    if (!user.token){
+      let userToken = localStorage.getItem("user_token")
+      if (userToken){
+        setUser({...user, token: userToken}) 
+    }
+    }
     if (user.token && !user.info) {   // trigger api call if the token has been retrieved, but if the user has not been fetched
       (async () => {
         const userinfo = await callApi("users/me", "GET", null, user.token)
