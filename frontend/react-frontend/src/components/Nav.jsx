@@ -12,9 +12,9 @@ const Nav = () => {
         {user.info ? // if logged in 
         <>
           <Link to="/profile"> <li>{user.info.username} is Logged In </li> </Link> {/* render user name */}
-          <Link to="/"> <li onClick={() => setUser({...user, token: null, info: null})}> Log Out </li> </Link> {/* render logout button, resets user state */}
+          <Link to="/"> <li id="logout" onClick={() => setUser({...user, token: null, info: null})}> Log Out </li> </Link> {/* render logout button, resets user state */}
         </>
-        : <Link to="/login"> <li>Log In</li> </Link> }
+        : <Link to="/login"> <li id ="login">Log In</li> </Link> }
       </ul>
     </nav>
   );
