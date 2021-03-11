@@ -1,6 +1,7 @@
 import React, {useState, useContext, useEffect} from "react";
 import UserContext from "../context/UserContext";
 import { callApi } from "../services/api";
+import ProjectPreview from "./ProjectPreview";
 
 const Projects = () => {
     // user context
@@ -9,17 +10,17 @@ const Projects = () => {
     const [projects, setProjects] = useState(null)
 
     useEffect(()=>{
-        if (user.token) {
+        if (user.token && !projects) {
             (async () => {
                 let res = await callApi("projects/", "GET")
-                console.log(JSON.stringify(res))
-                setProjects(res)
+                let data =  JSON.parse(JSON.stringify(res))
+                setProjects(data)
             })()
         }    
-    },[user.token])
+    },[user.token, projects])
 
     return(
-        <> { projects ? projects.map((project) => <p>{project.title}</p>) : <h1>Projects</h1> } </>
+        <> { projects ? <ul> {projects.map((project) => <li><ProjectPreview key={project} project={project}/></li>)} </ul>: <h1>Projects</h1> } </>
     )
 };
 

@@ -6,8 +6,8 @@ const Nav = () => {
   const {user, setUser} = useContext(UserContext)
   return (
     <nav>
+      <Link to="/"> <h2>DevRoast</h2> </Link>
       <ul>
-        <Link to="/"> <h2>DevRoast</h2> </Link>
         {user.info ? // if logged in 
         <>
           <Link to="/profile"> <li>{user.info.username} is Logged In </li> </Link> {/* render user name */}

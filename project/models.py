@@ -18,7 +18,7 @@ class Project(models.Model):
 
     def __str__(self):
 
-        return self.title + " by " + self.user 
+        return self.title + " by " + str(self.user) 
 
 
 # Model for comments on projects

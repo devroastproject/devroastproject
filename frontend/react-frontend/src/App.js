@@ -5,6 +5,7 @@ import Profile from "./components/Profile";
 import { callApi } from "./services/api";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
+import Projects from "./components/Projects";
 
 function App() {
   
@@ -22,14 +23,14 @@ function App() {
         const userinfo = await callApi("users/me", "GET", null, user.token)
         setUser({...user, info: userinfo})
       })()
-    }}, [user.info, user.token]);              // trigger effect if user is modified
+    }}, [user]);              // trigger effect if user is modified
   
   // time out user messages
   useEffect(() => {
     if (user.message){
       setTimeout(() => {setUser({...user, message: null})}, 5000)
     }
-  }, [user.message])
+  }, [user])
 
   return (
     <Router>
@@ -38,7 +39,7 @@ function App() {
           {user.message ? user.message : null}
           <Nav/>
           <Switch>
-              <Route exact path="/" render={() => <h1>HOME</h1>} />
+              <Route exact path="/" component={Projects} />
               <Route path="/login" component={Login} />
               <Route path="/profile" component={Profile}/>
             </Switch>
