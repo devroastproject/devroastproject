@@ -20,7 +20,7 @@ const Projects = () => {
     },[user.token, projects])
 
     return(
-        <> { projects ? <ul> {projects.map((project) => <li><ProjectPreview key={project} project={project}/></li>)} </ul>: <h1>Projects</h1> } </>
+        <> { projects ? <div className="prevPanel"> {projects.map((project) => <ProjectPreview key={project.id} project={project}/>)}</div> : <h1>Projects</h1> } </>
     )
 };
 

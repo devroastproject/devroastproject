@@ -1,11 +1,12 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ProjectDetail from "./components/ProjectDetail";
 import React, { useEffect, useState } from "react";
 import UserContext from './context/UserContext';
+import Projects from "./components/Projects";
 import Profile from "./components/Profile";
 import { callApi } from "./services/api";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
-import Projects from "./components/Projects";
 
 function App() {
   
@@ -39,10 +40,11 @@ function App() {
           {user.message ? user.message : null}
           <Nav/>
           <Switch>
-              <Route exact path="/" component={Projects} />
-              <Route path="/login" component={Login} />
-              <Route path="/profile" component={Profile}/>
-            </Switch>
+            <Route exact path="/" component={Projects} />
+            <Route path="/login" component={Login} />
+            <Route path="/profile" component={Profile}/>
+            <Route path="/project/:id" component={ProjectDetail}/>
+          </Switch>
         </div>
         </UserContext.Provider>
     </Router>
