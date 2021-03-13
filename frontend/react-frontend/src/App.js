@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ProjectDetail from "./components/ProjectDetail";
+import ProjectPage from "./components/ProjectPage";
 import React, { useEffect, useState } from "react";
 import UserContext from './context/UserContext';
 import Projects from "./components/Projects";
@@ -43,7 +43,7 @@ function App() {
             <Route exact path="/" component={Projects} />
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile}/>
-            <Route path="/project/:id" component={ProjectDetail}/>
+            <Route path="/project/:id" component={ProjectPage}/>
           </Switch>
         </div>
         </UserContext.Provider>

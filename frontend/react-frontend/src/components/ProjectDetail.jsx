@@ -1,29 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
-import { callApi } from "../services/api";
+import React from "react";
 
-const ProjectDetail = () => {
-    let params = useParams()
-    const [project, setProject] = useState(null)
-    useEffect(() => {
-        if (!project) {
-          (async () => {
-            const detail = await callApi(`projects/${params.id}/`, "GET")
-            setProject(detail)
-          })()
-        }}, [project, params.id]);              // trigger effect if user is modified
+const ProjectDetail = ({project}) => {
+    const {title, description, user, repo_url, hosted_url} = project
     return(
-        <>
-            { project ? 
-            <div>
-                <h1>{project.title}</h1> 
-                <p>by {project.user}</p>
-                <a href=""> <p> Git: {project.repo_url}</p></a>
-                <a href=""><p>Demo: {project.hosted_url}</p></a>
-                <p>{project.description}</p>
-            </div>
-            : 'loading'}
-        </>
+        <div>
+            <h1>{title}</h1> 
+            <p>by {user}</p>
+            <a href={repo_url} target="_blank" rel="noreferrer noopener"> <p>Git</p></a>
+            <a href={hosted_url} target="_blank" rel="noreferrer noopener"><p>Demo</p></a>
+            <p>{description}</p>
+        </div>
     )
 };
 export default ProjectDetail;
