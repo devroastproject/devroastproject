@@ -7,7 +7,7 @@ import ProjectDetail from "./ProjectDetail";
 
 const ProjectPage = () => {
     let params = useParams()
-    const {user, setUser} = useContext(UserContext)
+    const {user} = useContext(UserContext)
     const [project, setProject] = useState(null)
     const [edit, setEdit] = useState(false)
     useEffect(() => {
@@ -16,7 +16,8 @@ const ProjectPage = () => {
             const detail = await callApi(`projects/${params.id}/`, "GET")
             setProject(detail)
           })()
-        }}, [project, params.id]);
+        }
+    }, [project, params.id]);
     return(
         <>
             { project ? 

@@ -7,6 +7,7 @@ import Profile from "./components/Profile";
 import { callApi } from "./services/api";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
+import ProjectForm from "./components/ProjectForm";
 
 function App() {
   
@@ -41,6 +42,7 @@ function App() {
           <Nav/>
           <Switch>
             <Route exact path="/" component={Projects} />
+            <Route path="/addproject" component={user.token ? ProjectForm : Login} />
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile}/>
             <Route path="/project/:id" component={ProjectPage}/>

@@ -5,22 +5,20 @@ import ProjectPreview from "./ProjectPreview";
 
 const Projects = () => {
     // user context
-    const {user} = useContext(UserContext) // user info
+    // const {user} = useContext(UserContext) // user info
     
     const [projects, setProjects] = useState(null)
 
     useEffect(()=>{
-        if (user.token && !projects) {
-            (async () => {
-                let res = await callApi("projects/", "GET")
-                let data =  JSON.parse(JSON.stringify(res))
-                setProjects(data)
-            })()
-        }    
-    },[user.token, projects])
+        (async () => {
+            let res = await callApi("projects/", "GET")
+            let data =  JSON.parse(JSON.stringify(res))
+            setProjects(data)
+        })()
+    },[])
 
     return(
-        <> { projects ? <div className="prevPanel"> {projects.map((project) => <ProjectPreview key={project.id} project={project}/>)}</div> : <h1>Projects</h1> } </>
+        <> { projects ? <div className="prevPanel"> {projects.map((project) => <ProjectPreview key={project.id} project={project}/>)}</div> : "loading" } </>
     )
 };
 

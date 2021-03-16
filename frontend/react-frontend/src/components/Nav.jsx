@@ -10,6 +10,7 @@ const Nav = () => {
       <ul>
         {user.info ? // if logged in 
         <>
+          <Link to="/addproject"><li>Add New Project</li></Link>
           <Link to="/profile"> <li>{user.info.username} is Logged In </li> </Link> {/* render user name */}
           <Link to="/"> <li onClick={() => setUser({...user, token: null, info: null})}> Log Out </li> </Link> {/* render logout button, resets user state */}
         </>
