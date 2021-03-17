@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { useHistory } from "react-router";
 import UserContext from "../context/UserContext";
+import { useHistory } from "react-router";
 import { callApi } from "../services/api";
-import Message from "./Message";
 import { useInput } from "./useInput";
+import Message from "./Message";
 
 const ProjectForm = ({project}) => {
     let url = "";
@@ -35,8 +35,10 @@ const ProjectForm = ({project}) => {
             "hosted_url": hosted_url,
             "description": description
         }
+        
         const res = await callApi(url, method, data, user.token)
-        if (res.code === 200 || res.code === 201){    // forward to home on success
+        
+        if (res.code === 200 || res.code === 201){   
             setUser({...user, message: <Message message={res.message} type="success"/>})   
             history.push(url)
         } else {

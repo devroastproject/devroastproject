@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import React from "react";
 
 const ProjectPreview = ({project}) => {
     const {id, title, description, user} = project
