@@ -41,7 +41,7 @@ const Login = () => {
     }
     
     useEffect( () => {
-        if (user.token) { history.push("/")}   // redirect to home
+        if (user.token) { history.goBack()}   // redirect to previous page
     });
 
     return(
