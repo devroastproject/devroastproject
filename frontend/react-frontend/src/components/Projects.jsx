@@ -1,11 +1,8 @@
-import React, {useState, useContext, useEffect} from "react";
-import UserContext from "../context/UserContext";
+import React, {useState, useEffect} from "react";
 import { callApi } from "../services/api";
 import ProjectPreview from "./ProjectPreview";
 
 const Projects = () => {
-    // user context
-    // const {user} = useContext(UserContext) // user info
     
     const [projects, setProjects] = useState(null)
 

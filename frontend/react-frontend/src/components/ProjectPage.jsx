@@ -17,16 +17,16 @@ const ProjectPage = () => {
             setProject(detail)
           })()
         }
-    }, []);
+    }, [project, params.id]);
     return(
         <>
             { project ? 
             <>
                 { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>} 
-                {user.info && (user.info.id == project.user) ?
+                {user.info && (user.info.id === project.user) ?
                 <>
                     <button onClick={() => {setEdit(!edit)}}>Edit</button>
-                    <button onClick={() => {setEdit(!edit)}}>Delete</button>
+                    {/* <button onClick={() => {setEdit(!edit)}}>Delete</button> */}
                 </>
                  : null} 
             </>
