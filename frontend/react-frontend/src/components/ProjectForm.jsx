@@ -36,7 +36,7 @@ const ProjectForm = ({project}) => {
             "description": description
         }
         const res = await callApi(url, method, data, user.token)
-        if (res.code === 200){    // forward to home on success
+        if (res.code === 200 || res.code === 201){    // forward to home on success
             setUser({...user, message: <Message message={res.message} type="success"/>})   
             history.push(url)
         } else {
