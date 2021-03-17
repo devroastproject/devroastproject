@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router";
 import UserContext from "../context/UserContext";
 import ProjectDetail from "./ProjectDetail";
-import { callApi } from "../services/api";
+import { callApi } from "../services/callAPI";
 import ProjectForm from "./ProjectForm";
 import Message from "./Message";
 

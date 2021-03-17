@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import ProjectPreview from "./ProjectPreview";
-import { callApi } from "../services/api";
+import { callApi } from "../services/callAPI";
 
 const Projects = () => {
     
