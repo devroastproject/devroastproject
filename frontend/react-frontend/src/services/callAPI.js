@@ -17,7 +17,7 @@ export const callApi = async (endpoint, method, body=null, token=null) => {
 
     if (response.status) {
         console.log(`Status ${response.status}`)
+        data["code"] = response.status  
     }
-    
     return data;
 };

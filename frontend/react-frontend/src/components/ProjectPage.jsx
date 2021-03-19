@@ -45,7 +45,7 @@ const ProjectPage = () => {
                 { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>} 
                 {user.info && (user.info.id === project.user) ?
                 <>
-                    <button onClick={() => {setEdit(!edit)}}>{edit ? "Edit" : "Cancel"}</button>
+                    <button onClick={() => {setEdit(!edit)}}>{edit ? "Cancel" : "Edit"}</button>
                     <button onClick={() => {deleteProject()}}>Delete</button>
                 </>
                  : null} 

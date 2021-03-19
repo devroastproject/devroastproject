@@ -8,11 +8,14 @@ import Message from "./Message";
 const ProjectForm = ({project}) => {
     let url = "";
     let method = ""
+    let redirectURL = ""
     if (project){
         url = `projects/${project.id}/`
+        redirectURL = url
         method = "PUT"
     } else {
         url = "projects/"
+        redirectURL = "/"
         method = "POST"
         project = {"title": "", "repo_url": "", "hosted_url": "", "description": ""}
     }
@@ -40,7 +43,7 @@ const ProjectForm = ({project}) => {
         
         if (res.code === 200 || res.code === 201){   
             setUser({...user, message: <Message message={res.message} type="success"/>})   
-            history.push(url)
+            history.push(redirectURL)
         } else {
             setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
         }
