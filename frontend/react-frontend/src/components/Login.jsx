@@ -34,8 +34,10 @@ const Login = () => {
         
         const res = await callApi(url, 'POST', data)
         if (res.key){        // if user token returned, add to context
-            console.log(res.message)
-            setUser({...user, token: `Token ${res.key}`})   
+            let userToken = `Token ${res.key}`
+            setUser({...user, token: userToken})   
+            localStorage.setItem('user_token', userToken)
+            localStorage.setItem('token_time', Date.now() )
         } else {
             setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
         }

@@ -15,9 +15,11 @@ export const callApi = async (endpoint, method, body=null, token=null) => {
     const response = await fetch("http://localhost:8000/api/" + endpoint, fetchOptions);
     const data = await response.json();
 
-    if (response.status) {
-        console.log(`Status ${response.status}`)
-        data["code"] = response.status  
+    if (response.status !== 200) {
+        console.log(`Error: status ${response.status}`)
+    } else {
+        data["code"] = response.status
+        localStorage.setItem('token_time', Date.now()) // on successful request, refresh local token timeout
     }
     return data;
 };
