@@ -8,7 +8,7 @@ import Message from "./Message";
 
 const ProjectPage = () => {
     let params = useParams()
-    let history = useHistory
+    let history = useHistory()
     const {user, setUser} = useContext(UserContext)
     const [project, setProject] = useState(null)
     const [edit, setEdit] = useState(false)
@@ -17,7 +17,11 @@ const ProjectPage = () => {
         if (!project) {
           (async () => {
             const detail = await callApi(`projects/${params.id}/`, "GET")
-            setProject(detail)
+            if (detail.code == 404){    // if item has been deleted, go to home
+                history.push('/') 
+            } else {
+                setProject(detail)
+            }
           })()
         }
     }, [project, params.id]);
@@ -29,7 +33,7 @@ const ProjectPage = () => {
             
             const res = await callApi(`projects/${project.id}/`, "DELETE", project, user.token)
             
-            if (res.code === 200 || res.code === 201){    // forward to home on success
+            if (res.code >= 200 || res.code < 300){    // forward to home on success
                 setUser({...user, message: <Message message={res.message} type="success"/>})   
                 history.push("/")
             } else {

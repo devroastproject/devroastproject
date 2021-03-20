@@ -6,18 +6,16 @@ import { useInput } from "./useInput";
 import Message from "./Message";
 
 const ProjectForm = ({project}) => {
-    let url = "";
-    let method = ""
-    let redirectURL = ""
-    if (project){
-        url = `projects/${project.id}/`
-        redirectURL = url
-        method = "PUT"
-    } else {
+    // determine if form is used for creating or updating 
+    let url = "", method = ""
+    const newProject = !Boolean(project)
+    if (newProject){
         url = "projects/"
-        redirectURL = "/"
         method = "POST"
         project = {"title": "", "repo_url": "", "hosted_url": "", "description": ""}
+    } else {
+        url = `projects/${project.id}/`  
+        method = "PUT" 
     }
 
     const [title, titleInput] = useInput({type: 'text', label: 'Title', defaultValue: project.title});
@@ -40,10 +38,9 @@ const ProjectForm = ({project}) => {
         }
         
         const res = await callApi(url, method, data, user.token)
-        
-        if (res.code === 200 || res.code === 201){   
+        if (res.code >= 200 || res.code < 300){   
             setUser({...user, message: <Message message={res.message} type="success"/>})   
-            history.push(redirectURL)
+            {newProject ? history.push("/") : history.go(0)}
         } else {
             setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
         }
