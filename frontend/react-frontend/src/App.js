@@ -1,9 +1,9 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ProjectPage from "./components/ProjectPage";
+import ProjectPage from "./components/Project/ProjectPage";
 import React, { useEffect, useState } from "react";
-import ProjectForm from "./components/ProjectForm";
+import ProjectForm from "./components/Project/ProjectForm";
 import UserContext from './context/UserContext';
-import Projects from "./components/Projects";
+import ProjectList from "./components/Project/ProjectList";
 import Profile from "./components/Profile";
 import { logOut } from "./services/logout";
 import { callApi } from "./services/callAPI";
@@ -60,7 +60,7 @@ function App() {
           {user.message ? user.message : null}
           <Nav/>
           <Switch>
-            <Route exact path="/" component={Projects} />
+            <Route exact path="/" component={ProjectList} />
             <Route path="/addproject" component={user.token ? ProjectForm : Login} />
             <Route path="/login" component={Login} />
             <Route path="/profile" component={Profile}/>

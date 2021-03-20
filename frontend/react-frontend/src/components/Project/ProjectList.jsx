@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from "react";
 import ProjectPreview from "./ProjectPreview";
-import { callApi } from "../services/callAPI";
+import { callApi } from "../../services/callAPI";
 
-const Projects = () => {
+const ProjectList = () => {
     
     const [projects, setProjects] = useState(null)
 
@@ -19,4 +19,4 @@ const Projects = () => {
     )
 };
 
-export default Projects;
+export default ProjectList;

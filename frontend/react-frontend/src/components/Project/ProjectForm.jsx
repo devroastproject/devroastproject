@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import UserContext from "../context/UserContext";
+import UserContext from "../../context/UserContext";
 import { useHistory } from "react-router";
-import { callApi } from "../services/callAPI";
-import { useInput } from "./useInput";
-import Message from "./Message";
+import { callApi } from "../../services/callAPI";
+import { useInput } from "../useInput";
+import Message from "../Message";
 
 const ProjectForm = ({project}) => {
     // determine if form is used for creating or updating 
@@ -40,7 +40,7 @@ const ProjectForm = ({project}) => {
         const res = await callApi(url, method, data, user.token)
         if (res.code >= 200 || res.code < 300){   
             setUser({...user, message: <Message message={res.message} type="success"/>})   
-            {newProject ? history.push("/") : history.go(0)}
+            if (newProject ){ history.push("/") } else { history.go(0) } // got to home if new, refresh if edit
         } else {
             setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
         }

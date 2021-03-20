@@ -13,9 +13,11 @@ export const callApi = async (endpoint, method, body=null, token=null) => {
         fetchOptions.headers['Authorization'] = token
     }
     const response = await fetch("http://localhost:8000/api/" + endpoint, fetchOptions);
+   console.log("response",response)
+
     const data = await response.json();
     data.code = response.status
-   
+   console.log("data",data)
     if (response.status !== 200) {
         console.log(`Error: status ${response.status}`)
     } else {

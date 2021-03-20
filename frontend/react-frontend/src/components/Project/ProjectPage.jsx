@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router";
-import UserContext from "../context/UserContext";
+import UserContext from "../../context/UserContext";
 import ProjectDetail from "./ProjectDetail";
-import { callApi } from "../services/callAPI";
+import { callApi } from "../../services/callAPI";
 import ProjectForm from "./ProjectForm";
-import Message from "./Message";
+import Message from "../Message";
 
 const ProjectPage = () => {
     let params = useParams()
@@ -17,14 +17,14 @@ const ProjectPage = () => {
         if (!project) {
           (async () => {
             const detail = await callApi(`projects/${params.id}/`, "GET")
-            if (detail.code == 404){    // if item has been deleted, go to home
+            if (detail.code === 404){    // if item has been deleted, go to home
                 history.push('/') 
             } else {
                 setProject(detail)
             }
           })()
         }
-    }, [project, params.id]);
+    });
 
     const deleteProject = async () => {
         let check = window.confirm(`Are you sure you want to delete ${project.title}`)
