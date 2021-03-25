@@ -2,7 +2,6 @@ import UserContext from "../context/UserContext";
 import React, { useContext } from "react";
 import { callApi } from "../services/callAPI";
 import { useHistory } from 'react-router';
-import { Link } from "react-router-dom";
 import { useInput } from "./useInput";
 import Message from "./Message";
 
@@ -45,7 +44,7 @@ const Profile = () => {
               </form>
             </div>
           : 
-            <Link to="/login"> <li>Log In</li> </Link>
+            "loading"
           }
       </div>
     );

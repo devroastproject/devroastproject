@@ -63,7 +63,7 @@ function App() {
             <Route exact path="/" component={ProjectList} />
             <Route path="/addproject" component={user.token ? ProjectForm : Login} />
             <Route path="/login" component={Login} />
-            <Route path="/profile" component={Profile}/>
+            <Route path="/profile" component={user.token ? Profile : Login}/>
             <Route path="/project/:id" component={ProjectPage}/>
           </Switch>
         </div>
