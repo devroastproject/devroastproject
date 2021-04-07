@@ -1,15 +1,13 @@
 import UserContext from "../context/UserContext";
 import React, { useContext } from "react";
-import { callApi } from "../services/api";
+import { callApi } from "../services/callAPI";
 import { useHistory } from 'react-router';
-import { Link } from "react-router-dom";
 import { useInput } from "./useInput";
 import Message from "./Message";
 
 const Profile = () => {
     const {user, setUser} = useContext(UserContext)
-
-    let history = useHistory()
+    const history = useHistory()
     const [oldpw, oldpwInput] = useInput({type: 'password', label: 'Old Password'});
     const [newpw, newpwInput] = useInput({type: 'password', label: 'New Password'});
     const [confpw, confpwInput] = useInput({type: 'password', label: 'Confirm Password'});
@@ -21,8 +19,9 @@ const Profile = () => {
         'old_password': oldpw,
         'new_password': newpw
       }
+      
       const res = await callApi("users/me/change_password/", 'PUT', data, user.token)
-      console.log(res)
+
       if (res.code === 200){    // forward to home on success
         setUser({...user, message: <Message message={res.message} type="success"/>})   
         history.push("/")
@@ -45,7 +44,7 @@ const Profile = () => {
               </form>
             </div>
           : 
-            <Link to="/login"> <li>Log In</li> </Link>
+            "loading"
           }
       </div>
     );

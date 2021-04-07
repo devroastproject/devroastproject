@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from "react";
 import UserContext from "../context/UserContext";
-import { callApi } from "../services/api";
+import { callApi } from "../services/callAPI";
 import { useHistory } from 'react-router';
 import { useInput } from "./useInput";
 import Message from "./Message";
@@ -34,14 +34,17 @@ const Login = () => {
         
         const res = await callApi(url, 'POST', data)
         if (res.key){        // if user token returned, add to context
-            setUser({...user, token: `Token ${res.key}`})   
+            let userToken = `Token ${res.key}`
+            setUser({...user, token: userToken})   
+            localStorage.setItem('user_token', userToken)
+            localStorage.setItem('token_time', Date.now() )
         } else {
             setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
         }
     }
     
     useEffect( () => {
-        if (user.token) { history.push("/")}   // redirect to home
+        if (user.token) { history.goBack()}   // redirect to previous page
     });
 
     return(
