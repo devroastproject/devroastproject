@@ -1,6 +1,6 @@
 import React, {useState, useContext, useEffect} from "react";
 import UserContext from "../context/UserContext";
-import { callApi } from "../services/api";
+import { callApi } from "../services/callAPI";
 import { useHistory } from 'react-router';
 import { useInput } from "./useInput";
 import Message from "./Message";
@@ -44,7 +44,7 @@ const Login = () => {
     }
     
     useEffect( () => {
-        if (user.token) { history.push("/")}   // redirect to home
+        if (user.token) { history.goBack()}   // redirect to previous page
     });
 
     return(

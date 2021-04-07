@@ -12,14 +12,22 @@ export const callApi = async (endpoint, method, body=null, token=null) => {
     if (token){
         fetchOptions.headers['Authorization'] = token
     }
-    const response = await fetch("http://localhost:8000/api/" + endpoint, fetchOptions);
-    const data = await response.json();
 
-    if (response.status !== 200) {
-        console.log(`Error: status ${response.status}`)
-    } else {
-        localStorage.setItem('token_time', Date.now()) // on successful request, refresh local token timeout
-    }
+    const response = await fetch("http://localhost:8000/api/" + endpoint, fetchOptions);
     
-    return data;
+    try { // try to parse json, but always return response status
+        const data = await response.json();
+        data.code = response.status
+
+        if (response.status < 200 || response.status > 300) {
+            console.log(`Error: status ${response.status}`)
+        } else {
+            localStorage.setItem('token_time', Date.now()) // on successful request, refresh local token timeout
+        }
+
+        return data;
+
+    } catch {
+        return {"code": response.status}
+    }
 };

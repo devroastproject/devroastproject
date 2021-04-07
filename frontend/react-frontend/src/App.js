@@ -1,9 +1,12 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import ProjectPage from "./components/Project/ProjectPage";
 import React, { useEffect, useState } from "react";
+import ProjectForm from "./components/Project/ProjectForm";
 import UserContext from './context/UserContext';
+import ProjectList from "./components/Project/ProjectList";
 import Profile from "./components/Profile";
 import { logOut } from "./services/logout";
-import { callApi } from "./services/api";
+import { callApi } from "./services/callAPI";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
 
@@ -48,7 +51,7 @@ function App() {
     if (user.message){
       setTimeout(() => {setUser({...user, message: null})}, 5000)
     }
-  }, [user.message])
+  }, [user])
 
   return (
     <Router>
@@ -57,10 +60,12 @@ function App() {
           {user.message ? user.message : null}
           <Nav/>
           <Switch>
-              <Route exact path="/" render={() => <h1>HOME</h1>} />
-              <Route path="/login" component={Login} />
-              <Route path="/profile" component={Profile}/>
-            </Switch>
+            <Route exact path="/" component={ProjectList} />
+            <Route path="/addproject" component={user.token ? ProjectForm : Login} />
+            <Route path="/login" component={Login} />
+            <Route path="/profile" component={user.token ? Profile : Login}/>
+            <Route path="/project/:id" component={ProjectPage}/>
+          </Switch>
         </div>
         </UserContext.Provider>
     </Router>
