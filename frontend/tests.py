@@ -1,6 +1,7 @@
 from django.test import TestCase, tag
 from selenium import webdriver
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
+
 class SeleniumTest(TestCase):
       def setUp(self):
             self.chrome = webdriver.Remote(
@@ -14,11 +15,10 @@ class SeleniumTest(TestCase):
       #   )
       #   self.firefox.implicitly_wait(10)
 
-      @tag( 'selenium')
+      @tag('selenium')
       def test_login(self):
-            self.assertTrue(True)
-            # selenium = self.chrome
-            # selenium.get("http://localhost:3000")
+            self.chrome.get("http://react:3000")
+            self.assertIn(self.chrome.title, 'DevRoast')
             # user_name = selenium.find_elements_by_id("User Name")
             # email = selenium.find_elements_by_id("Email")
             # password = selenium.find_elements_by_id("Password")
