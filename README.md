@@ -37,11 +37,13 @@ docker volume create devroast
 ```
 
 create the docker images with
+
 ```
 docker-compose build
 ```
 
 start the docker containers with:
+
 ```
 docker-compose up
 ```
@@ -60,11 +62,12 @@ docker volume create devroast
 This is often the case if there are messages in the postgres logs about
 password authentication failed or Role "postgres" does not exist.
 
-postgres_1  | [27] FATAL:  password authentication failed for user "postgres"
+postgres_1 | [27] FATAL: password authentication failed for user "postgres"
 
-postgres_1  | [27] DETAIL:  Role "postgres" does not exist.
+postgres_1 | [27] DETAIL: Role "postgres" does not exist.
 
 # Docker Notes
+
 To run in a detached mode:
 
 ```
@@ -93,6 +96,12 @@ To stop the containers:
 
 ```
 docker-compose stop
+```
+
+To run front-end tests:
+
+```
+docker-compose up --exit-code-from cypress
 ```
 
 ## API Endpoints
