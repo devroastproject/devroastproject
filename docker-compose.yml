@@ -62,7 +62,7 @@ services:
     depends_on:
       - react
     environment:
-      - CYPRESS_baseurl=http://react:3000
+      - CYPRESS_baseUrl=http://react:3000
     working_dir: /e2e
     volumes:
       - ./e2e:/e2e
