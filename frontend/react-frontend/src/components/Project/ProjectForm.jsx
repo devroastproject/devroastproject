@@ -47,7 +47,7 @@ const ProjectForm = ({project}) => {
     }
 
     return(
-        <>
+        <div className='ProjectForm'>
         <form onSubmit={updateProject}>
             {titleInput}
             {repoInput}
@@ -57,7 +57,7 @@ const ProjectForm = ({project}) => {
             <input type="submit" value={'Submit'} />
         </form>
         <br/>
-        </>
+        </div>
     )
 };
 export default ProjectForm;

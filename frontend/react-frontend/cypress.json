@@ -1,0 +1,6 @@
+{
+    "videoCompression": 32,
+    "videosFolder": "cypress/videos",
+    "video": true,
+    "chromeWebSecurity": false
+}
