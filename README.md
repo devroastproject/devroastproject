@@ -101,7 +101,6 @@ docker-compose stop
 To run front-end tests:
 
 ```
-<!-- docker-compose up --exit-code-from cypress -->
 cd .\frontend\react-frontend\
 ./node_modules/.bin/cypress open
 ```
