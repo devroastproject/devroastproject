@@ -30,7 +30,7 @@ describe('Nav logged in', () => {
         })
     })
 
-    it('can add a new project', () => {
+    it('can visit new project form', () => {
         cy.visit('http://localhost:3000/addproject')
         .get('div[class=ProjectForm]').should('be.visible')
         .get('li[id=logOut]').should('be.visible')

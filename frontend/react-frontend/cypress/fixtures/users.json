@@ -1,0 +1,15 @@
+[
+    {
+        "username": "user",
+        "email": "user@example.com",
+        "password": "userspword",
+        "pk": 4,
+        "token": "83ec37fbf254abfe689b2c48b7bc77aefd745019"
+    },
+    {
+        "username": "user2",
+        "email": "user2@example.com",
+        "password": "user2spword",
+        "pk": 2
+    }
+]
