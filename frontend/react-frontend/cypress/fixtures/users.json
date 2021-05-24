@@ -1,15 +1,20 @@
 [
     {
-        "username": "user",
-        "email": "user@example.com",
-        "password": "userspword",
-        "pk": 4,
-        "token": "83ec37fbf254abfe689b2c48b7bc77aefd745019"
+        "pk": 1,
+        "model": "auth.User",
+        "fields":{
+            "username": "user",
+            "email": "user@example.com",
+            "password": "userspword"
+        }
     },
     {
-        "username": "user2",
-        "email": "user2@example.com",
-        "password": "user2spword",
-        "pk": 2
+        "pk": 2,
+        "model": "auth.User",
+        "fields":{
+            "username": "user2",
+            "email": "user2@example.com",
+            "password": "user2spword"
+        }
     }
 ]

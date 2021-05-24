@@ -105,6 +105,12 @@ cd .\frontend\react-frontend\
 ./node_modules/.bin/cypress open
 ```
 
+testserver in container
+
+```
+docker exec -it devroastproject_django_1 python manage.py testserver ./frontend/react-frontend/cypress/fixtures/users.json --noinput
+```
+
 ## API Endpoints
 
 <br>
