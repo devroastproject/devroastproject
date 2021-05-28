@@ -98,18 +98,21 @@ To stop the containers:
 docker-compose stop
 ```
 
-To run front-end tests:
+To run all front-end tests from container:
+
+```
+docker-compose up --exit-code-from cypress
+```
+
+To run individual front-end test specs outside of container:
 
 ```
 cd .\frontend\react-frontend\
-./node_modules/.bin/cypress open
+./node_modules/.bin/cypress open --config baseUrl="http://localhost:3000"
 ```
 
-testserver in container
-
-```
-docker exec -it devroastproject_django_1 python manage.py testserver ./frontend/react-frontend/cypress/fixtures/users.json --noinput
-```
+The `cypress open` command will install node modules from wherever it was run, so be sure to navigate to `/react-frontend` before running it.
+`--config baseUrl=...` is used to override the `baseUrl` used in the Docker containers.
 
 ## API Endpoints
 

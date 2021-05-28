@@ -1,6 +1,5 @@
 {
-    "videoCompression": 32,
-    "videosFolder": "cypress/videos",
-    "video": true,
-    "chromeWebSecurity": false
+    "pluginsFile": false,
+    "supportFile": false,
+    "baseUrl": "http://react:3000"
 }
