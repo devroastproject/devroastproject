@@ -4,6 +4,6 @@
         "username": "user",
         "email": "user@example.com",
         "password": "userspword",
-        "token": "Token user1token"
+        "token": "Token usertoken"
     }
 ]

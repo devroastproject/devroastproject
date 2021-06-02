@@ -1,5 +1,4 @@
 {
     "pluginsFile": false,
-    "supportFile": false,
     "baseUrl": "http://react:3000"
 }

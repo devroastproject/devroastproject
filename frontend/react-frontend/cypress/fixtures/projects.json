@@ -1,0 +1,18 @@
+[
+    {
+        "description": "This is User's Project description.",
+        "hosted_url": "www.usersproj.com",
+        "id": 1,
+        "repo_url": "www.usersrepo.com",
+        "title": "User's Project",
+        "user": 1
+    },
+    {
+        "description": "This is User 2's Project description.",
+        "hosted_url": "www.user2sproj.com",
+        "id": 2,
+        "repo_url": "www.user2srepo.com",
+        "title": "User 2's Project",
+        "user": 2
+    }
+]
