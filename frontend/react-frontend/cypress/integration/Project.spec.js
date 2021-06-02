@@ -1,8 +1,6 @@
 // projects should render as ProjectPreview in ProjectList on home page
 it.only('loads projects', () => {
-    cy.seed_db()
-    // cy.intercept('GET', 'http://localhost:8000/api/projects/', {fixture: 'projects.json'})
-    // cy.visit('/')    
+    cy.seed_db()   
 })
 // clicking ProjectPreview link should lead to correct ProjectPage
 // all project feilds should display
