@@ -1,9 +1,7 @@
-[
-    {
-        "pk": 1,
-        "username": "user",
-        "email": "user@example.com",
-        "password": "userspword",
-        "token": "Token usertoken"
-    }
-]
+{
+    "pk": 1,
+    "username": "user",
+    "email": "user@example.com",
+    "password": "userspword",
+    "id": 1
+}

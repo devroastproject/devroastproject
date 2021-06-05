@@ -1,10 +1,100 @@
-// projects should render as ProjectPreview in ProjectList on home page
-it.only('loads projects', () => {
-    cy.seed_db()   
+describe('ProjectList tests', () => {
+
+    beforeEach(() => {
+        cy.api_projects()
+        cy.visit('/').wait(['@apiProjects'])
+    })
+
+    it('shows both test project previews', () => {
+        cy.fixture('projects').then((json) => {json.map((proj) => {
+            cy.get(`a[href="project/${proj.id}"]`).should('exist')
+            .get(`h3:contains(${proj.title})`).should('be.visible')
+            .get(`p:contains(${proj.description})`).should('be.visible')
+        })})
+    })
+
+    it('links to project pages from preview cards', () => {
+        cy.fixture('projects').then((json) => {json.map((proj) => {
+            cy.api_projects_id(proj.id)
+            cy.get(`a[href="project/${proj.id}"]`).click()
+            .url().should('eq', `http://localhost:3000/project/${proj.id}`)
+            .get(`h1:contains(${proj.title})`)
+            .go('back')
+        })})
+    })
+    
+    it('redirects from project pages that do not exist', () => {
+        cy.api_404()
+        cy.visit('/project/8').wait(['@api404'])
+        .get('div[class=prevPanel]').should('be.visible')
+        .url().should('eq', 'http://localhost:3000/')
+    })
 })
-// clicking ProjectPreview link should lead to correct ProjectPage
-// all project feilds should display
-// Edit and Delete Buttons should be shown only to owner
-// Delete button should cause browser prompt
-// Edit button should replace ProjectDetail with ProjectForm with correct data in field
-// ProjectForm should have Cancel button that returns to ProjectDetail
+
+
+describe('ProjectPage tests', () => {
+
+    beforeEach(() => {
+        cy.api_projects_id(1)
+        cy.login('/project/1/')
+        cy.wait(['@apiProjectId', '@apiMe'])
+    })
+
+    it('displays all project fields', () => {
+        cy.get(`h1:contains("User's Project")`).should('be.visible')
+        .get('p:contains("by 1")').should('be.visible')
+        .get('a[href="www.usersrepo.com"]').should('exist')
+        .get('a[href="www.usersproj.com"]').should('exist')
+        .get(`p:contains("This is User's Project description.")`).should('be.visible')
+    })
+
+    it('only shows Edit and Delete to the owner', () => {
+        cy.api_projects_id(2)
+        cy.get('button:contains("Edit")').should('be.visible')
+        .get('button:contains("Delete")').should('be.visible')
+        cy.visit('/project/2/')
+        .get('button:contains("Edit")').should('not.exist')
+        .get('button:contains("Delete")').should('not.exist')
+    })
+
+    it('does not delete project without confirmation', () => {
+        cy.on('window:confirm', () => false)
+        cy.get('button:contains("Delete")').click()
+        .url().should('eq', 'http://localhost:3000/project/1/')
+    })
+
+    it('forwards to home on delete', () => {
+        cy.api_404()
+        cy.get('button:contains("Delete")').click()
+        .get('div[class=prevPanel]').should('be.visible')
+        .url().should('eq', 'http://localhost:3000/')
+    })
+
+    it('prepopulates the Edit form with the correct data', () => {
+        cy.fixture('projects').then((json) => {
+        cy.get('button:contains("Edit")').click()
+        .get('input[name="Title"]').should('have.value', json[0].title)
+        .get('input[name="Repo URL"]').should('have.value', json[0].repo_url)
+        .get('input[name="Hosted URL"]').should('have.value', json[0].hosted_url)
+        .get('textarea').should('have.value', json[0].description)
+        })
+    })
+
+    it('returns to the project page on edit', () => {
+        cy.intercept('PUT', 'http://localhost:8000/api/projects/1/', {"statusCode": 200} ).as('api404')
+        cy.get('button:contains("Edit")').click()
+        .get('input[name="Title"]').type('Edited Title')
+        .get('input[type="Submit"]').click()
+        .get('div[class="ProjectPage"]').should('exist')
+        .get('div[class="ProjectForm"]').should('not.exist')
+    })
+
+    it('requires a title and description for a new project', () => {
+        cy.get('li[id="addNewProject"]').click()
+        .get('input[type="Submit"]').should('be.disabled')
+        .get('input[name="Title"]').type('Title')
+        .get('input[type="Submit"]').should('be.disabled')
+        .get('textarea').type('Description')
+        .get('input[type="Submit"]').should('not.be.disabled')
+    })
+})

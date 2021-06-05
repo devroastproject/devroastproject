@@ -41,3 +41,22 @@ describe('login and registration form validation', () => {
         cy.get('input[value="Register"]').should('be.disabled')
     })
 })
+
+describe('Form behavior', () => {
+    it('Forwards to home on log in', () => {
+        cy.api_projects()   // intercept projects for home page
+        cy.api_auth_login() // intercept token return
+        cy.api_users_me()   // intercept user data fetch
+        cy.visit('/')
+         .get('li[id="logIn"]')
+         .click()
+        cy.get('input[name="User Name"]').type(data.username)
+         .get('input[name="Email"]').type(data.email)
+         .get('input[name="Password"]').type(data.pword)
+         .get('input[value="Log In"]').click()
+        cy.wait(['@apiAuthLogin', '@apiMe'])
+         .get('div[class="prevPanel"]').should('exist')
+         .url().should('eq', 'http://localhost:3000/')
+         .get('li[id="userProfile"]').should('contain', `${data.username} is Logged In`)
+    })
+})

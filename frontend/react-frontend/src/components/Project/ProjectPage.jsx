@@ -43,7 +43,7 @@ const ProjectPage = () => {
     }
 
     return(
-        <>
+        <div className='ProjectPage'>
             { project ? 
             <>
                 { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>} 
@@ -55,7 +55,7 @@ const ProjectPage = () => {
                  : null} 
             </>
             : 'loading'}
-        </>
+        </div>
     )
 };
 export default ProjectPage;

@@ -58,7 +58,7 @@ const Login = () => {
                     type="submit" 
                     disabled={
                         !(
-                            (newUser && username && email && password1 && password2 && password1 == password2)
+                            (newUser && username && email && password1 && password2 && password1 === password2)
                             ||
                             (!newUser && username && email && password1)
                         )
