@@ -187,4 +187,4 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'
 ]
 
-ALLOWED_HOSTS = ['django']
+ALLOWED_HOSTS = ['localhost', 'django']
