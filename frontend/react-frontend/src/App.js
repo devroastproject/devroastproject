@@ -49,7 +49,8 @@ function App() {
   // time out user messages
   useEffect(() => {
     if (user.message){
-      setTimeout(() => {setUser({...user, message: null})}, 5000)
+      const timer = setTimeout(() => {setUser({...user, message: null})}, 5000)
+      return () => clearTimeout(timer)
     }
   }, [user])
 

@@ -5,15 +5,15 @@ describe('Nav not logged in', () => {
     it('redirects all routes to login without credentials', () => {
         routes.map(route => {
             cy.visit(route)
-            cy.get('div[class="LoginForm"]').should('be.visible')
+            .get('div[class="LoginForm"]').should('be.visible')
         })
     })
 
     it('only shows options for Home and Login', () => {
         cy.get('a[href="/"]').should('be.visible')
-        cy.get('a[href="/login"]').should('be.visible')
-        cy.get('a[href="/addproject"]').should('not.exist')
-        cy.get('a[href="/profile"]').should('not.exist')
+        .get('a[href="/login"]').should('be.visible')
+        .get('a[href="/addproject"]').should('not.exist')
+        .get('a[href="/profile"]').should('not.exist')
     })
 })
 
@@ -27,7 +27,7 @@ describe('Nav logged in', () => {
         cy.get('a[href="/"]').should('be.visible')
         routes.map(route => {
             cy.visit(route)
-            cy.get(`a[href="${route}"]`).should('be.visible')
+            .get(`a[href="${route}"]`).should('be.visible')
         })
     })
 
@@ -55,9 +55,9 @@ describe('Nav logged in', () => {
 
     it('shows all user options', () => {
         cy.get('a[href="/"]').should('be.visible')
-        cy.get('a[href="/login"]').should('not.exist')
-        cy.get('a[href="/addproject"]').should('be.visible')
-        cy.get('a[href="/profile"]').should('be.visible')
-        cy.get('li[id=logOut]').should('be.visible')
+        .get('a[href="/login"]').should('not.exist')
+        .get('a[href="/addproject"]').should('be.visible')
+        .get('a[href="/profile"]').should('be.visible')
+        .get('li[id=logOut]').should('be.visible')
     })
 })

@@ -23,14 +23,14 @@ Cypress.Commands.add('api_projects_id', (id)=>{
 
 Cypress.Commands.add('api_404', () => {
     cy.intercept('GET', 'http://localhost:8000/api/projects/8/', code404 ).as('api404')
-    cy.intercept('DELETE', 'http://localhost:8000/api/projects/1/', code404 ).as('api404')
+    .intercept('DELETE', 'http://localhost:8000/api/projects/1/', code404 ).as('api404')
 })
 
 Cypress.Commands.add('login', (url) => {
-    cy.api_projects()
     cy.api_users_me()
+    .api_projects()
     // trigger login API call by placing token and timestamp in memory
-    cy.visit(url, {
+    .visit(url, {
         onBeforeLoad(win){
             win.localStorage.setItem('user_token', "Token usertoken")
             win.localStorage.setItem('token_time', Date.now())

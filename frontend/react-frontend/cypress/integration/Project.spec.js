@@ -2,7 +2,7 @@ describe('ProjectList tests', () => {
 
     beforeEach(() => {
         cy.api_projects()
-        cy.visit('/').wait(['@apiProjects'])
+        .visit('/').wait(['@apiProjects'])
     })
 
     it('shows both test project previews', () => {
@@ -16,8 +16,8 @@ describe('ProjectList tests', () => {
     it('links to project pages from preview cards', () => {
         cy.fixture('projects').then((json) => {json.map((proj) => {
             cy.api_projects_id(proj.id)
-            cy.get(`a[href="project/${proj.id}"]`).click()
-            .url().should('eq', `http://localhost:3000/project/${proj.id}`)
+            .get(`a[href="project/${proj.id}"]`).click()
+            .url().should('eq', `${Cypress.config('baseUrl')}/project/${proj.id}`)
             .get(`h1:contains(${proj.title})`)
             .go('back')
         })})
@@ -25,9 +25,9 @@ describe('ProjectList tests', () => {
     
     it('redirects from project pages that do not exist', () => {
         cy.api_404()
-        cy.visit('/project/8').wait(['@api404'])
+        .visit('/project/8').wait(['@api404'])
         .get('div[class=prevPanel]').should('be.visible')
-        .url().should('eq', 'http://localhost:3000/')
+        .url().should('eq', `${Cypress.config('baseUrl')}/`)
     })
 })
 
@@ -36,8 +36,7 @@ describe('ProjectPage tests', () => {
 
     beforeEach(() => {
         cy.api_projects_id(1)
-        cy.login('/project/1/')
-        cy.wait(['@apiProjectId', '@apiMe'])
+        .login('/project/1/')
     })
 
     it('displays all project fields', () => {
@@ -50,24 +49,24 @@ describe('ProjectPage tests', () => {
 
     it('only shows Edit and Delete to the owner', () => {
         cy.api_projects_id(2)
-        cy.get('button:contains("Edit")').should('be.visible')
+        .get('button:contains("Edit")').should('be.visible')
         .get('button:contains("Delete")').should('be.visible')
-        cy.visit('/project/2/')
+        .visit('/project/2/')
         .get('button:contains("Edit")').should('not.exist')
         .get('button:contains("Delete")').should('not.exist')
     })
 
     it('does not delete project without confirmation', () => {
         cy.on('window:confirm', () => false)
-        cy.get('button:contains("Delete")').click()
-        .url().should('eq', 'http://localhost:3000/project/1/')
+        .get('button:contains("Delete")').click()
+        .url().should('eq', `${Cypress.config('baseUrl')}/project/1/`)
     })
 
     it('forwards to home on delete', () => {
         cy.api_404()
-        cy.get('button:contains("Delete")').click()
+        .get('button:contains("Delete")').click()
         .get('div[class=prevPanel]').should('be.visible')
-        .url().should('eq', 'http://localhost:3000/')
+        .url().should('eq', `${Cypress.config('baseUrl')}/`)
     })
 
     it('prepopulates the Edit form with the correct data', () => {
@@ -81,8 +80,8 @@ describe('ProjectPage tests', () => {
     })
 
     it('returns to the project page on edit', () => {
-        cy.intercept('PUT', 'http://localhost:8000/api/projects/1/', {"statusCode": 200} ).as('api404')
-        cy.get('button:contains("Edit")').click()
+        cy.intercept('PUT', 'http://localhost:8000/api/projects/1/', {"statusCode": 200})
+        .get('button:contains("Edit")').click()
         .get('input[name="Title"]').type('Edited Title')
         .get('input[type="Submit"]').click()
         .get('div[class="ProjectPage"]').should('exist')

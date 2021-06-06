@@ -104,6 +104,8 @@ To run all front-end tests from container:
 docker-compose up --exit-code-from cypress
 ```
 
+A secondary staticfiles link was added to work within the compose. All API calls automatically fail from inside.
+
 To run individual front-end test specs outside of container:
 
 ```
@@ -113,6 +115,7 @@ cd .\frontend\react-frontend\
 
 The `cypress open` command will install node modules from wherever it was run, so be sure to navigate to `/react-frontend` before running it.
 `--config baseUrl=...` is used to override the `baseUrl` used in the Docker containers.
+Occasionally the API stubbing will fail, but the calls are made to be rejected.
 
 ## API Endpoints
 
