@@ -1,0 +1,4 @@
+{
+    "baseUrl": "http://localhost:3000",
+    "blockHosts": "django:8000"
+}

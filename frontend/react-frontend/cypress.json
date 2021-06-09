@@ -1,4 +1,4 @@
 {
-    "pluginsFile": false,
-    "baseUrl": "http://react:3000"
+    "baseUrl": "http://react:3000",
+    "blockHosts": "localhost:8000"
 }

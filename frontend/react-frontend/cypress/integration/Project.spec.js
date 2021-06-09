@@ -54,12 +54,13 @@ describe('ProjectPage tests', () => {
         .visit('/project/2/')
         .get('button:contains("Edit")').should('not.exist')
         .get('button:contains("Delete")').should('not.exist')
+        .visit('/project/1/')
     })
 
     it('does not delete project without confirmation', () => {
         cy.on('window:confirm', () => false)
         .get('button:contains("Delete")').click()
-        .url().should('eq', `${Cypress.config('baseUrl')}/project/1/`)
+        .get(`p:contains("This is User's Project description.")`).should('be.visible')
     })
 
     it('forwards to home on delete', () => {
@@ -89,7 +90,7 @@ describe('ProjectPage tests', () => {
     })
 
     it('requires a title and description for a new project', () => {
-        cy.get('li[id="addNewProject"]').click()
+        cy.visit('/addproject')
         .get('input[type="Submit"]').should('be.disabled')
         .get('input[name="Title"]').type('Title')
         .get('input[type="Submit"]').should('be.disabled')

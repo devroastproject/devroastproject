@@ -98,24 +98,24 @@ To stop the containers:
 docker-compose stop
 ```
 
-To run all front-end tests from container:
+To run individual front-end test specs with the Cypress UI:
+
+```
+cd .\frontend\react-frontend\
+./node_modules/.bin/cypress open --config-file ./cypress-UI-config.json
+```
+
+The `cypress open` command will install node modules from wherever it was run, so be sure to navigate to `/react-frontend` before running it.
+The UI config file is used to override the URLs used in the Docker containers.
+Occasionally the API stubbing will fail, but the calls are made to be rejected.
+
+To run all front-end tests from the container (this can be flaky):
 
 ```
 docker-compose up --exit-code-from cypress
 ```
 
 A secondary staticfiles link was added to work within the compose. All API calls automatically fail from inside.
-
-To run individual front-end test specs outside of container:
-
-```
-cd .\frontend\react-frontend\
-./node_modules/.bin/cypress open --config baseUrl="http://localhost:3000"
-```
-
-The `cypress open` command will install node modules from wherever it was run, so be sure to navigate to `/react-frontend` before running it.
-`--config baseUrl=...` is used to override the `baseUrl` used in the Docker containers.
-Occasionally the API stubbing will fail, but the calls are made to be rejected.
 
 ## API Endpoints
 
