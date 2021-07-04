@@ -47,17 +47,17 @@ const ProjectForm = ({project}) => {
     }
 
     return(
-        <>
+        <div className='ProjectForm'>
         <form onSubmit={updateProject}>
             {titleInput}
             {repoInput}
             {hostedInput}
             <label> Description <textarea defaultValue={description} onChange={e => setDescription(e.target.value)}></textarea></label> 
             <br/>
-            <input type="submit" value={'Submit'} />
+            <input type="submit" value={'Submit'} disabled={!(title && description)}/>
         </form>
         <br/>
-        </>
+        </div>
     )
 };
 export default ProjectForm;

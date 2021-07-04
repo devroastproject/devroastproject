@@ -7,6 +7,9 @@
 
 # testing
 /coverage
+/cypress/videos
+/cypress/screenshots
+/cypress/screenshots/Nav.spec.js
 
 # production
 /build

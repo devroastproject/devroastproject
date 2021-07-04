@@ -40,7 +40,7 @@ const Profile = () => {
                 {newpwInput}
                 {confpwInput}      
                 <br />
-                <input type="submit" value={'Update Password'} disabled={(newpw && confpw && newpw === confpw) ? "" : "disabled" }/>
+                <input type="submit" value={'Update Password'} disabled={(oldpw && newpw && confpw && newpw === confpw) ? "" : "disabled" }/>
               </form>
             </div>
           : 

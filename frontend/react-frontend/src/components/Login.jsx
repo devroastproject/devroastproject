@@ -54,7 +54,17 @@ const Login = () => {
                 {emailInput}
                 {newUser ? <> {pw1Input} {pw2Input} </> : pw1Input}
                 <br/>
-                <input type="submit" value={newUser ? 'Register' : "Log In"} />
+                <input 
+                    type="submit" 
+                    disabled={
+                        !(
+                            (newUser && username && email && password1 && password2 && password1 === password2)
+                            ||
+                            (!newUser && username && email && password1)
+                        )
+                    }
+                    value={newUser ? 'Register' : "Log In"}
+                />
             </form>
             <br/> {/* button toggles Log In / Register New User     */}
                 <button onClick={() => setNewUser(!newUser)}>

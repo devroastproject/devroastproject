@@ -40,7 +40,7 @@ function App() {
   useEffect(() => {
     if (user.token && !user.info) {   // trigger api call if the token has been retrieved, but if the user has not been fetched
       (async () => {
-        const userinfo = await callApi("users/me", "GET", null, user.token)
+        const userinfo = await callApi("users/me/", "GET", null, user.token)
         setUser({...user, info: userinfo})
       })()
     }
@@ -49,7 +49,8 @@ function App() {
   // time out user messages
   useEffect(() => {
     if (user.message){
-      setTimeout(() => {setUser({...user, message: null})}, 5000)
+      const timer = setTimeout(() => {setUser({...user, message: null})}, 5000)
+      return () => clearTimeout(timer)
     }
   }, [user])
 

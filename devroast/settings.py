@@ -186,3 +186,5 @@ ACCOUNT_EMAIL_VERIFICATION = "optional"
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000'
 ]
+
+ALLOWED_HOSTS = ['localhost', 'django']
