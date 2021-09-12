@@ -10,6 +10,7 @@ const ProjectList = () => {
         (async () => {
             let res = await callApi("projects/", "GET")
             let data =  JSON.parse(JSON.stringify(res))
+            console.log(data)
             if (Array.isArray(data)){
                 setProjects(data)
             }

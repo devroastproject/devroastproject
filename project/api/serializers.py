@@ -2,13 +2,12 @@ from rest_framework.serializers import ModelSerializer
 from project.models import Project, Comment, Tag
 
 
-class ProjectSerializer(ModelSerializer):
+class TagSerializer(ModelSerializer):
 
     class Meta:
-    
-        model = Project
-        fields = "__all__"
 
+        model = Tag
+        fields = "__all__"
 
 class CommentSerializer(ModelSerializer):
 
@@ -17,10 +16,10 @@ class CommentSerializer(ModelSerializer):
         model = Comment 
         fields = "__all__"
 
-
-class TagSerializer(ModelSerializer):
+class ProjectSerializer(ModelSerializer):
+    comments = CommentSerializer(source='comment_set', many=True)
 
     class Meta:
-
-        model = Tag
+    
+        model = Project
         fields = "__all__"
