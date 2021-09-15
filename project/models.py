@@ -25,9 +25,9 @@ class Project(models.Model):
 class Comment(models.Model):
 
     # The project the comment belongs to
-    post = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    post = models.ForeignKey(Project, on_delete=models.DO_NOTHING, blank=True, null=True)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    # user_id = user.
+    prompt = models.ForeignKey('self', on_delete=models.DO_NOTHING, blank=True, null=True)
     body = models.TextField(help_text="Enter your comment here.")
     neg_votes = models.IntegerField(help_text="Click to vote in favor of this comment.")
     pos_votes = models.IntegerField(help_text="Click to vote against this comment.")
@@ -36,7 +36,7 @@ class Comment(models.Model):
 
     def __str__(self):
 
-        return  f'{self.user} wrote {self.body} on {self.post.title} by {self.post.user}' 
+        return  f'{self.user} wrote {self.body}' 
 
 
 # Model for comment tags
