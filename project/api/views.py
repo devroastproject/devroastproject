@@ -3,7 +3,7 @@ from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListMode
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnProjectOrReadOnly
-from .serializers import CommentSerializer, ProjectSerializer, ReplySerializer
+from .serializers import CommentSerializer, ProjectSerializer
 
 
 class ProjectsViewset(
@@ -33,16 +33,4 @@ class CommentsViewset(
     permission_classes = [IsOwnProjectOrReadOnly, IsAuthenticatedOrReadOnly]
 
 
-class RepliesViewset(
-    RetrieveModelMixin,
-    UpdateModelMixin,
-    ListModelMixin,
-    DestroyModelMixin,
-    CreateModelMixin,
-    GenericViewSet
-):
-
-    queryset = Comment.objects.all()
-    serializer_class = ReplySerializer
-    permission_classes = [IsOwnProjectOrReadOnly, IsAuthenticatedOrReadOnly]
 
