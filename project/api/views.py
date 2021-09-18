@@ -29,25 +29,20 @@ class CommentsViewset(
     GenericViewSet
 ):
     queryset = Comment.objects.all()
-
-    # queryset = Comment.objects.filter(prompt__isnull=True)
-    # def get_queryset(self):
-    #     return Comment.objects.filter(prompt__isnull=True)
-    
     serializer_class = CommentSerializer
     permission_classes = [IsOwnProjectOrReadOnly, IsAuthenticatedOrReadOnly]
 
 
-# class RepliesViewset(
-#     RetrieveModelMixin,
-#     UpdateModelMixin,
-#     ListModelMixin,
-#     DestroyModelMixin,
-#     CreateModelMixin,
-#     GenericViewSet
-# ):
+class RepliesViewset(
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    ListModelMixin,
+    DestroyModelMixin,
+    CreateModelMixin,
+    GenericViewSet
+):
 
-#     queryset = Comment.objects.exclude(post__isnull=False)
-#     serializer_class = ReplySerializer
-#     permission_classes = [IsOwnProjectOrReadOnly, IsAuthenticatedOrReadOnly]
+    queryset = Comment.objects.all()
+    serializer_class = ReplySerializer
+    permission_classes = [IsOwnProjectOrReadOnly, IsAuthenticatedOrReadOnly]
 
