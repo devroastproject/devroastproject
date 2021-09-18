@@ -8,7 +8,7 @@ const ProjectPreview = ({project}) => {
             <Link to={{pathname: `project/${id}`, query: {"id": id}}}> <h3>{title}</h3> </Link>
             <p>{description}</p>
             <p>by {username}</p>
-            <p>{comments.length} conversations</p>
+            <p>{comments ? comments.length : 0} conversations</p>
         </div>
     )
 };

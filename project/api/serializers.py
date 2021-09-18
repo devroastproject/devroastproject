@@ -1,6 +1,4 @@
-from rest_framework.fields import ReadOnlyField
-from rest_framework.relations import PrimaryKeyRelatedField
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, PrimaryKeyRelatedField
 from project.models import Project, Comment, Tag
 
 
@@ -21,8 +19,8 @@ class ReplySerializer(ModelSerializer):
 
 
 class CommentSerializer(ModelSerializer):
-
-    replies = ReplySerializer(source='comment_set', many=True)
+    
+    # replies = ReplySerializer(source='comment_set', many=True)
 
     class Meta:
 
@@ -32,9 +30,15 @@ class CommentSerializer(ModelSerializer):
 
 class ProjectSerializer(ModelSerializer):
 
-    comments = CommentSerializer(source='comment_set', many=True)
-    username = ReadOnlyField(source='user.username')
+    queryset = Comment.objects.filter(prompt__isnull=True)
+    print(queryset)
+    comments = CommentSerializer(many=True)
+    print(comments)
+    # comments = PrimaryKeyRelatedField(queryset = Comment.objects.filter(prompt__isnull=True), many=True)
+    # username = ReadOnlyField(source='user.username')
     class Meta:
     
         model = Project
-        fields = "__all__"
+        # fields = ['user', 'title', 'comments']
+        fields = '__all__'
+# 
