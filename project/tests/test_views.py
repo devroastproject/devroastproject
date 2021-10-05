@@ -40,3 +40,19 @@ class ProjectViewSetTests(APITestCase):
 
         response = self.client.get("/api/projects/1/")
         self.assertEqual(response.status_code, HTTP_200_OK)
+
+    # users without a certain number of comments cannot create edit or delete tags
+    # users with a certain number of comments can create edit or delete tags
+    def test_tag_threshold_met(self):
+        self.fail()
+
+    def test_tag_threshold_not_met(self):
+        self.fail()
+
+    # replies nest correctly when serialized
+    def test_nested_replies(self):
+        self.fail()
+
+    # each user can only vote on a comment once
+    def test_single_vote(self):
+        self.fail()

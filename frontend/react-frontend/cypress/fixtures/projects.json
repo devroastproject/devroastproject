@@ -5,7 +5,81 @@
         "id": 1,
         "repo_url": "www.usersrepo.com",
         "title": "User's Project",
-        "user": 1
+        "user": 1,
+        "comment_count": 3,
+        "comments": [
+            {
+                "body": "this is mine",
+                "closed": false,
+                "id": 1,
+                "neg_votes": 0,
+                "pos_votes": 0,
+                "post": 1,
+                "prompt": null,
+                "replies": [
+                    {
+                        "body": "this yours",
+                        "closed": false,
+                        "id": 2,
+                        "neg_votes": 0,
+                        "pos_votes": 0,
+                        "post": 1,
+                        "prompt": 1,
+                        "replies": [],
+                        "tags": [
+                            {
+                                "description": "Tag2",
+                                "id": 2,
+                                "tagname": "Tag2"
+                            }
+                        ],
+                        "user": 2,
+                        "username": "user2"
+                    }    
+                ],
+                "tags": [
+                    {
+                        "description": "Tag1",
+                        "id": 1,
+                        "tagname": "Tag1"
+                    }
+                ],
+                "user": 1,
+                "username": "user1"
+            },
+            {
+                "body": "this is from user1",
+                "closed": false,
+                "id": 3,
+                "neg_votes": 0,
+                "pos_votes": 0,
+                "post": 1,
+                "prompt": null,
+                "replies": [],
+                "tags": [
+                    {
+                        "description": "Tag3",
+                        "id": 3,
+                        "tagname": "Tag3"
+                    }
+                ],
+                "user": 2,
+                "username": "user2"
+            }
+        ],
+        "tags": [
+            {
+                "description": "Tag1",
+                "id": 1,
+                "tagname": "Tag1"
+            },
+            {
+                "description": "Tag2",
+                "id": 1,
+                "tagname": "Tag2"
+            }
+        ],
+        "username": "user1"
     },
     {
         "description": "This is User 2's Project description.",
@@ -13,6 +87,16 @@
         "id": 2,
         "repo_url": "www.user2srepo.com",
         "title": "User 2's Project",
-        "user": 2
+        "user": 2,
+        "comment_count": 0,
+        "comments": [],
+        "tags": [
+            {
+                "description": "Tag3",
+                "id": 3,
+                "tagname": "Tag3"
+            }
+        ],
+        "username": "user2"
     }
 ]

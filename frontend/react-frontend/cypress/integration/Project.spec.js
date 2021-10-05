@@ -29,6 +29,10 @@ describe('ProjectList tests', () => {
         .get('div[class=prevPanel]').should('be.visible')
         .url().should('eq', `${Cypress.config('baseUrl')}/`)
     })
+
+    it('displays the correct number of comments', () => {
+        throw error
+    })
 })
 
 
@@ -41,7 +45,7 @@ describe('ProjectPage tests', () => {
 
     it('displays all project fields', () => {
         cy.get(`h1:contains("User's Project")`).should('be.visible')
-        .get('p:contains("by 1")').should('be.visible')
+        .get('p:contains("by user1")').should('be.visible')
         .get('a[href="www.usersrepo.com"]').should('exist')
         .get('a[href="www.usersproj.com"]').should('exist')
         .get(`p:contains("This is User's Project description.")`).should('be.visible')
