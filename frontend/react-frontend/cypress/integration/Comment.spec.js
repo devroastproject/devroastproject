@@ -5,27 +5,27 @@ describe('Comment CRUD', () => {
     })
 
     it('posts a new prompt', () => {
-        throw error
+        throw new Error('stub')
     })
     
     it('only the author can edit a comment', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('only the prompt author can delete a thread', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('only the prompt author can close a thread', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('only the prompt author can delete a thread', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('each user can only up or downvote a comment once', () => {
-        throw error
+        throw new Error('stub')
     })
 
 
@@ -37,15 +37,15 @@ describe('Reply Tests', () => {
     })
 
     it('posts a new reply', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('only the author can delete a reply', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('new replies cannot be added when the prompt is closed', () => {
-        throw error
+        throw new Error('stub')
     })
 
 })
@@ -56,26 +56,26 @@ describe('Tag Tests', () => {
     })
 
     it('users with 3 or more comments can create a new tag', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('users with 3 or more comments can edit a tag', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('users with 3 or more comments can delete a tag', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('a tag can be added to a comment', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('a tag can be removed from a comment', () => {
-        throw error
+        throw new Error('stub')
     })
 
     it('a tag added to a reply is added to the prompt', () => {
-        throw error
+        throw new Error('stub')
     })
 })

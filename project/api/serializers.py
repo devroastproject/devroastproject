@@ -34,7 +34,7 @@ class ProjectSerializer(ModelSerializer):
     comments = SerializerMethodField()
     comment_count = SerializerMethodField()
     username = SerializerMethodField()
-    tags = TagSerializer(source='tag_set', many=True)
+    # tags = TagSerializer(source='tag_set', many=True)
 
     class Meta:
     

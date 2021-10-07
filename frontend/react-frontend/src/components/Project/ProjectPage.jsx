@@ -12,6 +12,7 @@ const ProjectPage = () => {
     const {user, setUser} = useContext(UserContext)
     const [project, setProject] = useState(null)
     const [edit, setEdit] = useState(false)
+    const [deleting, setDeleting] = useState(false)
     
     useEffect(() => {
         if (!project) {
@@ -27,9 +28,6 @@ const ProjectPage = () => {
     });
 
     const deleteProject = async () => {
-        let check = window.confirm(`Are you sure you want to delete ${project.title}`)
-        
-        if (check) {
             
             const res = await callApi(`projects/${project.id}/`, "DELETE", project, user.token)
             
@@ -39,7 +37,6 @@ const ProjectPage = () => {
             } else {
                 setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
             }
-        }
     }
 
     return(
@@ -50,7 +47,14 @@ const ProjectPage = () => {
                 {user.info && (user.info.id === project.user) ?
                 <>
                     <button onClick={() => {setEdit(!edit)}}>{edit ? "Cancel" : "Edit"}</button>
-                    <button onClick={() => {deleteProject()}}>Delete</button>
+                    <button disabled={deleting} onClick={() => {setDeleting(true)}}>Delete</button>
+                    {deleting ? 
+                    <>
+                        <p>Are You Sure You Want To Delete?</p>
+                        <button onClick={() => {deleteProject()}}> Confirm Delete</button>
+                        <button onClick={() => {setDeleting(false)}}>Cancel</button>
+                    </>
+                    : null}
                 </>
                  : null} 
             </>

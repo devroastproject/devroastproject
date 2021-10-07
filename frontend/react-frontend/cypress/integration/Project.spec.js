@@ -31,7 +31,8 @@ describe('ProjectList tests', () => {
     })
 
     it('displays the correct number of comments', () => {
-        throw error
+        cy.get('p[id="1_comment_count"]').should('exist')
+        .get('p[id="2_comment_count"]').should('exist')
     })
 })
 
@@ -40,7 +41,7 @@ describe('ProjectPage tests', () => {
 
     beforeEach(() => {
         cy.api_projects_id(1)
-        .login('/project/1/')
+        .login('/project/1/').wait(['@apiProjectId', '@apiMe'])
     })
 
     it('displays all project fields', () => {
@@ -62,14 +63,14 @@ describe('ProjectPage tests', () => {
     })
 
     it('does not delete project without confirmation', () => {
-        cy.on('window:confirm', () => false)
-        .get('button:contains("Delete")').click()
-        .get(`p:contains("This is User's Project description.")`).should('be.visible')
+        cy.get('button:contains("Delete")').click()
+        .get('p:contains("Are You Sure")').should('exist')
     })
 
     it('forwards to home on delete', () => {
         cy.api_404()
         .get('button:contains("Delete")').click()
+        .get('button:contains("Confirm Delete")').click()
         .get('div[class=prevPanel]').should('be.visible')
         .url().should('eq', `${Cypress.config('baseUrl')}/`)
     })
@@ -93,12 +94,17 @@ describe('ProjectPage tests', () => {
         .get('div[class="ProjectForm"]').should('not.exist')
     })
 
+})
+
+describe('ProjecForm tests', () => {
+
     it('requires a title and description for a new project', () => {
-        cy.visit('/addproject')
+        cy.login('/addproject')
         .get('input[type="Submit"]').should('be.disabled')
         .get('input[name="Title"]').type('Title')
         .get('input[type="Submit"]').should('be.disabled')
         .get('textarea').type('Description')
         .get('input[type="Submit"]').should('not.be.disabled')
     })
+
 })
