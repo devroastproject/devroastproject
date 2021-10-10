@@ -1,7 +1,7 @@
 import React from "react";
 
 const Tag = ({tag}) => {
-    const {id, tagname, description} = tag
+    const {tagname} = tag
 
     return(
         <div>

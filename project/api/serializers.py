@@ -14,7 +14,7 @@ class TagSerializer(ModelSerializer):
 class CommentSerializer(ModelSerializer):
     
     replies = SerializerMethodField()
-    tags = TagSerializer(source='tag_set', many=True)
+    # tags = TagSerializer(source='tag_set', many=True)
     username = SerializerMethodField()
 
     class Meta:
@@ -34,7 +34,7 @@ class ProjectSerializer(ModelSerializer):
     comments = SerializerMethodField()
     comment_count = SerializerMethodField()
     username = SerializerMethodField()
-    # tags = TagSerializer(source='tag_set', many=True)
+    tags = SerializerMethodField()
 
     class Meta:
     
@@ -49,3 +49,6 @@ class ProjectSerializer(ModelSerializer):
     
     def get_username(self, obj):
         return User.objects.get(username=obj.user).username
+
+    def get_tags(self, obj):
+        return TagSerializer(Tag.objects.filter(project=obj), many=True).data

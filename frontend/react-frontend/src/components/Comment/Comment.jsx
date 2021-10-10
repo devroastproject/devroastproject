@@ -1,8 +1,8 @@
 import React from "react";
-import Tag from "./Tag";
+// import Tag from "./Tag";
 
 const Comment = ({comment}) => {
-    const {body, closed, id, neg_votes, pos_votes, replies, tags, username} = comment
+    const {body, neg_votes, pos_votes, username} = comment
 
     return(
         <div className='preview'>
@@ -10,13 +10,10 @@ const Comment = ({comment}) => {
                 <p>{body}</p>
                 <p>by {username}</p>
                 <p>+{pos_votes}, -{neg_votes}</p>
-                <div>
+                {/* <div>
                     {tags.map((tag) => <Tag key={tag.id} tag={tag}/> )}
-                </div>
-            </div>
-            <div>
-                {replies.map((reply) => <Comment key={reply.id} comment={reply}/>)}
-            </div>        
+                </div> */}
+            </div>   
         </div>
     )
 };

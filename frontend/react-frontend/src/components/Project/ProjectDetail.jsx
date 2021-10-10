@@ -1,8 +1,10 @@
+import CommentPanel from "../Comment/CommentPanel";
 import React from "react";
-import Comment from "../Comment";
 
 const ProjectDetail = ({project}) => {
-    const {title, description, username, repo_url, hosted_url, comments} = project
+
+    const {title, description, username, repo_url, hosted_url} = project
+    
     return(
         <div>
             <h1>{title}</h1> 
@@ -10,12 +12,7 @@ const ProjectDetail = ({project}) => {
             <a href={repo_url} target="_blank" rel="noreferrer noopener"> <p>Git</p></a>
             <a href={hosted_url} target="_blank" rel="noreferrer noopener"><p>Demo</p></a>
             <p>{description}</p>
-            <div className='prevPanel'>
-                <h3>Comments</h3>
-                {comments.length > 0 ? 
-                    comments.map((comment) => <Comment key={comment.id} comment={comment}/>)
-                : 'No Comments Yet'}
-            </div>
+            <CommentPanel project={project}/>
         </div>
     )
 };

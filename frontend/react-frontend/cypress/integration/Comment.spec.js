@@ -1,4 +1,4 @@
-describe('Comment CRUD', () => {
+describe('Comment CRUD logged in', () => {
     
     beforeEach(() => {
         
@@ -8,19 +8,15 @@ describe('Comment CRUD', () => {
         throw new Error('stub')
     })
     
-    it('only the author can edit a comment', () => {
+    it('edits an existing comment', () => {
         throw new Error('stub')
     })
 
-    it('only the prompt author can delete a thread', () => {
+    it('deletes a comment', () => {
         throw new Error('stub')
     })
 
-    it('only the prompt author can close a thread', () => {
-        throw new Error('stub')
-    })
-
-    it('only the prompt author can delete a thread', () => {
+    it('closes a thread', () => {
         throw new Error('stub')
     })
 
@@ -28,19 +24,39 @@ describe('Comment CRUD', () => {
         throw new Error('stub')
     })
 
+})
+
+describe('Comment CRUD not logged in', () => {
+    
+    beforeEach(() => {
+        
+    })
+
+    it('only allows new comments when logged in', () => {
+        throw new Error('stub')
+    })
+    
+    it('only the author can edit a comment', () => {
+        throw new Error('stub')
+    })
+
+    it('only the prompt author can delete a comment', () => {
+        throw new Error('stub')
+    })
+
+    it('only the prompt author can close a thread', () => {
+        throw new Error('stub')
+    })
 
 })
 
 describe('Reply Tests', () => {
+    
     beforeEach(() => {
         
     })
 
     it('posts a new reply', () => {
-        throw new Error('stub')
-    })
-
-    it('only the author can delete a reply', () => {
         throw new Error('stub')
     })
 

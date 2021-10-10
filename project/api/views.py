@@ -1,3 +1,4 @@
+from rest_framework.response import Response
 from project.models import Project, Comment
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin
 from rest_framework.viewsets import GenericViewSet
@@ -32,5 +33,16 @@ class CommentsViewset(
     serializer_class = CommentSerializer
     permission_classes = [IsOwnProjectOrReadOnly, IsAuthenticatedOrReadOnly]
 
-
-
+    def destroy(self, request, *args, **kwargs):
+        comment = self.get_object()
+        # if the comment is a reply or a prompt with no replies, delete it as normal
+        if comment.prompt or not Comment.objects.filter(prompt=comment.id):
+            comment.delete()
+        # if the comment has replies, overwrite it, but leave it to show the replies
+        else:
+            comment.body = 'This Comment Has Been Deleted'
+            comment.neg_votes = 0
+            comment.pos_votes = 0
+            comment.closed = True
+            comment.save()
+        return Response(data='delete success')

@@ -1,7 +1,7 @@
 import UserContext from "../context/UserContext";
+import { logOut } from "../services/logout";
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { logOut } from "../services/logout";
 
 const Nav = () => {
   const {user, setUser} = useContext(UserContext)
