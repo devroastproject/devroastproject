@@ -38,6 +38,8 @@ class CommentsViewset(
         # if the comment is a reply or a prompt with no replies, delete it as normal
         if comment.prompt or not Comment.objects.filter(prompt=comment.id):
             comment.delete()
+            return Response(data='delete successful')
+
         # if the comment has replies, overwrite it, but leave it to show the replies
         else:
             comment.body = 'This Comment Has Been Deleted'
@@ -45,4 +47,4 @@ class CommentsViewset(
             comment.pos_votes = 0
             comment.closed = True
             comment.save()
-        return Response(data='delete success')
+            return Response(data='comment removed')
