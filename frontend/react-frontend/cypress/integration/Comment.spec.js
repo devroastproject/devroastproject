@@ -6,63 +6,87 @@ describe('Comment CRUD logged in', () => {
     })
 
     it('posts a new prompt', () => {
-        throw new Error('stub')
+        cy.intercept('POST', 'http://localhost:8000/api/comments/', {status: 200}).as('apiPostComment')
+        cy.get('button:contains("New Comment")').should('be.visible').click()
+        .get('button:contains("Cancel")').should('be.visible')
+        .get('input[type="Submit"]').should('be.disabled')
+        .get('textarea').type('test comment')
+        .get('input[type="Submit"]').should('be.enabled').click()
+        .wait(['@apiPostComment']).then((intercept) => {
+            expect(intercept.response.statusCode).to.equal(200)
+        })
     })
     
-    it('edits an existing comment', () => {
-        throw new Error('stub')
+    it('edits an existing comment',{retries: {runMode: 2, openMode: 1}}, () => {
+        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+            () => {
+                cy.get('button:contains("Edit")').should('be.visible').click()
+                .get('textarea').invoke('val').then( val => expect(val).to.equal('this is mine'))
+            }
+        )
     })
 
     it('deletes a comment', () => {
+        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+            () => {
+                cy.get('button:contains("Delete")').click()
+                .get('p:contains("Are You Sure")').should('exist')
+            }
+        )
+    })
+
+    it('only the author can edit a comment', () => {
+        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+            () => {
+                cy.get('button:contains("Edit")').should('not.exist')
+            }
+        )
+    })
+
+    it('only the prompt author can delete a comment', () => {
+        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+            () => {
+                cy.get('button:contains("Delete")').should('not.exist')
+            }
+        )
+    })
+
+    it('posts a new reply', () => {
+        cy.intercept('POST', 'http://localhost:8000/api/comments/', {status: 200}).as('apiPostReply')
+        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+            () => {
+                cy.get('button:contains("Reply")').click()
+                .get('textarea').type('test reply')
+                .get('input[type="Submit"]').click()
+                .wait(['@apiPostReply']).then((intercept) => {
+                    expect(intercept.response.statusCode).to.equal(200)
+                })
+            }
+        )
+    })
+
+    it('new replies cannot be added when the prompt is closed', () => {
         throw new Error('stub')
     })
 
-    it('closes a thread', () => {
-        throw new Error('stub')
-    })
-
-    it('each user can only up or downvote a comment once', () => {
-        throw new Error('stub')
-    })
+    // it('each user can only up or downvote a comment once', () => {
+    //     throw new Error('stub')
+    // })
 
 })
 
 describe('Comment CRUD not logged in', () => {
     
     beforeEach(() => {
-        
+        cy.api_projects_id(1).visit('/project/1/').wait(['@apiProjectId'])
     })
 
     it('only allows new comments when logged in', () => {
-        throw new Error('stub')
-    })
-    
-    it('only the author can edit a comment', () => {
-        throw new Error('stub')
+        cy.get('button:contains("New Comment")').should('not.exist')
     })
 
-    it('only the prompt author can delete a comment', () => {
-        throw new Error('stub')
-    })
-
-    it('only the prompt author can close a thread', () => {
-        throw new Error('stub')
-    })
-
-})
-
-describe('Reply Tests', () => {
-    
-    beforeEach(() => {
-        
-    })
-
-    it('posts a new reply', () => {
-        throw new Error('stub')
-    })
-
-    it('new replies cannot be added when the prompt is closed', () => {
-        throw new Error('stub')
+    it('only allows new replies when logged in', () => {
+        cy.get('button:contains("Reply")').should('not.exist')
     })
 
 })

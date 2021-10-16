@@ -1,0 +1,28 @@
+[
+    {
+        "body": "test comment",
+        "closed": false,
+        "id": 4,
+        "neg_votes": 0,
+        "pos_votes": 0,
+        "post": 1,
+        "prompt": null,
+        "replies": [],
+        "tags": [],
+        "user": 1,
+        "username": "user1"
+    },
+    {
+        "body": "test reply",
+        "closed": false,
+        "id": 5,
+        "neg_votes": 0,
+        "pos_votes": 0,
+        "post": 1,
+        "prompt": 4,
+        "replies": [],
+        "tags": [],
+        "user": 1,
+        "username": "user1"
+    }
+]

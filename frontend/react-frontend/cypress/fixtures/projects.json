@@ -45,7 +45,7 @@
                     }
                 ],
                 "user": 1,
-                "username": "user1"
+                "username": "user"
             },
             {
                 "body": "this is from user1",
@@ -79,7 +79,7 @@
                 "tagname": "Tag2"
             }
         ],
-        "username": "user1"
+        "username": "user"
     },
     {
         "description": "This is User 2's Project description.",
