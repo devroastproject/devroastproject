@@ -45,7 +45,7 @@ const ProjectPage = () => {
             <>
                 { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>} 
                 {user.info && (user.info.id === project.user) ?
-                <>
+                <div className='projButtons'>
                     <button onClick={() => {setEdit(!edit)}}>{edit ? "Cancel" : "Edit"}</button>
                     <button disabled={deleting} onClick={() => {setDeleting(true)}}>Delete</button>
                     {deleting ? 
@@ -55,7 +55,7 @@ const ProjectPage = () => {
                         <button onClick={() => {setDeleting(false)}}>Cancel</button>
                     </>
                     : null}
-                </>
+                </div>
                  : null} 
             </>
             : 'loading'}
