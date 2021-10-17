@@ -47,7 +47,7 @@ const CommentWrapper = ({comment, project}) => {
                 { replying ?
                     <CommentForm comment={comment} project={project} reply={true}/>
                 : null}
-                {user.info ? <button onClick={() => {setReplying(!replying)}}>{replying ? "Cancel" : "Reply"}</button> : null}
+                {user.info && !comment.closed ? <button onClick={() => {setReplying(!replying)}}>{replying ? "Cancel" : "Reply"}</button> : null}
             </> : null} 
         </>
     )

@@ -55,7 +55,21 @@
                 "pos_votes": 0,
                 "post": 1,
                 "prompt": null,
-                "replies": [],
+                "replies": [
+                    {
+                        "body": "this is a reply to user2",
+                        "closed": false,
+                        "id": 5,
+                        "neg_votes": 0,
+                        "pos_votes": 0,
+                        "post": 1,
+                        "prompt": 3,
+                        "replies": [],
+                        "tags": [],
+                        "user": 1,
+                        "username": "user"
+                    }
+                ],
                 "tags": [
                     {
                         "description": "Tag3",
@@ -65,6 +79,19 @@
                 ],
                 "user": 2,
                 "username": "user2"
+            },
+            {
+                "body": "this comment is closed",
+                "closed": true,
+                "id": 4,
+                "neg_votes": 0,
+                "pos_votes": 0,
+                "post": 1,
+                "prompt": null,
+                "replies": [],
+                "tags": [],
+                "user": 1,
+                "username": "user"
             }
         ],
         "tags": [

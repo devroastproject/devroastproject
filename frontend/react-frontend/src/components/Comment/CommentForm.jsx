@@ -24,6 +24,7 @@ const CommentForm = ({comment, project, reply=false}) => {
 
     const {user, setUser} = useContext(UserContext)
     const [body, setBody] = useState(comment.body)
+    const [closed, setClosed] = useState(comment.closed)
     // const [tags, setTags] = useState(comment.tags)
 
     const updateComment = async e => {
@@ -36,7 +37,7 @@ const CommentForm = ({comment, project, reply=false}) => {
             "body": body,
             "neg_votes": comment.neg_votes,
             "pos_votes": comment.pos_votes,
-            "closed": comment.closed,
+            "closed": closed,
             // "tags": tags
         }
         
@@ -55,7 +56,13 @@ const CommentForm = ({comment, project, reply=false}) => {
                 <label> New Comment 
                     <textarea defaultValue={comment.body} onChange={e => setBody(e.target.value)}></textarea>
                 </label> 
-                
+                { !comment.prompt ?
+                    <label> Closed 
+                        <input type="checkbox" name='Closed' checked={Boolean(closed)} onChange={() => setClosed(!closed)}/>
+                    </label>
+                : null}
+
+
                 {/* <label htmlFor='tags' > Choose a Tag 
                     <select name="tags" id="tags" onChange={e => setTags(e.target.value)}>
                         {commentOptions.map((tag) => <option key={tag.id} value={tag.id}>{tag.tagname}</option>)}

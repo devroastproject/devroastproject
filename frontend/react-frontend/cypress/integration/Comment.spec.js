@@ -36,7 +36,7 @@ describe('Comment CRUD logged in', () => {
     })
 
     it('only the author can edit a comment', () => {
-        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+        cy.get('p:contains("this is from user1")').parent().parent().within(
             () => {
                 cy.get('button:contains("Edit")').should('not.exist')
             }
@@ -44,7 +44,7 @@ describe('Comment CRUD logged in', () => {
     })
 
     it('only the prompt author can delete a comment', () => {
-        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+        cy.get('p:contains("this is from user1")').parent().parent().within(
             () => {
                 cy.get('button:contains("Delete")').should('not.exist')
             }
@@ -65,8 +65,31 @@ describe('Comment CRUD logged in', () => {
         )
     })
 
-    it('new replies cannot be added when the prompt is closed', () => {
-        throw new Error('stub')
+    it('new replies cannot be added when the prompt is closed', {retries: {runMode: 2, openMode: 1}}, () => {
+        cy.get('p:contains("this comment is closed")').parent().parent().parent().within(
+            () => {
+                cy.get('button:contains("Reply")').should('not.exist')
+                .get('button:contains("Edit")').click()
+                .get('input[type="checkbox"]').should('be.checked')
+            }
+        )
+    })
+
+    it('replies cannot be closed', () => {
+        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+            () => {
+                cy.get('button:contains("Edit")').click()
+                .get('input[type="checkbox"]').should('not.exist')
+            }
+        )
+    })
+
+    it('closed threads are marked', () => {
+        cy.get('p:contains("this comment is closed")').parent().parent().parent().within(
+            () => {
+                cy.get('p:contains("CLOSED")').should('exist')
+            }
+        )
     })
 
     // it('each user can only up or downvote a comment once', () => {
