@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import ProjectPreview from "./ProjectPreview";
 import { callApi } from "../../services/callAPI";
+import ProjectPreview from "./ProjectPreview";
 
 const ProjectList = () => {
     
@@ -10,7 +10,10 @@ const ProjectList = () => {
         (async () => {
             let res = await callApi("projects/", "GET")
             let data =  JSON.parse(JSON.stringify(res))
-            setProjects(data)
+            console.log(data)
+            if (Array.isArray(data)){
+                setProjects(data)
+            }
         })()
     },[])
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.fields import related
 
 
 # Model for an individual post
@@ -25,8 +26,9 @@ class Project(models.Model):
 class Comment(models.Model):
 
     # The project the comment belongs to
-    post = models.ForeignKey(Project, on_delete=models.DO_NOTHING)
+    post = models.ForeignKey(Project, related_name='comments', on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    prompt = models.ForeignKey('self', on_delete=models.DO_NOTHING, related_name='replies', blank=True, null=True)
     body = models.TextField(help_text="Enter your comment here.")
     neg_votes = models.IntegerField(help_text="Click to vote in favor of this comment.")
     pos_votes = models.IntegerField(help_text="Click to vote against this comment.")
@@ -35,7 +37,7 @@ class Comment(models.Model):
 
     def __str__(self):
 
-        return self.user + self.body 
+        return  f'{self.user} wrote {self.body}' 
 
 
 # Model for comment tags

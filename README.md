@@ -133,3 +133,8 @@ A secondary staticfiles link was added to work within the compose. All API calls
 
 - View all existing projects (GET, POST): `/api/projects/`
 - View/edit details for a single project (GET, PUT, DELETE): `/api/projects/<int:pk>/`
+
+**Comments CRUD Endpoints**
+
+- Create new comment (POST): `/api/projects/`
+- Edit details/delete a comment (PUT, DELETE): `/api/projects/<int:pk>/`
