@@ -30,8 +30,6 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     prompt = models.ForeignKey('self', on_delete=models.DO_NOTHING, related_name='replies', blank=True, null=True)
     body = models.TextField(help_text="Enter your comment here.")
-    neg_votes = models.IntegerField(help_text="Click to vote in favor of this comment.")
-    pos_votes = models.IntegerField(help_text="Click to vote against this comment.")
     # Has a comment been closed or not?
     closed = models.BooleanField(default=False)
 
@@ -54,4 +52,11 @@ class Tag(models.Model):
         return self.tagname
 
 
+class Vote(models.Model):
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    positive = models.BooleanField()
+
+    def __str__(self):
+        return '+1' if self.positive else '-1'

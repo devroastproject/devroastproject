@@ -1,6 +1,6 @@
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
-from project.models import Project, Comment, Tag, User
+from project.models import Project, Comment, Tag, User, Vote
 
 
 class TagSerializer(ModelSerializer):
@@ -11,11 +11,20 @@ class TagSerializer(ModelSerializer):
         fields = ['id', 'tagname', 'description']
 
 
+class VoteSerializer(ModelSerializer):
+
+    class Meta:
+
+        model = Vote
+        fields = ['user', 'positive']
+
+
 class CommentSerializer(ModelSerializer):
     
     replies = SerializerMethodField()
     # tags = TagSerializer(source='tag_set', many=True)
     username = SerializerMethodField()
+    votes = SerializerMethodField()
 
     class Meta:
 
@@ -27,6 +36,16 @@ class CommentSerializer(ModelSerializer):
     
     def get_username(self, obj):
         return User.objects.get(username=obj.user).username
+
+    def get_votes(self, obj):
+        res = [(vote.user.username, vote.positive) for vote in Vote.objects.filter(comment=obj.id).select_related()]
+        pos, neg = [], []
+        for vote in res:
+            if vote[1]:
+                pos.append(vote[0])
+            else:
+                neg.append(vote[0])
+        return {'+1': pos, '-1': neg}
 
 
 class ProjectSerializer(ModelSerializer):
