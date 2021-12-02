@@ -1,8 +1,9 @@
 import React from "react";
+import VoteWidget from "./VoteWidget";
 // import Tag from "./Tag";
 
 const Comment = ({comment}) => {
-    const {body, neg_votes, pos_votes, username, closed} = comment
+    const {id, body, votes, username, closed} = comment
 
     return(
         <div className='preview'>
@@ -10,7 +11,7 @@ const Comment = ({comment}) => {
                 {closed ? <p>{'CLOSED'}</p> : null}
                 <p>{body}</p>
                 <p>by {username}</p>
-                <p>+{pos_votes}, -{neg_votes}</p>
+                <VoteWidget id={id} votes={votes} />
                 {/* <div>
                     {tags.map((tag) => <Tag key={tag.id} tag={tag}/> )}
                 </div> */}
