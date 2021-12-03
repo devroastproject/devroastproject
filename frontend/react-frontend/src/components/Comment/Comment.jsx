@@ -1,5 +1,5 @@
+import VoteWidget from "../Vote/VoteWidget";
 import React from "react";
-import VoteWidget from "./VoteWidget";
 // import Tag from "./Tag";
 
 const Comment = ({comment}) => {
