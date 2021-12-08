@@ -16,7 +16,7 @@ class VoteSerializer(ModelSerializer):
     class Meta:
 
         model = Vote
-        fields = ['user', 'positive']
+        fields = ['id', 'user', 'positive']
 
 
 class CommentSerializer(ModelSerializer):
@@ -38,14 +38,7 @@ class CommentSerializer(ModelSerializer):
         return User.objects.get(username=obj.user).username
 
     def get_votes(self, obj):
-        res = [(vote.user.username, vote.positive) for vote in Vote.objects.filter(comment=obj.id).select_related()]
-        pos, neg = [], []
-        for vote in res:
-            if vote[1]:
-                pos.append(vote[0])
-            else:
-                neg.append(vote[0])
-        return {'+1': pos, '-1': neg}
+        return VoteSerializer(Vote.objects.filter(comment=obj.id).select_related(), many=True).data
 
 
 class ProjectSerializer(ModelSerializer):

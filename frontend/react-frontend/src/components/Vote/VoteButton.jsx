@@ -1,15 +1,15 @@
 import React from "react";
 
-const VoteButton = ({users, plus, upVoted, downVoted, submit_vote}) => {
+const VoteButton = ({count, plus, userVote, submit_vote}) => {
 
     return(
         <div className='voteButton'>
             <button 
-                style={ (plus && upVoted) || (!plus && downVoted) ? { fontWeight: 'bold' } : { fontWeight: 'normal' }}
-                disabled={ (plus  && downVoted) || (!plus && upVoted) }
+                style={ (plus && userVote === true) || (!plus && userVote === false) ? { fontWeight: 'bold' } : { fontWeight: 'normal' }}
+                disabled={ (plus  && userVote === false) || (!plus && userVote === true) }
                 onClick={() => submit_vote(plus)}
             >
-                {plus ? '+' : '-'}{users.length}
+                {plus ? '+' : '-'}{count}
             </button>
         </div>
     )

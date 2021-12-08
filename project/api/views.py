@@ -32,7 +32,11 @@ class VotesViewset(
 
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
-    permission_classes = [IsOwnProjectOrReadOnly, IsAuthenticatedOrReadOnly]
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def destroy(self, request, *args, **kwargs):
+        # vote = Vote.objects.get()
+        print(kwargs)
 
 
 class CommentsViewset(
