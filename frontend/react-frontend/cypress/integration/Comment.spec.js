@@ -91,11 +91,6 @@ describe('Comment CRUD logged in', () => {
             }
         )
     })
-
-    // it('each user can only up or downvote a comment once', () => {
-    //     throw new Error('stub')
-    // })
-
 })
 
 describe('Comment CRUD not logged in', () => {

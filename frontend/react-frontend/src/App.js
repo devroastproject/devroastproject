@@ -32,6 +32,7 @@ function App() {
         }
         else {
           logOut(user, setUser)
+          window.location.reload(false) // reload page to log out
         }
       }
     }

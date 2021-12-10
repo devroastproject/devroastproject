@@ -38,8 +38,16 @@ class CommentSerializer(ModelSerializer):
         return User.objects.get(username=obj.user).username
 
     def get_votes(self, obj):
-        return VoteSerializer(Vote.objects.filter(comment=obj.id).select_related(), many=True).data
-
+        # query votes related to the comment
+        votes = VoteSerializer(Vote.objects.filter(comment=obj.id).select_related().order_by('user'), many=True).data
+        # query users related to the votes
+        related_users = User.objects.filter(pk__in=[vote['user'] for vote in votes]).order_by('id')
+        #  extract user names
+        user_names = [user.username for user in related_users]
+        # add user names to votes (both queries are sorted by the same value)
+        for i in range(len(votes)):
+            votes[i]['username'] = user_names[i]
+        return votes
 
 class ProjectSerializer(ModelSerializer):
 

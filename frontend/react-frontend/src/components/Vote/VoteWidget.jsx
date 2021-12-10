@@ -4,26 +4,28 @@ import { callApi } from "../../services/callAPI";
 import VoteButton from "./VoteButton";
 
 
-const VoteWidget = ({id, votes}) => {
+const VoteWidget = ({id, votes, closed}) => {
 
     const {user} = useContext(UserContext)
-    let [pos_votes, setPosVotes] = useState(0)
-    let [neg_votes, setNegVotes] = useState(0)
+    const [pos_votes, setPosVotes] = useState(0)
+    const [neg_votes, setNegVotes] = useState(0)
     const [userVote, setVote] = useState({})
 
     useEffect(() => {
-        if (user.info) {
-            let plus_one = 0, minus_one = 0
-            for (let i = 0; i < votes.length; i++) {
-                let vote = votes[i]
+        let plus_one = [], minus_one = []
+        for (let i = 0; i < votes.length; i++) {
+            let vote = votes[i]
+            if (user.info) { // when user is loaded, iterate over votes
+                // extract users vote, if it exists
                 if (vote['user'] === user.info.id) {
                     vote['positive'] === true ? setVote(true) : setVote(false) 
                 }
-                vote['positive'] === true ? plus_one += 1 : minus_one += 1
-            }
-            setPosVotes(plus_one)
-            setNegVotes(minus_one)
-        }   
+            }   
+            // store the usernames that voted
+            vote['positive'] === true ? plus_one.push(vote['username']) : minus_one.push(vote['username'])
+        }
+        setPosVotes(plus_one)
+        setNegVotes(minus_one)
     }, [user, votes])
 
     const submit_vote = async (vote) => {
@@ -38,12 +40,12 @@ const VoteWidget = ({id, votes}) => {
     
     return(
         <div className='voteWidget'>
-            {user.info ? 
+            {user.info && !closed ? 
                 <>
-                    <VoteButton count={pos_votes} plus={true} userVote={userVote} submit_vote={submit_vote} />
-                    <VoteButton count={neg_votes} plus={false} userVote={userVote} submit_vote={submit_vote} />
+                    <VoteButton users={pos_votes} plus={true} userVote={userVote} submit_vote={submit_vote} />
+                    <VoteButton users={neg_votes} plus={false} userVote={userVote} submit_vote={submit_vote} />
                 </> 
-            : null }
+            : <p>+{pos_votes.length} -{neg_votes.length}</p> }
         </div>
     )
 };
