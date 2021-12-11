@@ -16,7 +16,7 @@ class VoteSerializer(ModelSerializer):
     class Meta:
 
         model = Vote
-        fields = ['id', 'user', 'positive']
+        fields = ['id', 'user', 'comment', 'positive']
 
 
 class CommentSerializer(ModelSerializer):

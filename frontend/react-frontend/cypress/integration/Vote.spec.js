@@ -8,9 +8,9 @@
 // can view votes when logged out +
 // when voted, vote is bold, other is disabled +
 // buttons show correct number of positive and negative votes +
-// voting increments correct number
-// clicking button again removes vote
-// voting refreshes comment, but not page
+// voting increments correct number +
+// clicking button again removes vote +
+// voting refreshes count, but not page +
 
     // backend
 // a deleted comment sets all votes to 0 +

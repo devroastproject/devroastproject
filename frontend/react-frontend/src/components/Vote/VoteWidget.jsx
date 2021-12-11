@@ -7,8 +7,8 @@ import VoteButton from "./VoteButton";
 const VoteWidget = ({comment_id, votes, closed}) => {
 
     const {user} = useContext(UserContext)
-    const [pos_votes, setPosVotes] = useState(0)
-    const [neg_votes, setNegVotes] = useState(0)
+    const [pos_votes, setPosVotes] = useState([])
+    const [neg_votes, setNegVotes] = useState([])
     const [userVote, setVote] = useState({})
 
     useEffect(() => {
@@ -29,7 +29,8 @@ const VoteWidget = ({comment_id, votes, closed}) => {
     }, [user, votes])
 
     const submit_vote = async (vote) => {
-
+        
+        // POST new vote
         let method = 'POST'
         let url = 'votes/'
         let data = {
@@ -37,21 +38,30 @@ const VoteWidget = ({comment_id, votes, closed}) => {
             "comment": comment_id,
             "positive": vote
         }
-
+        // DELETE current vote
         if (userVote.id) {
             method = 'DELETE'
             data["id"] = userVote.id
             url = `votes/${userVote.id}/`
         }
-      
-        console.log(url, method, data, user.token)
+       
         const res = await callApi(url, method, data, user.token)
         
-        if (res.code >= 200 || res.code < 300){   
-            if (userVote.id) {
-                // votes - userVote
+        // update local state to update UI
+        if (res.code === 201){   // POST result
+            delete res.code
+            setVote(res)
+            if (res.positive) {
+                setPosVotes([...pos_votes ,user.info.username])
             } else {
-                // votes.push(userVote)
+                setNegVotes([...neg_votes, user.info.username])
+            }
+        } else if (res.code === 204) { // DELETE result
+            setVote({})
+            if (vote) {
+                setPosVotes(pos_votes.filter(el => el !== user.info.username))
+            } else {
+                setNegVotes(neg_votes.filter(el => el !== user.info.username))
             }
         }
     }
