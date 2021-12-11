@@ -4,7 +4,7 @@ import { callApi } from "../../services/callAPI";
 import VoteButton from "./VoteButton";
 
 
-const VoteWidget = ({id, votes, closed}) => {
+const VoteWidget = ({comment_id, votes, closed}) => {
 
     const {user} = useContext(UserContext)
     const [pos_votes, setPosVotes] = useState(0)
@@ -18,7 +18,7 @@ const VoteWidget = ({id, votes, closed}) => {
             if (user.info) { // when user is loaded, iterate over votes
                 // extract users vote, if it exists
                 if (vote['user'] === user.info.id) {
-                    vote['positive'] === true ? setVote(true) : setVote(false) 
+                    setVote(vote) 
                 }
             }   
             // store the usernames that voted
@@ -29,13 +29,31 @@ const VoteWidget = ({id, votes, closed}) => {
     }, [user, votes])
 
     const submit_vote = async (vote) => {
+
+        let method = 'POST'
+        let url = 'votes/'
         let data = {
             "user": user.info.id,
-            "comment": id,
+            "comment": comment_id,
             "positive": vote
         }
-        let method = userVote ? 'DELETE' : 'POST'
-        const res = await callApi('votes/', method, data, user.token)
+
+        if (userVote.id) {
+            method = 'DELETE'
+            data["id"] = userVote.id
+            url = `votes/${userVote.id}/`
+        }
+      
+        console.log(url, method, data, user.token)
+        const res = await callApi(url, method, data, user.token)
+        
+        if (res.code >= 200 || res.code < 300){   
+            if (userVote.id) {
+                // votes - userVote
+            } else {
+                // votes.push(userVote)
+            }
+        }
     }
     
     return(

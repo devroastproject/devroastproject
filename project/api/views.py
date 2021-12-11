@@ -34,10 +34,6 @@ class VotesViewset(
     serializer_class = VoteSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    def destroy(self, request, *args, **kwargs):
-        # vote = Vote.objects.get()
-        print(kwargs)
-
 
 class CommentsViewset(
     RetrieveModelMixin,
