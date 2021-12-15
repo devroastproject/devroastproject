@@ -26,7 +26,7 @@ const VoteWidget = ({comment_id, votes, closed}) => {
         }
         setPosVotes(plus_one)
         setNegVotes(minus_one)
-    }, [user, votes])
+    }, [user])
 
     const submit_vote = async (vote) => {
         
@@ -46,13 +46,13 @@ const VoteWidget = ({comment_id, votes, closed}) => {
         }
        
         const res = await callApi(url, method, data, user.token)
-        
+        console.log(res)
         // update local state to update UI
         if (res.code === 201){   // POST result
             delete res.code
             setVote(res)
             if (res.positive) {
-                setPosVotes([...pos_votes ,user.info.username])
+                setPosVotes([...pos_votes, user.info.username])
             } else {
                 setNegVotes([...neg_votes, user.info.username])
             }

@@ -34,7 +34,8 @@
                             }
                         ],
                         "user": 2,
-                        "username": "user2"
+                        "username": "user2",
+                        "votes": []
                     }    
                 ],
                 "tags": [
@@ -45,7 +46,23 @@
                     }
                 ],
                 "user": 1,
-                "username": "user"
+                "username": "user",
+                "votes": [
+                    {
+                        "comment": 1, 
+                        "id": 4, 
+                        "positive": true, 
+                        "user": 1, 
+                        "username":"user"
+                    },
+                    {
+                        "comment": 1, 
+                        "id": 7, 
+                        "positive": false, 
+                        "user": 4, 
+                        "username":"user4"
+                    }
+                ]
             },
             {
                 "body": "this is from user1",
@@ -67,7 +84,16 @@
                         "replies": [],
                         "tags": [],
                         "user": 1,
-                        "username": "user"
+                        "username": "user",
+                        "votes": [
+                            {
+                                "comment": 5, 
+                                "id": 5, 
+                                "positive": true, 
+                                "user": 1, 
+                                "username":"user"
+                            }
+                        ]
                     }
                 ],
                 "tags": [
@@ -78,7 +104,23 @@
                     }
                 ],
                 "user": 2,
-                "username": "user2"
+                "username": "user2",
+                "votes": [
+                    {
+                        "comment": 3, 
+                        "id": 4, 
+                        "positive": false, 
+                        "user": 1, 
+                        "username":"user"
+                    },
+                    {
+                        "comment": 3, 
+                        "id": 6, 
+                        "positive": false, 
+                        "user": 2, 
+                        "username":"user2"
+                    }
+                ]
             },
             {
                 "body": "this comment is closed",
@@ -91,7 +133,30 @@
                 "replies": [],
                 "tags": [],
                 "user": 1,
-                "username": "user"
+                "username": "user",
+                "votes": [
+                    {
+                        "comment": 4, 
+                        "id": 1, 
+                        "positive": true, 
+                        "user": 1, 
+                        "username":"user"
+                    },
+                    {
+                        "comment": 4, 
+                        "id": 2, 
+                        "positive": false, 
+                        "user": 2, 
+                        "username":"user2"
+                    },
+                    {
+                        "comment": 4, 
+                        "id": 3, 
+                        "positive": false, 
+                        "user": 3, 
+                        "username":"user3"
+                    }
+                ]
             }
         ],
         "tags": [
