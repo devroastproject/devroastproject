@@ -58,5 +58,9 @@ class Vote(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
     positive = models.BooleanField()
 
+    class Meta:
+        unique_together = ('user', 'comment',)
+
     def __str__(self):
+
         return '+1' if self.positive else '-1'
