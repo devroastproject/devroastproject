@@ -1,10 +1,10 @@
 from rest_framework.response import Response
-from project.models import Project, Comment
+from project.models import Project, Comment, Vote
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnProjectOrReadOnly
-from .serializers import CommentSerializer, ProjectSerializer
+from .serializers import CommentSerializer, ProjectSerializer, VoteSerializer
 
 
 class ProjectsViewset(
@@ -19,6 +19,20 @@ class ProjectsViewset(
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     permission_classes = [IsOwnProjectOrReadOnly, IsAuthenticatedOrReadOnly]
+
+
+class VotesViewset(
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    ListModelMixin,
+    DestroyModelMixin,
+    CreateModelMixin,
+    GenericViewSet
+):
+
+    queryset = Vote.objects.all()
+    serializer_class = VoteSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 
 class CommentsViewset(

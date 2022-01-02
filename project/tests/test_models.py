@@ -35,8 +35,6 @@ class ProjectsModelTests(TestCase):
             post = self.test_project,
             user = User.objects.get(id=1),
             body = "D'oh!",
-            neg_votes = 4,
-            pos_votes = 19,
             closed=False
         )
 
@@ -63,8 +61,6 @@ class ProjectsModelTests(TestCase):
         test_comment = self.test_comment
 
         self.assertEqual(test_comment.body, "D'oh!")
-        self.assertEqual(test_comment.neg_votes, 4)
-        self.assertEqual(test_comment.pos_votes, 19)
         self.assertEqual(test_comment.closed, False)
 
     def test_tag_creation(self):

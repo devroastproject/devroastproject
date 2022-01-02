@@ -1,5 +1,7 @@
 import re
-from project.api.views import CommentsViewset
+
+from django.http import request
+from project.api.views import CommentsViewset, VotesViewset
 from rest_framework.status import HTTP_200_OK
 from project.models import Project, Comment
 from rest_framework.test import APITestCase, APIRequestFactory, force_authenticate
@@ -36,8 +38,6 @@ class ProjectViewSetTests(APITestCase):
             user = User.objects.get(id=1),
             prompt = None,
             body = 'This is a prompt',
-            neg_votes = 0,
-            pos_votes = 0,
             closed = False
         )
 
@@ -47,8 +47,6 @@ class ProjectViewSetTests(APITestCase):
             user = User.objects.get(id=1),
             prompt = Comment.objects.get(id=1),
             body = 'This is a reply',
-            neg_votes = 0,
-            pos_votes = 0,
             closed = False)
 
         self.test_token = Token.objects.create(user=self.test_user)
@@ -105,15 +103,29 @@ class ProjectViewSetTests(APITestCase):
         response = view(request, pk=1)
         self.assertEqual(response.data, 'delete successful')
 
+    # each user can only vote on a comment once
+    def test_single_vote(self):
+        
+        def postvote(self):
+            data = {"comment": 1, "positive": True, "user": 1}
+            request = self.factory.post('api/votes/', data, format='json', HTTP_AUTHORIZATION=f'Token {self.test_token}')
+            force_authenticate(request, user=self.test_user, token=self.test_token)
+            view = VotesViewset.as_view({'post':'create'})
+            response = view(request)
+            return response.status_code
 
-    # # users without a certain number of comments cannot create edit or delete tags
+        code = postvote(self)
+        self.assertEqual(code, 201)
+        code = postvote(self)
+        self.assertEqual(code, 400)
+
+
+
+
+ # # users without a certain number of comments cannot create edit or delete tags
     # # users with a certain number of comments can create edit or delete tags
     # def test_tag_threshold_met(self):
     #     self.fail()
 
     # def test_tag_threshold_not_met(self):
-    #     self.fail()
-
-    # # each user can only vote on a comment once
-    # def test_single_vote(self):
     #     self.fail()
