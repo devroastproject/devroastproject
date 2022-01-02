@@ -1,9 +1,9 @@
 import VoteWidget from "../Vote/VoteWidget";
 import React from "react";
-// import Tag from "./Tag";
+import TagList from "../Tags/TagList";
 
 const Comment = ({comment}) => {
-    const {id, body, votes, username, closed} = comment
+    const {id, body, votes, username, closed, tags} = comment
 
     return(
         <div className='preview'>
@@ -12,9 +12,7 @@ const Comment = ({comment}) => {
                 <p>{body}</p>
                 <p>by {username}</p>
                 <VoteWidget comment_id={id} votes={votes} closed={closed} />
-                {/* <div>
-                    {tags.map((tag) => <Tag key={tag.id} tag={tag}/> )}
-                </div> */}
+                <TagList tags={tags} />
             </div>   
         </div>
     )
