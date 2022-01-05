@@ -12,7 +12,7 @@ const Comment = ({comment}) => {
                 <p>{body}</p>
                 <p>by {username}</p>
                 <VoteWidget comment_id={id} votes={votes} closed={closed} />
-                <TagList tags={tags} />
+                <TagList tags={tags}/>
             </div>   
         </div>
     )
