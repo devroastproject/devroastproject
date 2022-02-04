@@ -8,7 +8,7 @@ class TagSerializer(ModelSerializer):
     class Meta:
 
         model = Tag
-        fields = ['id', 'tagname', 'description']
+        fields = ['id', 'tagname', 'description', 'project', 'comment']
 
 
 class VoteSerializer(ModelSerializer):

@@ -1,3 +1,4 @@
+import re
 from rest_framework.response import Response
 from project.models import Project, Comment, Vote, Tag
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin
@@ -48,6 +49,12 @@ class TagsViewset(
     serializer_class = TagSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def update(self, request, *args, **kwargs):
+        print(request.data)
+        tag = self.get_object()
+        print(tag)
+        tag.comment.add(request.data['comment'])
+        return Response(data='update method triggered')
 
 class CommentsViewset(
     RetrieveModelMixin,

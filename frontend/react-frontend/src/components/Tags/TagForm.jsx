@@ -15,34 +15,39 @@ const TagForm = ({tags, project_id, comment_id}) => {
             res.map((tag) => { 
                 tag.assigned = tagIDs.indexOf(parseInt(tag.id)) >= 0 
             })
+            console.log(res)
             setAllTags(res)
         })()
     }, [])
 
     const assignTags = async (tag) => {
-         // POST new tag assignment
-         let method = 'PUT'
-         let url = 'tags/'
-         let data = {
+        // PUT new tag assignment
+        let method = 'PUT'
+        //  let url = 'tags/'
+        let url = `tags/${tag.id}/`
+        let data = {
              "id": tag.id,
-             "project": project_id,
+            //  "project": project_id,
              "comment": comment_id,
+            //  "tagname": tag.tagname,
+            //  "description": tag.description
+            "assigned": tag.assigned
          }
-         // DELETE current vote
-         if (tag.assigned) {
-             url = `tags/${tag.id}/`
-            //  data['project'] = null
-             data['comment'] = null
-         }
+        // DELETE current vote
+        // if (tag.assigned) {
+            // url = `tags/${tag.id}/`
+            // data['project'] = null
+            // data['comment'] = null
+        // }
         
-         const res = await callApi(url, method, data, user.token)
-         console.log(res)
-         // update local state to update UI
-         if (res.code === 201){   // POST result
-            console.log('post succeed')
-         } else if (res.code === 204) { // DELETE result
-            console.log('delete succeed')
-         }
+        const res = await callApi(url, method, data, user.token)
+        console.log(res)
+        // update local state to update UI
+        if (res.code >= 200){   // PUT result
+        console.log('put succeed')
+        } else if (res.code === 204) { // DELETE result
+        console.log('delete succeed')
+        }
     }
 
     return(
