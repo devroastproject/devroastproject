@@ -4,7 +4,7 @@ import Tag from "./Tag";
 const TagButton = ({tag, assignTags}) => {
     return(
         <div className="TagButton" 
-        style={ tag.assigned ? { backgroundColor: 'green' } : { backgroundColor: 'none' }}
+        style={ tag.assigned === true ? { backgroundColor: 'green' } : { backgroundColor: 'none' }}
         onClick={() => assignTags(tag)}>
                 <Tag tag={tag} key={tag.id}/>    
         </div>

@@ -26,7 +26,7 @@ const CommentForm = ({comment, project, reply=false}) => {
     const {user, setUser} = useContext(UserContext)
     const [body, setBody] = useState(comment.body)
     const [closed, setClosed] = useState(comment.closed)
-    const [tags, setTags] = useState(comment.tags)
+    const [tags] = useState(comment.tags)
 
     const updateComment = async e => {
         e.preventDefault()

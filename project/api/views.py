@@ -50,10 +50,11 @@ class TagsViewset(
     permission_classes = [IsAuthenticatedOrReadOnly]
 
     def update(self, request, *args, **kwargs):
-        print(request.data)
         tag = self.get_object()
-        print(tag)
-        tag.comment.add(request.data['comment'])
+        if request.data['assigned']:
+            tag.comment.remove(request.data['comment'])
+        else:
+            tag.comment.add(request.data['comment'])
         return Response(data='update method triggered')
 
 class CommentsViewset(
