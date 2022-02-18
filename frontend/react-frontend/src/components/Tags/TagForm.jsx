@@ -12,12 +12,11 @@ const TagForm = ({tags, project_id, comment_id}) => {
         (async () => {
             const res = await callApi('tags/', 'GET', null, user.token)
             let tagIDs = tags.map((tag) => {return tag.id})
-            res.map((tag) => { 
-                tag.assigned = tagIDs.indexOf(parseInt(tag.id)) >= 0 
-            })
-            setAllTags(res)
+            let resTags = res.map((tag) => { tag.assigned = tagIDs.indexOf(parseInt(tag.id)) >= 0; return tag })
+            console.log(resTags)
+            setAllTags(resTags)
         })()
-    })
+    }, [])
 
     const assignTags = async (tag) => {
         let method = 'PUT'
@@ -31,19 +30,29 @@ const TagForm = ({tags, project_id, comment_id}) => {
         const res = await callApi(url, method, data, user.token)
         // update local state to update UI
         if (res.code >= 200){
-            let newTags = [...allTags]
-            let i = allTags.findIndex(obj => obj['id'] === tag.id)
-            newTags[i]['assigned'] = !newTags[i]['assigned']
+            let newTags = allTags.map((allTag) => {if (allTag.id === tag.id) { allTag.assigned = !allTag.assigned} return allTag})
             setAllTags(newTags)
         } 
     }
 
+    const searchTags = (term) => {
+        // set flags on tags to show if being searched for
+        let matched = allTags.map((tag) => { tag.searched = tag.tagname.includes(term) && term; return tag })
+        setAllTags(matched)
+    }
+
     return(
-        <> {
+        <> 
+            <label htmlFor="tagSearch"> Tags: 
+                <input type="text" name="tagSearch" onChange={e => searchTags(e.target.value)}/>
+            </label>
+        {
             allTags.length > 0 ? 
-            allTags.map((tag) => <TagButton tag={tag} key={tag.id} assignTags={assignTags}/>)
+            // display tags that are either assigned or are being searched for
+            allTags.map((tag) => tag.assigned || tag.searched ? <TagButton tag={tag} key={tag.id} assignTags={assignTags}/> : null)
             : 'waiting...' 
-        } </>
+        } 
+        </>
     )
 };
 
