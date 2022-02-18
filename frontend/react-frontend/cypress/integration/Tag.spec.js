@@ -31,7 +31,32 @@
 //         throw new Error('stub')
 //     })
 
-//     it('a tag added to a reply is added to the prompt', () => {
+//     it('a tag can be added to a project', () => {
 //         throw new Error('stub')
 //     })
+
+//     it('a tag can be removed from a project', () => {
+//         throw new Error('stub')
+//     })
+
+//     it('a tag added to a comment is also added to the project', () => {
+//         throw new Error('stub')
+//     })
+
+//     it('a tag can be searched for within the form', () => {
+//         throw new Error('stub')
+//     })
+
+//     it('the tag form displays all tags currently assigned', () => {
+//         throw new Error('stub')
+//     })
+
+//     it('the tag form displays all tags being searched for', () => {
+//         throw new Error('stub')
+//     })
+
+//     it('chaging tags persists when form is closed', () => {
+//         throw new Error('stub')
+//     })
+
 // })
