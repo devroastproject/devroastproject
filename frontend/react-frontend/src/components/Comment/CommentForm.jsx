@@ -3,7 +3,6 @@ import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import { useHistory } from "react-router";
 import Message from "../Message";
-import TagForm from "../Tags/TagForm";
 
 
 const CommentForm = ({comment, project, reply=false}) => {
@@ -26,7 +25,7 @@ const CommentForm = ({comment, project, reply=false}) => {
     const {user, setUser} = useContext(UserContext)
     const [body, setBody] = useState(comment.body)
     const [closed, setClosed] = useState(comment.closed)
-    const [tags] = useState(comment.tags)
+    // const [tags] = useState(comment.tags)
 
     const updateComment = async e => {
         e.preventDefault()
@@ -39,7 +38,7 @@ const CommentForm = ({comment, project, reply=false}) => {
             "neg_votes": comment.neg_votes,
             "pos_votes": comment.pos_votes,
             "closed": closed,
-            "tags": tags
+            // "tags": tags
         }
         
         const res = await callApi(url, method, data, user.token)
@@ -62,8 +61,6 @@ const CommentForm = ({comment, project, reply=false}) => {
                         <input type="checkbox" name='Closed' checked={Boolean(closed)} onChange={() => setClosed(!closed)}/>
                     </label>
                 : null}
-                <br/>
-                <TagForm tags={tags} project_id={project.id} comment_id={comment.id}/> 
                 <br/>
                 <input type="submit" value={'Submit'} disabled={!body}/>
             </form>

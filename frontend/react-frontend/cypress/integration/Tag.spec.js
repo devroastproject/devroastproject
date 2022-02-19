@@ -59,4 +59,8 @@
 //         throw new Error('stub')
 //     })
 
+//     it('tags can only be assigned when logged in and comment is owned', () => {
+//         throw new Error('stub')
+//     })
+
 // })

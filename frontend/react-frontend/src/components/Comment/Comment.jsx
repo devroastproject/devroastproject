@@ -1,6 +1,6 @@
 import VoteWidget from "../Vote/VoteWidget";
 import React from "react";
-import TagList from "../Tags/TagList";
+import TagWrapper from "../Tags/TagWrapper";
 
 const Comment = ({comment}) => {
     const {id, body, votes, username, closed, tags} = comment
@@ -12,7 +12,7 @@ const Comment = ({comment}) => {
                 <p>{body}</p>
                 <p>by {username}</p>
                 <VoteWidget comment_id={id} votes={votes} closed={closed} />
-                <TagList tags={tags}/>
+                <TagWrapper tags={tags} comment_id={comment.id} username={username} closed={closed}/>
             </div>   
         </div>
     )
