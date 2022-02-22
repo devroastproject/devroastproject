@@ -1,10 +1,10 @@
 import React, {useEffect, useState, useContext} from "react";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
-import TagForm from "../Tags/TagForm";
+import TagForm from "./TagForm";
 import TagList from "./TagList";
 
-const TagWrapper = ({tags, project_id, comment_id, username, closed}) => {
+const TagWidget = ({tags, project_id, comment_id, username, closed}) => {
 
     const {user} = useContext(UserContext)
     const [allTags, setAllTags] = useState([])
@@ -16,8 +16,9 @@ const TagWrapper = ({tags, project_id, comment_id, username, closed}) => {
             let tagIDs = tags.map((tag) => {return tag.id})
             let resTags = res.map((tag) => { tag.assigned = tagIDs.indexOf(parseInt(tag.id)) >= 0; return tag })
             setAllTags(resTags)
+            console.log('ping')
         })()
-    }, [assigning])
+    }, [])
 
     const assignTags = async (tag) => {
         let method = 'PUT'
@@ -40,7 +41,7 @@ const TagWrapper = ({tags, project_id, comment_id, username, closed}) => {
         <div className="TagWrapper">
             { assigning ? 
                 <TagForm allTags={allTags} assignTags={assignTags} setAllTags={setAllTags}/> 
-            :   <TagList tags={tags} />
+            :   <TagList tags={allTags} />
             }
             { user.info && !closed && username === user.info.username ? 
                 <button onClick={() => {setAssigning(!assigning)}}>
@@ -51,4 +52,4 @@ const TagWrapper = ({tags, project_id, comment_id, username, closed}) => {
     )
 };
 
-export default TagWrapper;
+export default TagWidget;

@@ -5,7 +5,9 @@ const TagList = ({tags}) => {
     return(
         <div className="TagList">
             {tags && tags.length > 0 ? tags.map((tag) => 
-                <Tag tag={tag} key={tag.id}/>    
+                { return tag.assigned ? 
+                  <Tag tag={tag} key={tag.id}/>
+                : null }    
             )
             : null }    
         </div>
