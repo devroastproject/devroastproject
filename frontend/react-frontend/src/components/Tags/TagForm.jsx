@@ -1,18 +1,26 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import TagButton from "./TagButton";
 
 const TagForm = ({allTags, assignTags, setAllTags}) => {
     
+    const [searchTerm, setSearchTerm] = useState('')
+
     const searchTags = (term) => {
         // set flags on tags to show if being searched for
         let matched = allTags.map((tag) => { tag.searched = tag.tagname.includes(term) && term; return tag })
         setAllTags(matched)
     }
 
+    useEffect(() => {
+        searchTags(searchTerm)
+    }, [searchTerm])
+
     return(
         <> 
             <label htmlFor="tagSearch"> Tags: 
-                <input type="text" name="tagSearch" onChange={e => searchTags(e.target.value)}/>
+                <input type="text" name="tagSearch" onChange={e => setSearchTerm(e.target.value)}/>
             </label>
         {
             allTags.length > 0 ? 
