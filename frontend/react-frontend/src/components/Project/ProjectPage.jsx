@@ -43,7 +43,7 @@ const ProjectPage = () => {
         <div className='ProjectPage'>
             { project ? 
             <>
-                { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>} 
+                { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>}
                 {user.info && (user.info.id === project.user) ?
                 <div className='projButtons'>
                     <button onClick={() => {setEdit(!edit)}}>{edit ? "Cancel" : "Edit"}</button>

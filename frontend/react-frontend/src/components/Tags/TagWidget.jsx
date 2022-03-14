@@ -4,7 +4,7 @@ import { callApi } from "../../services/callAPI";
 import TagForm from "./TagForm";
 import TagList from "./TagList";
 
-const TagWidget = ({tags, project_id, comment_id, username, closed}) => {
+const TagWidget = ({tags, project_id = null, comment_id = null, username, closed=false}) => {
 
     const {user} = useContext(UserContext)
     const [allTags, setAllTags] = useState([])
@@ -21,15 +21,20 @@ const TagWidget = ({tags, project_id, comment_id, username, closed}) => {
     }, [user])
 
     const assignTags = async (tag) => {
-        let method = 'PUT'
-        let url = `tags/${tag.id}/`
+
         let data = {
             "id": tag.id,
-            "comment": comment_id,
             "assigned": tag.assigned
          }
-        const res = await callApi(url, method, data, user.token)
-        // update local state to update UI
+        if (comment_id){
+            data.comment = comment_id
+        } else if (project_id) {
+            data.project = project_id
+        }
+
+        const res = await callApi(`tags/${tag.id}/`, 'PUT', data, user.token)
+
+        // update local state to update UI on success
         if (res.code >= 200){
             let newTags = allTags.map((allTag) => {if (allTag.id === tag.id) { allTag.assigned = !allTag.assigned} return allTag})
             setAllTags(newTags)
