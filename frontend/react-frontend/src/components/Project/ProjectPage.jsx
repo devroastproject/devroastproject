@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router";
 import UserContext from "../../context/UserContext";
+import CommentPanel from "../Comment/CommentPanel";
 import { callApi } from "../../services/callAPI";
 import ProjectDetail from "./ProjectDetail";
 import ProjectForm from "./ProjectForm";
@@ -57,6 +58,7 @@ const ProjectPage = () => {
                     : null}
                 </div>
                  : null} 
+                <CommentPanel project={project}/>
             </>
             : 'loading'}
         </div>

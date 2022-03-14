@@ -22,7 +22,6 @@ class VoteSerializer(ModelSerializer):
 class CommentSerializer(ModelSerializer):
     
     replies = SerializerMethodField()
-    # tags = TagSerializer(source='tag_set', many=True)
     username = SerializerMethodField()
     votes = SerializerMethodField()
     tags = SerializerMethodField()

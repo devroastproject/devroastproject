@@ -51,10 +51,19 @@ class TagsViewset(
 
     def update(self, request, *args, **kwargs):
         tag = self.get_object()
-        if request.data['assigned']:
-            tag.comment.remove(request.data['comment'])
-        else:
-            tag.comment.add(request.data['comment'])
+        data = request.data
+        if 'comment' in data:
+            if data['assigned']:
+                tag.comment.remove(data['comment'])
+            else:
+                tag.comment.add(data['comment'])
+
+        elif 'project' in data:
+            if data['assigned']:
+                tag.project.remove(data['project'])
+            else:
+                tag.project.add(data['project'])
+
         return Response(data='update method triggered')
 
 class CommentsViewset(

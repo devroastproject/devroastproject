@@ -1,7 +1,5 @@
-import CommentPanel from "../Comment/CommentPanel";
-import React from "react";
-import TagList from "../Tags/TagList";
 import TagWidget from "../Tags/TagWidget";
+import React from "react";
 
 const ProjectDetail = ({project}) => {
 
@@ -15,7 +13,6 @@ const ProjectDetail = ({project}) => {
             <a href={hosted_url} target="_blank" rel="noreferrer noopener"><p>Demo</p></a>
             <p>{description}</p>
             <TagWidget tags={tags} project_id={id} username={username}/>
-            <CommentPanel project={project}/>
         </div>
     )
 };
