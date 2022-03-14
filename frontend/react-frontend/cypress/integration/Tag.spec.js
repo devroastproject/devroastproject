@@ -55,7 +55,11 @@
 //         throw new Error('stub')
 //     })
 
-//     it('chaging tags persists when form is closed', () => {
+//     it('changing tags persists when form is closed', () => {
+//         throw new Error('stub')
+//     })
+
+//     it('tags UI changes when assigned/unassigned', () => {
 //         throw new Error('stub')
 //     })
 

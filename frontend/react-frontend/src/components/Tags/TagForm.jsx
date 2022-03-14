@@ -1,20 +1,14 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, {useState, useEffect} from "react";
 import TagButton from "./TagButton";
 
-const TagForm = ({allTags, assignTags, setAllTags}) => {
-    
+const TagForm = ({tags, assignTags}) => {
+   
     const [searchTerm, setSearchTerm] = useState('')
-
-    const searchTags = (term) => {
-        // set flags on tags to show if being searched for
-        let matched = allTags.map((tag) => { tag.searched = tag.tagname.includes(term) && term; return tag })
-        setAllTags(matched)
-    }
+    const [matchTags, setMatchTags] = useState(tags)
 
     useEffect(() => {
-        searchTags(searchTerm)
+        let matched = matchTags.map((tag) => { tag.searched = tag.tagname.includes(searchTerm) && searchTerm; return tag })
+        setMatchTags(matched)
     }, [searchTerm])
 
     return(
@@ -23,9 +17,9 @@ const TagForm = ({allTags, assignTags, setAllTags}) => {
                 <input type="text" name="tagSearch" onChange={e => setSearchTerm(e.target.value)}/>
             </label>
         {
-            allTags.length > 0 ? 
+            matchTags.length > 0 ? 
             // display tags that are either assigned or are being searched for
-            allTags.map((tag) => tag.assigned || tag.searched ? <TagButton tag={tag} key={tag.id} assignTags={assignTags}/> : null)
+            matchTags.map((tag) => tag.assigned || tag.searched ? <TagButton tag={tag} key={tag.id} assignTags={assignTags}/> : null)
             : 'waiting...' 
         } 
         </>

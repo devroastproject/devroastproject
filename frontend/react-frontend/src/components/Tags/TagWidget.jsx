@@ -10,15 +10,15 @@ const TagWidget = ({tags, project_id, comment_id, username, closed}) => {
     const [allTags, setAllTags] = useState([])
     const [assigning, setAssigning] = useState(false)
 
+    // on load, check all tags (stored in user context) to see if they are assigned
     useEffect(() => {
-        (async () => {
-            const res = await callApi('tags/', 'GET', null, user.token)
-            let tagIDs = tags.map((tag) => {return tag.id})
-            let resTags = res.map((tag) => { tag.assigned = tagIDs.indexOf(parseInt(tag.id)) >= 0; return tag })
-            setAllTags(resTags)
-            console.log('ping')
-        })()
-    }, [])
+        let tagIDs = tags.map((tag) => {return tag.id})
+        let resTags = user.tags.map((tag) => {
+            let newTag = {...tag} // save local copy of tags with 'assigned' flag
+            newTag.assigned = tagIDs.indexOf(parseInt(newTag.id)) >= 0
+            return newTag })
+        setAllTags(resTags)
+    }, [user])
 
     const assignTags = async (tag) => {
         let method = 'PUT'
@@ -28,7 +28,6 @@ const TagWidget = ({tags, project_id, comment_id, username, closed}) => {
             "comment": comment_id,
             "assigned": tag.assigned
          }
-        
         const res = await callApi(url, method, data, user.token)
         // update local state to update UI
         if (res.code >= 200){
@@ -40,7 +39,7 @@ const TagWidget = ({tags, project_id, comment_id, username, closed}) => {
     return(
         <div className="TagWrapper">
             { assigning ? 
-                <TagForm allTags={allTags} assignTags={assignTags} setAllTags={setAllTags}/> 
+                <TagForm tags={allTags} assignTags={assignTags}/> 
             :   <TagList tags={allTags} />
             }
             { user.info && !closed && username === user.info.username ? 

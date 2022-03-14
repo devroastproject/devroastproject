@@ -16,7 +16,8 @@ function App() {
   const [user, setUser] = useState({
     token: null,
     info: null,
-    message: null
+    message: null,
+    tags: []
   })
   
   // get user info with token
@@ -38,8 +39,9 @@ function App() {
     }
   },[user])
 
+  // trigger api call if the token has been retrieved, but if the user has not been fetched
   useEffect(() => {
-    if (user.token && !user.info) {   // trigger api call if the token has been retrieved, but if the user has not been fetched
+    if (user.token && !user.info) {   
       (async () => {
         const userinfo = await callApi("users/me/", "GET", null, user.token)
         setUser({...user, info: userinfo})
@@ -47,6 +49,14 @@ function App() {
     }
    }, [user])              // trigger effect if user is modified
   
+  // collect all tags from API on load
+  useEffect(() => {
+    (async () => { 
+      const res = await callApi('tags/', 'GET', null, user.token)
+      setUser({...user, tags: res})
+    })()
+  }, [])
+
   // time out user messages
   useEffect(() => {
     if (user.message){
