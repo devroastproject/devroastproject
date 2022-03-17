@@ -1,9 +1,12 @@
 // test timeout and refresh logins
 describe('Persistent Login', () => {
 
+    beforeEach(() => {
+        cy.login('/').wait(['@apiMe'])
+    })
+
     it('stays logged in on refresh', () => {
-        cy.login('/')
-        .get('li[id=logOut]').should('be.visible')
+        cy.get('li[id=logOut]').should('be.visible')
         .get('a[href="/login"]').should('not.exist')
         cy.reload()
         .get('li[id=logOut]').should('be.visible')
@@ -11,14 +14,11 @@ describe('Persistent Login', () => {
     })
 
     it('automatically logs out after 30 minutes', () => {
-        cy.login('/')
-        .get('li[id=logOut]').should('be.visible')
+        cy.get('li[id=logOut]').should('be.visible')
         .get('a[href="/login"]').should('not.exist')
         .then(() => localStorage.setItem('token_time', Date.now() - 1800000))
-        .reload()
-        .wait(200)
-        .should(() => expect(localStorage.getItem('user_token')).to.be.null)
-        .get('li[id=logOut]').should('not.exist')
+        .reload()//.wait(1000)
+        cy.get('li[id=logOut]').should('not.exist')
         .get('a[href="/login"]').should('exist')
     })
 

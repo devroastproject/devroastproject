@@ -15,7 +15,7 @@ const CommentPanel = ({project}) => {
             {newComment ? <CommentForm comment={null} project={project} /> : null}
             {user.info ? <button onClick={() => setNewComment(!newComment)}> {newComment ? 'Cancel': 'New Comment'} </button> : null}
             {comments && comments.length > 0 ? comments.map((comment) => 
-            <div key={comment.id}>
+            <div className="thread" key={comment.id}>
                 <CommentWrapper comment={comment} project={project}/>
                 <p>{null}</p>
             </div>)

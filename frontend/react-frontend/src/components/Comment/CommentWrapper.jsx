@@ -30,26 +30,24 @@ const CommentWrapper = ({comment, project}) => {
 
     return(
         <>
-            <>
+            <div className="comment">
             {editing ? /* switch between displaying the comment or edit form*/
-                <CommentForm comment={comment} project={project}/> 
-                : 
-                <Comment comment={comment}/>
+                <CommentForm comment={comment} project={project}/> : <Comment comment={comment}/>
             }
                 <VoteWidget comment_id={id} votes={votes} closed={closed} />
                 <TagWidget tags={tags} comment_id={id} username={username} closed={closed}/> 
-            </>
             { user.info && user.info.username === username ? /* show Edit and Delete buttons to author of comments only*/
             <>
                 <button onClick={() => {setEditing(!editing)}}>{editing ? "Cancel" : "Edit"}</button>
                 <button disabled={deleting} onClick={() => {setDeleting(true)}}>Delete</button>
-                {deleting ? /* Confirm Delete buttons*/
-                <>
-                    <p>Are You Sure You Want To Delete?</p>
-                    <button onClick={() => {deleteComment()}}> Confirm Delete</button>
-                    <button onClick={() => {setDeleting(false)}}>Cancel</button>
-                </> : null}
+            {deleting ? /* Confirm Delete buttons*/
+            <>
+                <p>Are You Sure You Want To Delete?</p>
+                <button onClick={() => {deleteComment()}}> Confirm Delete</button>
+                <button onClick={() => {setDeleting(false)}}>Cancel</button>
             </> : null}
+            </> : null}
+            </div>
             {/* Render reply thread */}
             {replies.map((reply) => <CommentWrapper key={reply.id} comment={reply} project={project}/>)}
             {!comment.prompt ? /* display Reply button on prompt comments*/
