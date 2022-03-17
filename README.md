@@ -131,10 +131,19 @@ A secondary staticfiles link was added to work within the compose. All API calls
 
 **Projects CRUD Endpoints**
 
-- View all existing projects (GET, POST): `/api/projects/`
+- View all existing projects (GET): `/api/projects/`
 - View/edit details for a single project (GET, PUT, DELETE): `/api/projects/<int:pk>/`
 
 **Comments CRUD Endpoints**
 
 - Create new comment (POST): `/api/projects/`
 - Edit details/delete a comment (PUT, DELETE): `/api/projects/<int:pk>/`
+
+**Tags CRUD Endpoints**
+
+- Assign/unassign tag (PUT): `/api/tags/<int:pk>/`
+
+**Votes CRUD Endpoints**
+
+- Create new vote (POST): `/api/votes/`
+- Delete a vote (DELETE): `/api/votes/<int:pk>/`
