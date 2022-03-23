@@ -9,6 +9,7 @@ const TagForm = ({tags, assignTags}) => {
     useEffect(() => {
         let matched = matchTags.map((tag) => { tag.searched = tag.tagname.includes(searchTerm) && searchTerm; return tag })
         setMatchTags(matched)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm])
 
     return(

@@ -55,6 +55,7 @@ function App() {
       const res = await callApi('tags/', 'GET', null, user.token)
       setUser({...user, tags: res})
     })()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // time out user messages

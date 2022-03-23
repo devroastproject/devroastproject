@@ -18,6 +18,7 @@ const TagWidget = ({tags, project_id = null, comment_id = null, username, closed
             newTag.assigned = tagIDs.indexOf(parseInt(newTag.id)) >= 0
             return newTag })
         setAllTags(resTags)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 
     const assignTags = async (tag) => {
