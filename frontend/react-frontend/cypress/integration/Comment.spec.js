@@ -8,7 +8,7 @@ describe('Comment CRUD logged in', () => {
     it('posts a new prompt', () => {
         cy.intercept('POST', 'http://localhost:8000/api/comments/', {status: 200}).as('apiPostComment')
         cy.get('button:contains("New Comment")').should('be.visible').click()
-        .get('button:contains("Cancel")').should('be.visible')
+        cy.get('button:contains("Cancel")').should('be.visible')
         .get('input[type="Submit"]').should('be.disabled')
         .get('textarea').type('test comment')
         .get('input[type="Submit"]').should('be.enabled').click()
@@ -18,16 +18,16 @@ describe('Comment CRUD logged in', () => {
     })
     
     it('edits an existing comment',{retries: {runMode: 2, openMode: 1}}, () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().parent().parent().within(
             () => {
                 cy.get('button:contains("Edit")').should('be.visible').click()
-                .get('textarea').invoke('val').then( val => expect(val).to.equal('this is mine'))
+                cy.get('textarea').invoke('val').then( val => expect(val).to.equal('this is mine'))
             }
         )
     })
 
     it('deletes a comment', () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().parent().parent().within(
             () => {
                 cy.get('button:contains("Delete")').click()
                 .get('p:contains("Are You Sure")').should('exist')
@@ -53,7 +53,7 @@ describe('Comment CRUD logged in', () => {
 
     it('posts a new reply', () => {
         cy.intercept('POST', 'http://localhost:8000/api/comments/', {status: 200}).as('apiPostReply')
-        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+        cy.get('p:contains("this is from user1")').parent().parent().parent().parent().within(
             () => {
                 cy.get('button:contains("Reply")').click()
                 .get('textarea').type('test reply')
@@ -66,7 +66,7 @@ describe('Comment CRUD logged in', () => {
     })
 
     it('new replies cannot be added when the prompt is closed', {retries: {runMode: 2, openMode: 1}}, () => {
-        cy.get('p:contains("this comment is closed")').parent().parent().parent().within(
+        cy.get('p:contains("this comment is closed")').parent().parent().parent().parent().within(
             () => {
                 cy.get('button:contains("Reply")').should('not.exist')
                 .get('button:contains("Edit")').click()
@@ -76,7 +76,7 @@ describe('Comment CRUD logged in', () => {
     })
 
     it('replies cannot be closed', () => {
-        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+        cy.get('p:contains("this is from user1")').parent().parent().parent().parent().within(
             () => {
                 cy.get('button:contains("Edit")').click()
                 .get('input[type="checkbox"]').should('not.exist')

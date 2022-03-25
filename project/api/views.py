@@ -1,10 +1,11 @@
+import re
 from rest_framework.response import Response
-from project.models import Project, Comment, Vote
+from project.models import Project, Comment, Vote, Tag
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .permissions import IsOwnProjectOrReadOnly
-from .serializers import CommentSerializer, ProjectSerializer, VoteSerializer
+from .serializers import CommentSerializer, ProjectSerializer, VoteSerializer, TagSerializer
 
 
 class ProjectsViewset(
@@ -34,6 +35,36 @@ class VotesViewset(
     serializer_class = VoteSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+
+class TagsViewset(
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    ListModelMixin,
+    DestroyModelMixin,
+    CreateModelMixin,
+    GenericViewSet
+):
+
+    queryset = Tag.objects.all()
+    serializer_class = TagSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def update(self, request, *args, **kwargs):
+        tag = self.get_object()
+        data = request.data
+        if 'comment' in data:
+            if data['assigned']:
+                tag.comment.remove(data['comment'])
+            else:
+                tag.comment.add(data['comment'])
+
+        elif 'project' in data:
+            if data['assigned']:
+                tag.project.remove(data['project'])
+            else:
+                tag.project.add(data['project'])
+
+        return Response(data='update method triggered')
 
 class CommentsViewset(
     RetrieveModelMixin,

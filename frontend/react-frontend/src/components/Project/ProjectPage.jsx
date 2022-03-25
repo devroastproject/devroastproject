@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useHistory, useParams } from "react-router";
 import UserContext from "../../context/UserContext";
+import CommentPanel from "../Comment/CommentPanel";
 import { callApi } from "../../services/callAPI";
 import ProjectDetail from "./ProjectDetail";
 import ProjectForm from "./ProjectForm";
@@ -43,7 +44,7 @@ const ProjectPage = () => {
         <div className='ProjectPage'>
             { project ? 
             <>
-                { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>} 
+                { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>}
                 {user.info && (user.info.id === project.user) ?
                 <div className='projButtons'>
                     <button onClick={() => {setEdit(!edit)}}>{edit ? "Cancel" : "Edit"}</button>
@@ -57,6 +58,7 @@ const ProjectPage = () => {
                     : null}
                 </div>
                  : null} 
+                <CommentPanel project={project}/>
             </>
             : 'loading'}
         </div>

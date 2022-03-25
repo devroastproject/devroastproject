@@ -26,6 +26,7 @@ const VoteWidget = ({comment_id, votes, closed}) => {
         }
         setPosVotes(plus_one)
         setNegVotes(minus_one)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user])
 
     const submit_vote = async (vote) => {

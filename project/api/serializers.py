@@ -8,7 +8,7 @@ class TagSerializer(ModelSerializer):
     class Meta:
 
         model = Tag
-        fields = ['id', 'tagname', 'description']
+        fields = ['id', 'tagname', 'description', 'project', 'comment']
 
 
 class VoteSerializer(ModelSerializer):
@@ -22,9 +22,9 @@ class VoteSerializer(ModelSerializer):
 class CommentSerializer(ModelSerializer):
     
     replies = SerializerMethodField()
-    # tags = TagSerializer(source='tag_set', many=True)
     username = SerializerMethodField()
     votes = SerializerMethodField()
+    tags = SerializerMethodField()
 
     class Meta:
 
@@ -48,6 +48,9 @@ class CommentSerializer(ModelSerializer):
         for i in range(len(votes)):
             votes[i]['username'] = user_names[i]
         return votes
+    
+    def get_tags(self, obj):
+        return TagSerializer(Tag.objects.filter(comment=obj), many=True).data
 
 class ProjectSerializer(ModelSerializer):
 

@@ -26,13 +26,7 @@
                         "post": 1,
                         "prompt": 1,
                         "replies": [],
-                        "tags": [
-                            {
-                                "description": "Tag2",
-                                "id": 2,
-                                "tagname": "Tag2"
-                            }
-                        ],
+                        "tags": [],
                         "user": 2,
                         "username": "user2",
                         "votes": []
@@ -164,11 +158,6 @@
                 "description": "Tag1",
                 "id": 1,
                 "tagname": "Tag1"
-            },
-            {
-                "description": "Tag2",
-                "id": 1,
-                "tagname": "Tag2"
             }
         ],
         "username": "user"
@@ -182,13 +171,7 @@
         "user": 2,
         "comment_count": 0,
         "comments": [],
-        "tags": [
-            {
-                "description": "Tag3",
-                "id": 3,
-                "tagname": "Tag3"
-            }
-        ],
+        "tags": [],
         "username": "user2"
     }
 ]

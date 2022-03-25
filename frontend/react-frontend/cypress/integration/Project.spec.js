@@ -67,7 +67,7 @@ describe('ProjectPage tests', () => {
         cy.get('div[class="projButtons"]').within(
             () => {
                 cy.get('button:contains("Delete")').click()
-                .get('p:contains("Are You Sure")').should('exist')
+                cy.get('p:contains("Are You Sure")').should('exist')
             }
         )
     })
@@ -87,7 +87,7 @@ describe('ProjectPage tests', () => {
         cy.fixture('projects', {timeout: 500}).then((json) => {
             cy.get('div[class="projButtons"]')
             .find('button:contains("Edit")').click()
-            .get('input[name="Title"]').should('exist')
+            cy.get('input[name="Title"]').should('exist')
             .should('have.value', json[0].title)
             .get('input[name="Repo URL"]').should('have.value', json[0].repo_url)
             .get('input[name="Hosted URL"]').should('have.value', json[0].hosted_url)
@@ -109,13 +109,16 @@ describe('ProjectPage tests', () => {
 
 describe('ProjecForm tests', () => {
 
+    beforeEach(() => {
+        cy.login('/addproject').wait(['@apiMe'])
+    })
+
     it('requires a title and description for a new project', () => {
-        cy.login('/addproject')
-        .get('input[type="Submit"]').should('be.disabled')
-        .get('input[name="Title"]').type('Title')
-        .get('input[type="Submit"]').should('be.disabled')
-        .get('textarea').type('Description')
-        .get('input[type="Submit"]').should('not.be.disabled')
+        cy.get('input[type="Submit"]').should('be.disabled')
+        cy.get('input[name="Title"]').type('Title')
+        cy.get('input[type="Submit"]').should('be.disabled')
+        cy.get('textarea').type('Description')
+        cy.get('input[type="Submit"]').should('not.be.disabled')
     })
 
 })

@@ -42,8 +42,8 @@ class Comment(models.Model):
 class Tag(models.Model):
 
     # One comment can have many tags, one tag can have many comments
-    project = models.ManyToManyField(Project)
-    comment = models.ManyToManyField(Comment)
+    project = models.ManyToManyField(Project, blank=True)
+    comment = models.ManyToManyField(Comment, blank=True)
     tagname = models.CharField(max_length=200, help_text="Name of your tag")
     description = models.CharField(max_length=500, help_text="A brief description of the tag.")
 

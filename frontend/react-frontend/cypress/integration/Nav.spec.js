@@ -27,7 +27,7 @@ describe('Nav logged in', () => {
         cy.get('a[href="/"]').should('be.visible')
         routes.map(route => {
             cy.visit(route)
-            .get(`a[href="${route}"]`).should('be.visible')
+            cy.get(`a[href="${route}"]`).should('be.visible')
         })
     })
 
