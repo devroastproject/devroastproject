@@ -88,8 +88,6 @@ class CommentsViewset(
         # if the comment has replies, overwrite it, but leave it to show the replies
         else:
             comment.body = 'This Comment Has Been Deleted'
-            comment.neg_votes = 0
-            comment.pos_votes = 0
             comment.closed = True
             comment.save()
             return Response(data='comment removed')

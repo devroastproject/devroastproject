@@ -6,6 +6,7 @@ import { callApi } from "../../services/callAPI";
 import ProjectDetail from "./ProjectDetail";
 import ProjectForm from "./ProjectForm";
 import Message from "../Message";
+import {Button} from "@mui/material"
 
 const ProjectPage = () => {
     let params = useParams()
@@ -47,7 +48,7 @@ const ProjectPage = () => {
                 { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>}
                 {user.info && (user.info.id === project.user) ?
                 <div className='projButtons'>
-                    <button onClick={() => {setEdit(!edit)}}>{edit ? "Cancel" : "Edit"}</button>
+                    <Button onClick={() => {setEdit(!edit)}}>{edit ? "Cancel" : "Edit"}</Button>
                     <button disabled={deleting} onClick={() => {setDeleting(true)}}>Delete</button>
                     {deleting ? 
                     <>
