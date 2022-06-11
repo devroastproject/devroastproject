@@ -6,7 +6,7 @@ const ProjectDetail = ({project}) => {
     const {id, title, description, username, repo_url, hosted_url, tags} = project
     
     return(
-        <div>
+        <div className="ProjectDetail">
             <h1>{title}</h1> 
             <p>by {username}</p>
             <a href={repo_url} target="_blank" rel="noreferrer noopener"> <p>Git</p></a>

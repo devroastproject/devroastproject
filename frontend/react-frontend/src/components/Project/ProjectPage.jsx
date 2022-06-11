@@ -6,7 +6,8 @@ import { callApi } from "../../services/callAPI";
 import ProjectDetail from "./ProjectDetail";
 import ProjectForm from "./ProjectForm";
 import Message from "../Message";
-import {Button} from "@mui/material"
+import {Button, IconButton} from "@mui/material";
+import {EditOutlined, CancelOutlined, DeleteForeverOutlined, DeleteOutlineOutlined} from '@mui/icons-material';
 
 const ProjectPage = () => {
     let params = useParams()
@@ -45,20 +46,27 @@ const ProjectPage = () => {
         <div className='ProjectPage'>
             { project ? 
             <>
-                { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>}
-                {user.info && (user.info.id === project.user) ?
-                <div className='projButtons'>
-                    <Button onClick={() => {setEdit(!edit)}}>{edit ? "Cancel" : "Edit"}</Button>
-                    <button disabled={deleting} onClick={() => {setDeleting(true)}}>Delete</button>
-                    {deleting ? 
-                    <>
-                        <p>Are You Sure You Want To Delete?</p>
-                        <button onClick={() => {deleteProject()}}> Confirm Delete</button>
-                        <button onClick={() => {setDeleting(false)}}>Cancel</button>
-                    </>
-                    : null}
+                <div> 
+                    { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>}
+                    {user.info && (user.info.id === project.user) ?
+                    <div className='projButtons'>
+                        <Button onClick={() => {setEdit(!edit)}}> { edit ? 
+                            <div className="EditButtons">
+                                <CancelOutlined /> 
+                                <Button disabled={deleting} onClick={() => {setDeleting(true)}}><DeleteOutlineOutlined /></Button>
+                            </div> :
+                            <EditOutlined /> }
+                        </Button>
+                        {deleting ? 
+                            <div className="DeleteConfirm">
+                                <p>Are You Sure You Want To Delete?</p>
+                                <Button onClick={() => {deleteProject()}}><DeleteForeverOutlined /></Button>
+                                <Button onClick={() => {setDeleting(false)}}><CancelOutlined /></Button>
+                            </div>
+                        : null}
+                    </div>
+                    : null} 
                 </div>
-                 : null} 
                 <CommentPanel project={project}/>
             </>
             : 'loading'}
