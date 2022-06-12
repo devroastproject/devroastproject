@@ -6,8 +6,11 @@ import { callApi } from "../../services/callAPI";
 import ProjectDetail from "./ProjectDetail";
 import ProjectForm from "./ProjectForm";
 import Message from "../Message";
-import {Button, IconButton} from "@mui/material";
-import {EditOutlined, CancelOutlined, DeleteForeverOutlined, DeleteOutlineOutlined} from '@mui/icons-material';
+import Button from "@mui/material/Button";
+import EditOutlined from '@mui/icons-material/EditOutlined';
+import CancelOutlined from '@mui/icons-material/CancelOutlined';
+import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
+import DeleteOutlineOutlined from '@mui/icons-material/DeleteOutlineOutlined';
 
 const ProjectPage = () => {
     let params = useParams()

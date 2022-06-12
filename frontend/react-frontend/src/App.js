@@ -9,6 +9,8 @@ import { logOut } from "./services/logout";
 import { callApi } from "./services/callAPI";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
+import Grid from "@mui/material/Grid";
+
 
 function App() {
   
@@ -70,15 +72,21 @@ function App() {
     <Router>
       <UserContext.Provider value={{user, setUser}}>  {/*user data provided as context to whole app*/}
         <div className="App">
-          {user.message ? user.message : null}
-          <Nav/>
-          <Switch>
-            <Route exact path="/" component={ProjectList} />
-            <Route path="/addproject" component={user.token ? ProjectForm : Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/profile" component={user.token ? Profile : Login}/>
-            <Route path="/project/:id" component={ProjectPage}/>
-          </Switch>
+          <Grid container>
+            <Grid item xs={0} md={1} lg={2}></Grid>
+            <Grid item xs={12} md={10} lg={8}>
+              <Nav/>
+              {user.message ? user.message : null}
+              <Switch>
+                <Route exact path="/" component={ProjectList} />
+                <Route path="/addproject" component={user.token ? ProjectForm : Login} />
+                <Route path="/login" component={Login} />
+                <Route path="/profile" component={user.token ? Profile : Login}/>
+                <Route path="/project/:id" component={ProjectPage}/>
+              </Switch>
+            </Grid>
+            <Grid item xs={0} md={1} lg={2}></Grid>
+          </Grid>
         </div>
         </UserContext.Provider>
     </Router>
