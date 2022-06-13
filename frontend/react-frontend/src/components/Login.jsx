@@ -4,6 +4,11 @@ import { callApi } from "../services/callAPI";
 import { useHistory } from 'react-router';
 import { useInput } from "./useInput";
 import Message from "./Message";
+import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
 
 const Login = () => {
     // user context
@@ -48,29 +53,34 @@ const Login = () => {
     });
 
     return(
-        <div className='LoginForm'>
-            <form onSubmit={loginUser}>
-                {userInput}
-                {emailInput}
-                {newUser ? <> {pw1Input} {pw2Input} </> : pw1Input}
-                <br/>
-                <input 
-                    type="submit" 
-                    disabled={
-                        !(
-                            (newUser && username && email && password1 && password2 && password1 === password2)
-                            ||
-                            (!newUser && username && email && password1)
-                        )
-                    }
-                    value={newUser ? 'Register' : "Log In"}
-                />
-            </form>
-            <br/> {/* button toggles Log In / Register New User     */}
-                <button onClick={() => setNewUser(!newUser)}>
+        <Container maxWidth="sm" className='LoginForm'>
+            <Stack spacing={2}>
+                <Box mt={2}>
+                    <Typography varient="h4" align='center' fontFamily='monospace'>
+                        {newUser ? "NEW USER" : "LOG IN"}
+                    </Typography>
+                </Box>
+                <form onSubmit={loginUser}>
+                    <Stack spacing={1}>
+                        {userInput}
+                        {emailInput}
+                        {newUser ? <> {pw1Input} {pw2Input} </> : pw1Input}
+                        <Button type="submit" variant="contained" 
+                            disabled={ !(
+                                    (newUser && username && email && password1 && password2 && password1 === password2)
+                                    ||
+                                    (!newUser && username && email && password1)
+                                )}>
+                            {newUser ? 'Register' : "Log In"}
+                        </Button>
+                    </Stack>
+                </form>
+                {/* button toggles Log In / Register New User     */}
+                <Button variant="text" onClick={() => setNewUser(!newUser)} size="small">
                     {newUser ? 'Login an Existing User' : 'Register a New Account'}
-                </button>
-        </div>)
+                </Button>
+            </Stack>
+        </Container>)
 };
 
 export default Login;
