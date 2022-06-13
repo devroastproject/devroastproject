@@ -1,9 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import { useHistory } from "react-router";
 import { useInput } from "../useInput";
 import Message from "../Message";
+import Stack from '@mui/material/Stack';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+
 
 const ProjectForm = ({project}) => {
     // determine if form is used for creating or updating 
@@ -21,7 +27,7 @@ const ProjectForm = ({project}) => {
     const [title, titleInput] = useInput({type: 'text', label: 'Title', defaultValue: project.title});
     const [repo_url, repoInput] = useInput({type: 'text', label: 'Repo URL', defaultValue: project.repo_url});
     const [hosted_url, hostedInput] = useInput({type: 'text', label: 'Hosted URL', defaultValue: project.hosted_url});
-    const [description, setDescription] = useState(project.description);
+    const [description, descriptionInput] = useInput({type: 'text', label: 'Description', defaultValue: project.description, multiline: true});
 
     const {user, setUser} = useContext(UserContext)
     let history = useHistory()
@@ -47,17 +53,25 @@ const ProjectForm = ({project}) => {
     }
 
     return(
-        <div className='ProjectForm'>
-        <form onSubmit={updateProject}>
-            {titleInput}
-            {repoInput}
-            {hostedInput}
-            <label> Description <textarea defaultValue={description} onChange={e => setDescription(e.target.value)}></textarea></label> 
-            <br/>
-            <input type="submit" value={'Submit'} disabled={!(title && description)}/>
-        </form>
-        <br/>
-        </div>
+        <Container maxWidth="sm" className='ProjectForm'>
+            <Stack spacing={2}>
+                <Box mt={2}>
+                    <Typography varient="h4" align='center' fontFamily='monospace'>
+                        NEW PROJECT
+                    </Typography>
+                </Box>
+                <form onSubmit={updateProject}>
+                    <Stack spacing={1}> 
+                        {titleInput}
+                        {repoInput}
+                        {hostedInput}
+                        {descriptionInput}
+                        <Button type="submit" variant="contained" disabled={!(title && description)}>SUBMIT NEW PROJECT</Button>
+                    </Stack>
+                </form>
+                <br/>
+            </Stack>
+        </Container>
     )
 };
 export default ProjectForm;
