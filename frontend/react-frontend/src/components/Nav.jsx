@@ -14,11 +14,10 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import LoginIcon from '@mui/icons-material/Login';
 
-const pages = ['Add New Project'];
-// const pages = [{text: 'Add New Project', link: '/addproject'}];
-// const settings = [{text: 'Profile', link: '/profile'}, {text: 'Logout', link: '/'} ];
-const settings = ['Profile','Logout'];
+const pages = [{text: 'Add New Project', link: '/addproject'}];
+const settings = [{text: 'Profile', link: '/profile'}, {text: 'Logout', link: '/'} ];
 
 const Nav = () => {
   const {user, setUser} = useContext(UserContext)
@@ -48,8 +47,8 @@ const Nav = () => {
             <Typography 
               variant="h6"
               noWrap
-              component="a"
-              href="/"
+              component={Link}
+              to="/"
               sx={{
                 mr: 2,
                 display: { xs: 'none', md: 'flex' },
@@ -60,7 +59,6 @@ const Nav = () => {
                 textDecoration: 'none',
               }}
             > {/* BIG BAR LOGO */}
-              {/* <Link to="/">DEVROAST</Link> */}
               DEVROAST
             </Typography>
          
@@ -94,17 +92,18 @@ const Nav = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.text} onClick={handleCloseNavMenu} component={Link} to={page.link}>
+                    <Typography textAlign="center">{page.text}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
+
             <Typography
               variant="h5"
               noWrap
-              component="a"
-              href=""
+              component={Link}
+              to='/'
               sx={{
                 mr: 2,
                 display: { xs: 'flex', md: 'none' },
@@ -116,7 +115,6 @@ const Nav = () => {
                 textDecoration: 'none',
               }}
             >
-              {/* <Link to="/">DEVROAST</Link> */}
               DEVROAST
             </Typography>
           
@@ -124,18 +122,18 @@ const Nav = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
+                key={page.text}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                component={Link}
+                to={page.link}
               >
-                {page}
+                  {page.text}
               </Button>
             ))}
           </Box>
-          {/* {user.info ? //   if logged in show avatar and menu */}
 
-  
-          
+          {user.info ? //   if logged in show avatar and menu
           <Box sx={{ flexGrow: 0 }}> {/* AVATER MENU */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
@@ -157,36 +155,28 @@ const Nav = () => {
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
-            >
+            > 
               {settings.map((setting) => (
-                // <Link to={setting.link}>
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                // </Link>
-                
+                <MenuItem key={setting.text} component={Link} to={setting.link}
+                onClick={setting.text === 'Logout' ? () => {handleCloseUserMenu(); logOut(user, setUser) } : handleCloseUserMenu}
+                >
+                    <Typography textAlign="center">{setting.text}</Typography>
+                </MenuItem>
               ))}
             </Menu>
           </Box>
-        {/* // : <Link to="/login"> <p id='logIn'>Log In</p> </Link> } */}
+         : // if Logged out Show Login Button
+          <Button
+            sx={{ my: 2, color: 'white', display: 'block'}}
+            component={Link}
+            to="/login"
+          >
+            <LoginIcon />
+          </Button> }
         </Toolbar>
       </Container>
     </AppBar>
   );
-  // return (
-  //   <nav>
-  //     <Link to="/"> <h2>DevRoast</h2> </Link>
-  //     <ul>
-  //       {user.info ? // if logged in 
-  //       <>
-  //         <Link to="/addproject"><li id='addNewProject'>Add New Project</li></Link>
-  //         <Link to="/profile"> <li id='userProfile'>{user.info.username} is Logged In </li> </Link> {/* render user name */}
-  //         <Link to="/"> <li id="logOut" onClick={ () => logOut(user, setUser) }> Log Out </li> </Link> {/* render logout button, resets user state */}
-  //       </>
-  //       : <Link to="/login"> <li id='logIn'>Log In</li> </Link> }
-  //     </ul>
-  //   </nav>
-  // );
 };
 
 export default Nav;
