@@ -57,7 +57,7 @@ const ProjectForm = ({project}) => {
             <Stack spacing={2}>
                 <Box mt={2}>
                     <Typography varient="h4" align='center' fontFamily='monospace'>
-                        NEW PROJECT
+                        {project.title === "" ? 'NEW PROJECT' : 'EDIT PROJECT'}
                     </Typography>
                 </Box>
                 <form onSubmit={updateProject}>
@@ -66,7 +66,7 @@ const ProjectForm = ({project}) => {
                         {repoInput}
                         {hostedInput}
                         {descriptionInput}
-                        <Button type="submit" variant="contained" disabled={!(title && description)}>SUBMIT NEW PROJECT</Button>
+                        <Button type="submit" variant="contained" disabled={!(title && description)}> {project.title === "" ? 'SUBMIT NEW PROJECT' : 'UPDATE PROJECT'}</Button>
                     </Stack>
                 </form>
                 <br/>
