@@ -75,8 +75,8 @@ function App() {
           <Grid container>
             <Grid item xs={0} md={1} lg={2}></Grid>
             <Grid item xs={12} md={10} lg={8}>
-              <Nav/>
               <Container maxWidth="md">
+              <Nav/>
                 {user.message ? user.message : null}
                 <Switch>
                   <Route exact path="/" component={ProjectList} />

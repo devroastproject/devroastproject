@@ -14,6 +14,7 @@ import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
 import DeleteOutlineOutlined from '@mui/icons-material/DeleteOutlineOutlined';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
 
 const ProjectPage = () => {
     let params = useParams()
@@ -51,36 +52,38 @@ const ProjectPage = () => {
     return(
         <div className='ProjectPage'>
             { project ? 
-            <>
-                <Grid container> 
-                    <Grid item xs={11}>
-                        { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>}
+            <Paper elevation={0}>
+                <Paper elevation={1}>
+                    <Grid container> 
+                        <Grid item xs={10} sm={11}>
+                            { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>}
+                        </Grid>
+                        <Grid item xs={1}>
+                            {user.info && (user.info.id === project.user) ?
+                                <Stack spacing={2} className='projButtons'>
+                                    { deleting ? 
+                                        <Stack className="DeleteConfirm">
+                                            <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
+                                            <Button onClick={() => {deleteProject()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>
+                                        </Stack>
+                                    : edit ?
+                                        <Stack className="EditButtons">
+                                            <Button onClick={() => {setEdit(!edit)}}>  
+                                                <CancelOutlined /> 
+                                            </Button> 
+                                            <Button disabled={deleting} onClick={() => {setDeleting(true)}}><DeleteOutlineOutlined /></Button>
+                                        </Stack> 
+                                    :
+                                    <Button onClick={() => {setEdit(!edit)}}>  
+                                        <EditOutlined /> 
+                                    </Button> }
+                                </Stack>
+                            : null}
+                        </Grid>
                     </Grid>
-                    <Grid item xs={1}>
-                        {user.info && (user.info.id === project.user) ?
-                            <Stack spacing={2} className='projButtons'>
-                                { deleting ? 
-                                    <Stack className="DeleteConfirm">
-                                        <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
-                                        <Button onClick={() => {deleteProject()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>
-                                    </Stack>
-                                : edit ?
-                                    <Stack className="EditButtons">
-                                        <Button onClick={() => {setEdit(!edit)}}>  
-                                            <CancelOutlined /> 
-                                        </Button> 
-                                        <Button disabled={deleting} onClick={() => {setDeleting(true)}}><DeleteOutlineOutlined /></Button>
-                                    </Stack> 
-                                :
-                                <Button onClick={() => {setEdit(!edit)}}>  
-                                    <EditOutlined /> 
-                                </Button> }
-                            </Stack>
-                        : <Loading />}
-                    </Grid>
-                </Grid>
+                </Paper>
                 <CommentPanel project={project}/>
-            </>
+            </Paper>
             : <Loading />}
         </div>
     )
