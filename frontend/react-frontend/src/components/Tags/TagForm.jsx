@@ -1,5 +1,8 @@
 import React, {useState, useEffect} from "react";
-import TagButton from "./TagButton";
+import Loading from "../Loading";
+import TextField from '@mui/material/TextField';
+import Tag from "./Tag";
+import Grid from '@mui/material/Grid';
 
 const TagForm = ({tags, assignTags}) => {
    
@@ -13,17 +16,20 @@ const TagForm = ({tags, assignTags}) => {
     }, [searchTerm])
 
     return(
-        <> 
-            <label htmlFor="tagSearch"> Tags: 
-                <input type="text" name="tagSearch" onChange={e => setSearchTerm(e.target.value)}/>
-            </label>
+        <Grid container spacing={1} className="TagList">
+
+                <TextField variant='outlined' type="text" name="tagSearch" label='Tags' size='small' onChange={e => setSearchTerm(e.target.value)}/>
         {
             matchTags.length > 0 ? 
-            // display tags that are either assigned or are being searched for
-            matchTags.map((tag) => tag.assigned || tag.searched ? <TagButton tag={tag} key={tag.id} assignTags={assignTags}/> : null)
-            : 'waiting...' 
+                // display tags that are either assigned or are being searched for
+                matchTags.map((tag) => tag.assigned || tag.searched ? 
+                    <Grid key={tag.id} item>
+                        <Tag tag={tag} onClick={() => assignTags(tag)} clickable={true} assigned={tag.assigned} /> 
+                    </Grid>
+                : null)
+            : <Loading />
         } 
-        </>
+        </Grid>
     )
 };
 
