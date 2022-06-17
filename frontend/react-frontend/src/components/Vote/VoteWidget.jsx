@@ -2,7 +2,9 @@ import React, { useState, useContext, useEffect } from "react";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import VoteButton from "./VoteButton";
-
+import Stack from '@mui/material/Stack';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const VoteWidget = ({comment_id, votes, closed}) => {
 
@@ -47,7 +49,6 @@ const VoteWidget = ({comment_id, votes, closed}) => {
         }
        
         const res = await callApi(url, method, data, user.token)
-        console.log(res)
         // update local state to update UI
         if (res.code === 201){   // POST result
             delete res.code
@@ -68,14 +69,17 @@ const VoteWidget = ({comment_id, votes, closed}) => {
     }
     
     return(
-        <div className='voteWidget'>
+        <Stack direction='row' className='voteWidget'>
             {user.info && !closed ? 
                 <>
                     <VoteButton users={pos_votes} plus={true} userVote={userVote} submit_vote={submit_vote} />
                     <VoteButton users={neg_votes} plus={false} userVote={userVote} submit_vote={submit_vote} />
                 </> 
-            : <p>+{pos_votes.length} -{neg_votes.length}</p> }
-        </div>
+            :   <>
+                    <ThumbUpIcon fontSize="small" />{pos_votes.length} 
+                    <ThumbDownIcon fontSize="small" />{neg_votes.length}
+                </> }
+        </Stack>
     )
 };
 

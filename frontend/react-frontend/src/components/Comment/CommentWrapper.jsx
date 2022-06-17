@@ -7,8 +7,13 @@ import { useHistory } from "react-router";
 import CommentForm from "./CommentForm";
 import Message from "../Message";
 import Comment from "./Comment";
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
+import CancelOutlined from '@mui/icons-material/CancelOutlined';
 
-const CommentWrapper = ({comment, project}) => {
+const CommentWrapper = ({comment, project, elevation=1}) => {
 
     const {id, votes, tags, username, closed, replies} = comment
     const history = useHistory()
@@ -29,7 +34,7 @@ const CommentWrapper = ({comment, project}) => {
     }
 
     return(
-        <>
+        <Paper elevation={elevation}>
             <div className="comment">
             {editing ? /* switch between displaying the comment or edit form*/
                 <CommentForm comment={comment} project={project}/> : <Comment comment={comment}/>
@@ -49,15 +54,22 @@ const CommentWrapper = ({comment, project}) => {
             </> : null}
             </div>
             {/* Render reply thread */}
-            {replies.map((reply) => <CommentWrapper key={reply.id} comment={reply} project={project}/>)}
+            {replies.map((reply) => <CommentWrapper key={reply.id} comment={reply} project={project} elevation={2}/>)}
             {!comment.prompt ? /* display Reply button on prompt comments*/
-            <>
+            <Stack>
                 { replying ?
                     <CommentForm comment={comment} project={project} reply={true}/>
                 : null}
-                {user.info && !closed ? <button onClick={() => {setReplying(!replying)}}>{replying ? "Cancel" : "Reply"}</button> : null}
-            </> : null} 
-        </>
+                {user.info && !closed ? 
+                    <Button 
+                        onClick={() => {setReplying(!replying)}}
+                        startIcon={replying ? <CancelOutlined /> : <ReplyOutlinedIcon />}
+                        variant='contained'>
+                            {replying ? "Cancel" : "Reply"}
+                    </Button> 
+                : null}
+            </Stack> : null} 
+        </Paper>
     )
 }
 

@@ -17,8 +17,7 @@ const TagForm = ({tags, assignTags}) => {
 
     return(
         <Grid container spacing={1} className="TagList">
-
-                <TextField variant='outlined' type="text" name="tagSearch" label='Tags' size='small' onChange={e => setSearchTerm(e.target.value)}/>
+            <TextField variant='outlined' type="text" name="tagSearch" label='Tags' size='small' onChange={e => setSearchTerm(e.target.value)}/>
         {
             matchTags.length > 0 ? 
                 // display tags that are either assigned or are being searched for
