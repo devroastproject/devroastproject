@@ -54,7 +54,7 @@ const ProjectPage = () => {
             { project ? 
             <Paper elevation={0}>
                 <Paper elevation={1}>
-                    <Grid container> 
+                    <Grid container > 
                         <Grid item xs={10} sm={11}>
                             { edit ? <ProjectForm project={project}/> : <ProjectDetail project={project}/>}
                         </Grid>

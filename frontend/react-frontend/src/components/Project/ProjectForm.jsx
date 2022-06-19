@@ -69,7 +69,6 @@ const ProjectForm = ({project}) => {
                         <Button type="submit" variant="contained" disabled={!(title && description)}> {project.title === "" ? 'SUBMIT NEW PROJECT' : 'UPDATE PROJECT'}</Button>
                     </Stack>
                 </form>
-                <br/>
             </Stack>
         </Container>
     )

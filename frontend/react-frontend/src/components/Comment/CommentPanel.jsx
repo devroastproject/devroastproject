@@ -14,20 +14,19 @@ const CommentPanel = ({project}) => {
     const {user} = useContext(UserContext)
 
     return (
-        <Stack className='prevPanel'>
-            {user.info ? 
+        <Stack spacing={2} className='prevPanel'>
+            {/* {user.info ?  */}
                 <Button 
                     onClick={() => setNewComment(!newComment)} 
                     startIcon={newComment ? <CancelOutlined /> : <AddOutlinedIcon />}
-                    variant='contained'> 
+                    variant='contained'
+                    disabled={user.info ? false : true}> 
                         {newComment ? 'Cancel': 'New Comment'} 
-                </Button> : null}
+                </Button> 
+                {/* // : null} */}
             {newComment ? <CommentForm comment={null} project={project} /> : null}
             {comments && comments.length > 0 ? comments.map((comment) => 
-            <div className="thread" key={comment.id}>
-                <CommentWrapper comment={comment} project={project}/>
-                <p>{null}</p>
-            </div>)
+                <CommentWrapper key={comment.id} comment={comment} project={project}/>)
             : 'No Comments Yet'}
         </Stack>
     )

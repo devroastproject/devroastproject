@@ -3,7 +3,12 @@ import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import { useHistory } from "react-router";
 import Message from "../Message";
-
+import { useInput } from "../useInput";
+import Container from '@mui/material/Container';
+import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Stack from '@mui/material/Stack';
 
 const CommentForm = ({comment, project, reply=false}) => {
 
@@ -12,10 +17,10 @@ const CommentForm = ({comment, project, reply=false}) => {
     let url = "comments/", method = "POST"
     // if creating new comment
     if (!Boolean(comment)){
-        comment = {"body": "", "post": project.id, "prompt": null, "neg_votes": 0, "pos_votes": 0, "closed": false}//, "tags": []}
+        comment = {"body": "", "post": project.id, "prompt": null, "closed": false}
     // if replying to a prompt
     } else if (reply){
-        comment = {"body": "", "post": project.id, "prompt": comment.id, "neg_votes": 0, "pos_votes": 0, "closed": false}//, "tags": []}
+        comment = {"body": "", "post": project.id, "prompt": comment.id, "closed": false}
     // if editing an existing comment
     } else {
         url = `comments/${comment.id}/`  
@@ -23,9 +28,8 @@ const CommentForm = ({comment, project, reply=false}) => {
     }
 
     const {user, setUser} = useContext(UserContext)
-    const [body, setBody] = useState(comment.body)
     const [closed, setClosed] = useState(comment.closed)
-    // const [tags] = useState(comment.tags)
+    const [body, bodyInput] = useInput({type: 'text', label: 'Comment', defaultValue: comment.body, multiline: true});
 
     const updateComment = async e => {
         e.preventDefault()
@@ -38,7 +42,6 @@ const CommentForm = ({comment, project, reply=false}) => {
             "neg_votes": comment.neg_votes,
             "pos_votes": comment.pos_votes,
             "closed": closed,
-            // "tags": tags
         }
         
         const res = await callApi(url, method, data, user.token)
@@ -51,20 +54,19 @@ const CommentForm = ({comment, project, reply=false}) => {
     }
     
     return (
-        <div>
+        <Container maxWidth="sm" className='CommentForm'>
             <form onSubmit={updateComment}>
-                <label> New Comment 
-                    <textarea defaultValue={comment.body} onChange={e => setBody(e.target.value)}></textarea>
-                </label> 
-                { !comment.prompt ?
-                    <label> Closed 
-                        <input type="checkbox" name='Closed' checked={Boolean(closed)} onChange={() => setClosed(!closed)}/>
-                    </label>
-                : null}
-                <br/>
-                <input type="submit" value={'Submit'} disabled={!body}/>
+                <Stack spacing={1}>
+                    {bodyInput}
+                    { comment.prompt === null && comment.id ?
+                        <FormControlLabel control={
+                            <Checkbox checked={Boolean(closed)} onChange={() => setClosed(!closed)} />
+                        } label="Closed" />
+                    : null}
+                    <Button type="submit" variant="contained" disabled={!body}> {'SUBMIT'}</Button>
+                </Stack>
             </form>
-        </div>
+        </Container>
     )
 }
 

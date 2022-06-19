@@ -42,7 +42,7 @@ const ProjectDetail = ({project}) => {
                     <TagWidget tags={tags} project_id={id} username={username}/>
                 </Grid>
                 <Grid item xs={12}>
-                <Typography variant="p" style={{wordWrap: 'break-word'}}>{description}</Typography>
+                <Typography style={{wordWrap: 'break-word'}}>{description}</Typography>
                 </Grid>
             </Grid>
     )
