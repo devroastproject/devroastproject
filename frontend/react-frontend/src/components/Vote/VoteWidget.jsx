@@ -3,8 +3,6 @@ import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import VoteButton from "./VoteButton";
 import Stack from '@mui/material/Stack';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 
 const VoteWidget = ({comment_id, votes, closed}) => {
 
@@ -72,12 +70,12 @@ const VoteWidget = ({comment_id, votes, closed}) => {
         <Stack direction='row' className='voteWidget'>
             {user.info && !closed ? 
                 <>
-                    <VoteButton users={pos_votes} plus={true} userVote={userVote} submit_vote={submit_vote} />
-                    <VoteButton users={neg_votes} plus={false} userVote={userVote} submit_vote={submit_vote} />
+                    <VoteButton users={pos_votes} plus={true} userVote={userVote} submit_vote={submit_vote} disabled={false}/>
+                    <VoteButton users={neg_votes} plus={false} userVote={userVote} submit_vote={submit_vote} disabled={false}/>
                 </> 
             :   <>
-                    <ThumbUpIcon fontSize="small" />{pos_votes.length} 
-                    <ThumbDownIcon fontSize="small" />{neg_votes.length}
+                    <VoteButton users={pos_votes} plus={true} userVote={userVote} submit_vote={submit_vote} disabled={true} />
+                    <VoteButton users={neg_votes} plus={false} userVote={userVote} submit_vote={submit_vote} disabled={true} />
                 </> }
         </Stack>
     )
