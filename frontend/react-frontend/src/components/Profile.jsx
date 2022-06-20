@@ -26,7 +26,7 @@ const Profile = () => {
         setUser({...user, message: <Message message={res.message} type="success"/>})   
         history.push("/")
       } else {
-        setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
+        setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
       }
     }
 

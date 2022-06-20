@@ -44,7 +44,7 @@ const Login = () => {
             localStorage.setItem('user_token', userToken)
             localStorage.setItem('token_time', Date.now() )
         } else {
-            setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
+            setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
         }
     }
     

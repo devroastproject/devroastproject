@@ -48,7 +48,7 @@ const ProjectForm = ({project}) => {
             setUser({...user, message: <Message message={res.message} type="success"/>})   
             if (newProject ){ history.push("/") } else { history.go(0) } // got to home if new, refresh if edit
         } else {
-            setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
+            setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
         }
     }
 

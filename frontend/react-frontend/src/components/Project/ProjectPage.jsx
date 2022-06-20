@@ -15,6 +15,8 @@ import DeleteOutlineOutlined from '@mui/icons-material/DeleteOutlineOutlined';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const ProjectPage = () => {
     let params = useParams()
@@ -45,7 +47,7 @@ const ProjectPage = () => {
                 setUser({...user, message: <Message message={res.message} type="success"/>})   
                 history.push("/")
             } else {
-                setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
+                setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
             }
     }
 
@@ -62,10 +64,13 @@ const ProjectPage = () => {
                             {user.info && (user.info.id === project.user) ?
                                 <Stack spacing={2} className='projButtons'>
                                     { deleting ? 
-                                        <Stack className="DeleteConfirm">
-                                            <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
-                                            <Button onClick={() => {deleteProject()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>
-                                        </Stack>
+                                        <Dialog onClose={() => {setDeleting(false)}} open={deleting}>
+                                            <Stack className="DeleteConfirm">
+                                                <DialogTitle>Confirm Deletion</DialogTitle>
+                                                <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
+                                                <Button onClick={() => {deleteProject()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>
+                                            </Stack>
+                                        </Dialog>
                                     : edit ?
                                         <Stack className="EditButtons">
                                             <Button onClick={() => {setEdit(!edit)}}>  

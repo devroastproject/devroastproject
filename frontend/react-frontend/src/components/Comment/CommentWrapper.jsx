@@ -17,6 +17,9 @@ import Typography from '@mui/material/Typography';
 import EditOutlined from '@mui/icons-material/EditOutlined';
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
 import DeleteOutlineOutlined from '@mui/icons-material/DeleteOutlineOutlined';
+import Box from '@mui/material/Box';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const CommentWrapper = ({comment, project}) => {
 
@@ -34,7 +37,7 @@ const CommentWrapper = ({comment, project}) => {
             setUser({...user, message: <Message message={res.message} type="success"/>})   
             history.go(0)
         } else {
-            setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
+            setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
         }
     }
 
@@ -52,10 +55,13 @@ const CommentWrapper = ({comment, project}) => {
                     {user.info && (user.info.id === comment.user) ?
                     <>
                         { deleting ? 
-                            <Stack className="DeleteConfirm">
-                                <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
-                                <Button onClick={() => {deleteComment()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>
-                            </Stack>
+                            <Dialog onClose={() => {setDeleting(false)}} open={deleting}>
+                                <Stack className="DeleteConfirm">
+                                    <DialogTitle>Confirm Deletion</DialogTitle>
+                                    <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
+                                    <Button onClick={() => {deleteComment()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>
+                                </Stack>
+                            </Dialog>
                         : editing ?
                             <Stack className="EditButtons">
                                 <Button onClick={() => {setEditing(!editing)}}>  
@@ -98,7 +104,9 @@ const CommentWrapper = ({comment, project}) => {
             {!comment.prompt ? /* display Reply button on prompt comments*/
             <Stack>
                 { replying ?
-                    <CommentForm comment={comment} project={project} reply={true}/>
+                    <Box sx={{marginTop: '8px'}} >
+                        <CommentForm comment={comment} project={project} reply={true}/>
+                    </Box>
                 : null}
                 {user.info && !closed ? 
                     <Button 

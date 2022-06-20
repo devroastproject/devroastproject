@@ -49,7 +49,7 @@ const CommentForm = ({comment, project, reply=false}) => {
             setUser({...user, message: <Message message={res.message} type="success"/>})   
             history.go(0)           // refresh page on post success
         } else {
-            setUser({...user, message: <Message message="Something Went Wrong" type="failure"/>})   
+            setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
         }
     }
     

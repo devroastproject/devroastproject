@@ -1,9 +1,10 @@
 import React from "react";
+import Alert from '@mui/material/Alert';
 
 const Message = ({message, type}) => {
 
     return (
-        <h3 className={type + " message"} >{message ? message : 'Success'}</h3>
+        <Alert severity={type}>{message ? message : 'Success'}</Alert>
     )
 }
 
