@@ -28,16 +28,20 @@ const ProjectDetail = ({project}) => {
                         <Typography>{username}</Typography>
                     </Button>
                 </Grid>
-                <Grid item>
-                    <Button href={repo_url} target="_blank" rel="noreferrer noopener" startIcon={<GitHubIcon />}>
-                        { prepURL(repo_url)}
-                    </Button>
-                </Grid>
+                {repo_url ? 
+                    <Grid item>
+                        <Button href={repo_url} target="_blank" rel="noreferrer noopener" startIcon={<GitHubIcon />}>
+                            { prepURL(repo_url)}
+                        </Button>
+                    </Grid>
+                : null }
+                {hosted_url ? 
                 <Grid item>
                     <Button href={hosted_url} target="_blank" rel="noreferrer noopener" startIcon={<StorageIcon />}>
                         { prepURL(hosted_url)}
                     </Button>
                 </Grid>
+                : null }
                 <Grid item xs={12}>
                     <TagWidget tags={tags} project_id={id} username={username}/>
                 </Grid>

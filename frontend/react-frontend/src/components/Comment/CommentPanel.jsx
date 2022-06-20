@@ -15,19 +15,17 @@ const CommentPanel = ({project}) => {
 
     return (
         <Stack spacing={2} className='prevPanel'>
-            {/* {user.info ?  */}
-                <Button 
-                    onClick={() => setNewComment(!newComment)} 
-                    startIcon={newComment ? <CancelOutlined /> : <AddOutlinedIcon />}
-                    variant='contained'
-                    disabled={user.info ? false : true}> 
-                        {newComment ? 'Cancel': 'New Comment'} 
-                </Button> 
-                {/* // : null} */}
+            <Button 
+                onClick={() => setNewComment(!newComment)} 
+                startIcon={newComment ? <CancelOutlined /> : <AddOutlinedIcon />}
+                variant='contained'
+                disabled={user.info ? false : true}> 
+                    {newComment ? 'Cancel': 'New Comment'} 
+            </Button> 
             {newComment ? <CommentForm comment={null} project={project} /> : null}
             {comments && comments.length > 0 ? comments.map((comment) => 
                 <CommentWrapper key={comment.id} comment={comment} project={project}/>)
-            : 'No Comments Yet'}
+            : null}
         </Stack>
     )
 }

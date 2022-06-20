@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import { callApi } from "../../services/callAPI";
 import ProjectPreview from "./ProjectPreview";
+import Stack from '@mui/material/Stack';
+import Loading from "../Loading";
 
 const ProjectList = () => {
     
@@ -17,7 +19,11 @@ const ProjectList = () => {
     },[])
 
     return(
-        <> { projects ? <div className="prevPanel"> {projects.map((project) => <ProjectPreview key={project.id} project={project}/>)}</div> : "loading" } </>
+        <Stack> 
+            { projects ? 
+                projects.map((project) => <ProjectPreview key={project.id} project={project}/>)
+            : <Loading /> } 
+        </Stack>
     )
 };
 
