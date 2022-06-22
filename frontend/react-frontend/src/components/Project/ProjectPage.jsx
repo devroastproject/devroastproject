@@ -5,18 +5,15 @@ import CommentPanel from "../Comment/CommentPanel";
 import { callApi } from "../../services/callAPI";
 import ProjectDetail from "./ProjectDetail";
 import ProjectForm from "./ProjectForm";
-import Message from "../Message";
-import Loading from "../Loading";
+import Message from "../Utils/Message";
+import Loading from "../Utils/Loading";
 import Button from "@mui/material/Button";
 import EditOutlined from '@mui/icons-material/EditOutlined';
-import CancelOutlined from '@mui/icons-material/CancelOutlined';
-import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
-import DeleteOutlineOutlined from '@mui/icons-material/DeleteOutlineOutlined';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
+import EditButtons from "../Utils/EditButtons"
+import DeleteButtons from "../Utils/DeleteButtons";
 
 const ProjectPage = () => {
     let params = useParams()
@@ -41,14 +38,14 @@ const ProjectPage = () => {
 
     const deleteProject = async () => {
             
-            const res = await callApi(`projects/${project.id}/`, "DELETE", project, user.token)
-            
-            if (res.code >= 200 || res.code < 300){    // forward to home on success
-                setUser({...user, message: <Message message={res.message} type="success"/>})   
-                history.push("/")
-            } else {
-                setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
-            }
+        const res = await callApi(`projects/${project.id}/`, "DELETE", project, user.token)
+        
+        if (res.code >= 200 || res.code < 300){    // forward to home on success
+            setUser({...user, message: <Message message={res.message} type="success"/>})   
+            history.push("/")
+        } else {
+            setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
+        }
     }
 
     return(
@@ -64,20 +61,9 @@ const ProjectPage = () => {
                             {user.info && (user.info.id === project.user) ?
                                 <Stack spacing={2} className='projButtons'>
                                     { deleting ? 
-                                        <Dialog onClose={() => {setDeleting(false)}} open={deleting}>
-                                            <Stack className="DeleteConfirm">
-                                                <DialogTitle>Confirm Deletion</DialogTitle>
-                                                <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
-                                                <Button onClick={() => {deleteProject()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>
-                                            </Stack>
-                                        </Dialog>
+                                        <DeleteButtons deleting={deleting} setDeleting={setDeleting} deleteMethod={deleteProject} />
                                     : edit ?
-                                        <Stack className="EditButtons">
-                                            <Button onClick={() => {setEdit(!edit)}}>  
-                                                <CancelOutlined /> 
-                                            </Button> 
-                                            <Button disabled={deleting} onClick={() => {setDeleting(true)}}><DeleteOutlineOutlined /></Button>
-                                        </Stack> 
+                                        <EditButtons edit={edit} setEdit={setEdit} deleting={deleting} setDeleting={setDeleting} />
                                     :
                                     <Button onClick={() => {setEdit(!edit)}}>  
                                         <EditOutlined /> 

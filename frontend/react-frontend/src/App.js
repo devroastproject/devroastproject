@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import ProjectForm from "./components/Project/ProjectForm";
 import UserContext from './context/UserContext';
 import ProjectList from "./components/Project/ProjectList";
-import Profile from "./components/Profile";
+import Profile from "./components/Profile/Profile";
 import { logOut } from "./services/logout";
 import { callApi } from "./services/callAPI";
 import Login from "./components/Login";

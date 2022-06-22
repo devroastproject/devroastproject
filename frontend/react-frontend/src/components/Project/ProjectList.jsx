@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import { callApi } from "../../services/callAPI";
 import ProjectPreview from "./ProjectPreview";
 import Stack from '@mui/material/Stack';
-import Loading from "../Loading";
+import Loading from "../Utils/Loading";
 
 const ProjectList = () => {
     

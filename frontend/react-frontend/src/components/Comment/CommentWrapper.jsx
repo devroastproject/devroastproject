@@ -5,21 +5,19 @@ import VoteWidget from "../Vote/VoteWidget";
 import TagWidget from "../Tags/TagWidget";
 import { useHistory } from "react-router";
 import CommentForm from "./CommentForm";
-import Message from "../Message";
+import Message from "../Utils/Message";
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import CancelOutlined from '@mui/icons-material/CancelOutlined';
 import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
 import Typography from '@mui/material/Typography';
 import EditOutlined from '@mui/icons-material/EditOutlined';
-import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
-import DeleteOutlineOutlined from '@mui/icons-material/DeleteOutlineOutlined';
 import Box from '@mui/material/Box';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
+import AvatarButton from "../Utils/AvatarButton";
+import EditButtons from "../Utils/EditButtons"
+import DeleteButtons from "../Utils/DeleteButtons";
 
 const CommentWrapper = ({comment, project}) => {
 
@@ -55,20 +53,9 @@ const CommentWrapper = ({comment, project}) => {
                     {user.info && (user.info.id === comment.user) ?
                     <>
                         { deleting ? 
-                            <Dialog onClose={() => {setDeleting(false)}} open={deleting}>
-                                <Stack className="DeleteConfirm">
-                                    <DialogTitle>Confirm Deletion</DialogTitle>
-                                    <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
-                                    <Button onClick={() => {deleteComment()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>
-                                </Stack>
-                            </Dialog>
+                            <DeleteButtons deleting={deleting} setDeleting={setDeleting} deleteMethod={deleteComment} />
                         : editing ?
-                            <Stack className="EditButtons">
-                                <Button onClick={() => {setEditing(!editing)}}>  
-                                    <CancelOutlined /> 
-                                </Button> 
-                                <Button disabled={deleting} onClick={() => {setDeleting(true)}}><DeleteOutlineOutlined /></Button>
-                            </Stack> 
+                            <EditButtons edit={editing} setEdit={setEditing} deleting={deleting} setDeleting={setDeleting} />
                         :
                             <Button onClick={() => {setEditing(!editing)}}>  
                                 <EditOutlined /> 
@@ -79,10 +66,7 @@ const CommentWrapper = ({comment, project}) => {
 
                 {/* Avatar, tags and votes on lower line */}
                 <Grid item xs={12} sm='auto'>
-                    <Button>
-                        <Avatar sx={{'marginRight': '5px'}} alt={username} src="http://localhost:8000/staticfiles/monkeygun.jpg" />
-                        <Typography>{username}</Typography>
-                    </Button>
+                    <AvatarButton username={username}/>
                 </Grid>
                 <Grid item>
                     <VoteWidget comment_id={id} votes={votes} closed={closed} />

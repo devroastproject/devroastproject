@@ -2,10 +2,10 @@ import TagWidget from "../Tags/TagWidget";
 import React from "react";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import Avatar from '@mui/material/Avatar';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import StorageIcon from '@mui/icons-material/Storage';
 import Button from "@mui/material/Button";
+import AvatarButton from "../Utils/AvatarButton";
 
 const ProjectDetail = ({project}) => {
 
@@ -23,10 +23,7 @@ const ProjectDetail = ({project}) => {
                     <Typography variant="h3" style={{wordWrap: 'break-word'}}>{title}</Typography>
                 </Grid>
                 <Grid item>
-                    <Button>
-                        <Avatar sx={{'marginRight': '5px'}} alt={username} src="http://localhost:8000/staticfiles/monkeygun.jpg" />
-                        <Typography>{username}</Typography>
-                    </Button>
+                    <AvatarButton username={username}/>
                 </Grid>
                 {repo_url ? 
                     <Grid item>
