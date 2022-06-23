@@ -70,13 +70,14 @@ const Login = () => {
                                     (newUser && username && email && password1 && password2 && password1 === password2)
                                     ||
                                     (!newUser && username && email && password1)
-                                )}>
+                                )}
+                                id="LoginButton">
                             {newUser ? 'Register' : "Log In"}
                         </Button>
                     </Stack>
                 </form>
                 {/* button toggles Log In / Register New User     */}
-                <Button variant="text" onClick={() => setNewUser(!newUser)} size="small">
+                <Button variant="text" onClick={() => setNewUser(!newUser)} size="small" id="LoginRegisterSwitch">
                     {newUser ? 'Login an Existing User' : 'Register a New Account'}
                 </Button>
             </Stack>

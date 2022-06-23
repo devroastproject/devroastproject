@@ -19,7 +19,7 @@ const ProjectList = () => {
     },[])
 
     return(
-        <Stack> 
+        <Stack id="ProjectList"> 
             { projects ? 
                 projects.map((project) => <ProjectPreview key={project.id} project={project}/>)
             : <Loading /> } 
