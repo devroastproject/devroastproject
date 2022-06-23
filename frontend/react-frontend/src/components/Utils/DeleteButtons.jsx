@@ -10,7 +10,7 @@ const DeleteButtons = ({deleting, setDeleting, deleteMethod}) => {
 
     return (
         <Dialog onClose={() => {setDeleting(false)}} open={deleting}>
-            <Stack className="DeleteConfirm">
+            <Stack id="DeleteConfirm">
                 <DialogTitle>Confirm Deletion</DialogTitle>
                 <Button onClick={() => {setDeleting(false)}} startIcon={<CancelOutlined />}>Cancel Delete</Button> 
                 <Button onClick={() => {deleteMethod()}} startIcon={<DeleteForeverOutlined />} color={'error'}>Delete Forever</Button>

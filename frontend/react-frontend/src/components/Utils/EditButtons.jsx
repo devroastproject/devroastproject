@@ -11,7 +11,7 @@ const EditButtons = ({edit, setEdit, deleting, setDeleting}) => {
             <Button onClick={() => {setEdit(!edit)}}>  
                 <CancelOutlined /> 
             </Button> 
-            <Button disabled={deleting} onClick={() => {setDeleting(true)}}>
+            <Button disabled={deleting} onClick={() => {setDeleting(true)}} id="DeleteButton">
                 <DeleteOutlineOutlined />
             </Button>
         </Stack> 

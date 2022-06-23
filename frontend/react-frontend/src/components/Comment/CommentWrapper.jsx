@@ -57,7 +57,7 @@ const CommentWrapper = ({comment, project}) => {
                         : editing ?
                             <EditButtons edit={editing} setEdit={setEditing} deleting={deleting} setDeleting={setDeleting} />
                         :
-                            <Button onClick={() => {setEditing(!editing)}}>  
+                            <Button onClick={() => {setEditing(!editing)}} id="EditButton">  
                                 <EditOutlined /> 
                             </Button> }
                     </>
@@ -96,7 +96,8 @@ const CommentWrapper = ({comment, project}) => {
                     <Button 
                         onClick={() => {setReplying(!replying)}}
                         startIcon={replying ? <CancelOutlined /> : <ReplyOutlinedIcon />}
-                        variant='contained'>
+                        variant='contained'
+                        id="ReplyButton">
                             {replying ? "Cancel" : "Reply"}
                     </Button> 
                 : null}

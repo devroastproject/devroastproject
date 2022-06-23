@@ -19,7 +19,8 @@ const CommentPanel = ({project}) => {
                 onClick={() => setNewComment(!newComment)} 
                 startIcon={newComment ? <CancelOutlined /> : <AddOutlinedIcon />}
                 variant='contained'
-                disabled={user.info ? false : true}> 
+                disabled={user.info ? false : true}
+                id='NewCommentButton'> 
                     {newComment ? 'Cancel': 'New Comment'} 
             </Button> 
             {newComment ? <CommentForm comment={null} project={project} /> : null}

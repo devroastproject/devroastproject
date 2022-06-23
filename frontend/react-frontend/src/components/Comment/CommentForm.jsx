@@ -60,10 +60,10 @@ const CommentForm = ({comment, project, reply=false}) => {
                     {bodyInput}
                     { comment.prompt === null && comment.id ?
                         <FormControlLabel control={
-                            <Checkbox checked={Boolean(closed)} onChange={() => setClosed(!closed)} />
+                            <Checkbox checked={Boolean(closed)} onChange={() => setClosed(!closed)} id="ClosedCheck" />
                         } label="Closed" />
                     : null}
-                    <Button type="submit" variant="contained" disabled={!body}> {'SUBMIT'}</Button>
+                    <Button type="submit" variant="contained" disabled={!body} id='CommentSubmitButton'> {'SUBMIT'}</Button>
                 </Stack>
             </form>
         </Container>
