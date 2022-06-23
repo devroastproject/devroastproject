@@ -4,7 +4,7 @@ import Alert from '@mui/material/Alert';
 const Message = ({message, type}) => {
 
     return (
-        <Alert severity={type}>{message ? message : 'Success'}</Alert>
+        <Alert severity={type} id={type + ' message'}>{message ? message : 'Success'}</Alert>
     )
 }
 

@@ -41,7 +41,7 @@ const Nav = () => {
   };
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" id='NavBar'>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
             <Typography 
@@ -134,10 +134,10 @@ const Nav = () => {
           </Box>
 
           {user.info ? //   if logged in show avatar and menu
-          <Box sx={{ flexGrow: 0 }}> {/* AVATER MENU */}
+          <Box sx={{ flexGrow: 0 }} id='AvatarMenu'> {/* AVATER MENU */}
             <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="http://localhost:8000/staticfiles/monkeygun.jpg" />
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} >
+                <Avatar alt={user.info.username} src="http://localhost:8000/staticfiles/monkeygun.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -170,6 +170,7 @@ const Nav = () => {
             sx={{ my: 2, color: 'white', display: 'block'}}
             component={Link}
             to="/login"
+            id='LogOutButton'
           >
             <LoginIcon />
           </Button> }
