@@ -53,8 +53,8 @@ const Login = () => {
     });
 
     return(
-        <Container maxWidth="sm" className='LoginForm'>
-            <Stack spacing={2}>
+        <Container maxWidth="sm">
+            <Stack spacing={2} id='LoginForm'>
                 <Box mt={2}>
                     <Typography varient="h4" align='center' fontFamily='monospace'>
                         {newUser ? "NEW USER" : "LOG IN"}

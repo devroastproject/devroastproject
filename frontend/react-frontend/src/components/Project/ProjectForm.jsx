@@ -53,7 +53,7 @@ const ProjectForm = ({project}) => {
     }
 
     return(
-        <Container maxWidth="sm" className='ProjectForm'>
+        <Container maxWidth="sm" id='ProjectForm'>
             <Stack spacing={2}>
                 <Box mt={2}>
                     <Typography varient="h4" align='center' fontFamily='monospace'>

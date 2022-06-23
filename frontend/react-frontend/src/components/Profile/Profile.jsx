@@ -9,7 +9,7 @@ const Profile = () => {
   const {user, setUser} = useContext(UserContext)
 
     return (
-      <div className='Profile'>
+      <div id='Profile'>
           { user.info ? 
             <>
               <AvatarButton username={user.info.username}/>
