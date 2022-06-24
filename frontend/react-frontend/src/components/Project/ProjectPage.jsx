@@ -59,7 +59,7 @@ const ProjectPage = () => {
                         </Grid>
                         <Grid item xs={1}>
                             {user.info && (user.info.id === project.user) ?
-                                <Stack spacing={2} className='projButtons'>
+                                <Stack spacing={2} id='projButtons'>
                                     { deleting ? 
                                         <DeleteButtons deleting={deleting} setDeleting={setDeleting} deleteMethod={deleteProject} />
                                     : edit ?

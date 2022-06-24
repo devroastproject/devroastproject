@@ -10,14 +10,15 @@ describe('Nav not logged in', () => {
     })
 
     it('only shows options for Home and Login', () => {
-        cy.get('a[href="/"]').should('be.visible')
+        cy.get('a:contains("DEVROAST")').should('be.visible').should('have.attr', 'href', '/')
         .get('a[id="LogOutButton"]').should('be.visible')
-        .get('a[href="/addproject"]').should('not.exist')
+        .get('a:contains("ADD NEW PROJECT")').should('not.exist')
         .get('div[id="AvatarMenu"]').should('not.exist')
     })
 
     it('small screen menu does not appear', () => {
-        cy.contains("Sorry, something went wrong").should('exist')
+        cy.viewport(800, 1300)
+        .get('svg[data-testid="MenuIcon"]').should('not.exist')
     })
 })
 
@@ -27,12 +28,13 @@ describe('Nav logged in', () => {
         cy.login('/')
     })
 
-    it('shows links for all routes', () => {
+    it('shows links for all routes', {retries: {runMode: 2, openMode: 1}}, () => {
         cy.get('div[id="AvatarMenu"]').should('be.visible').click()
-        .get('p:contains("Logout")').should('exist')
-        .get('p:contains("Profile")').should('exist')
-        .get('a[href="/addproject"]').should('exist')
+        .get('p:contains("Logout")').should('exist').parent().should('be.visible').should('have.attr', 'href', '/')
+        .get('p:contains("Profile")').should('exist').parent().should('be.visible').should('have.attr', 'href', '/profile')
+        .get('a:contains("Add New Project")').should('be.visible').should('have.attr', 'href', '/addproject')
         .get('a[href="/"]').should('exist')
+        .get('svg[data-testid="MenuIcon"]').should('not.be.visible')
     })
 
     it('can visit new project form', () => {
@@ -59,6 +61,9 @@ describe('Nav logged in', () => {
     })
 
     it('collapses options into menu when screen is small', () => {
-        cy.contains("Sorry, something went wrong").should('exist')
+        cy.viewport(800, 1300)
+        .get('svg[data-testid="MenuIcon"]').should('be.visible').click()
+        .get('a:contains("Add New Project")').should('be.visible').should('have.attr', 'href', '/addproject')
+        .get('a:contains("ADD NEW PROJECT")').should('not.exist')
     })
 })

@@ -30,7 +30,7 @@ const ProjectPreview = ({project}) => {
                             <Typography>{username}</Typography>
                         </Button>
                     </Grid>
-                    <Grid item>
+                    <Grid item id={`${id}_comment_count`}>
                         <Typography><InsertCommentOutlinedIcon />{comment_count}</Typography>
                     </Grid>
                     <Grid item>

@@ -63,6 +63,7 @@ const Nav = () => {
             </Typography>
          
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>  {/* SMALL SCREEN OPTIONS MENU */}
+          {user.info ? <>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -97,6 +98,7 @@ const Nav = () => {
                 </MenuItem>
               ))}
             </Menu>
+          </> : null }
           </Box>
 
             <Typography
@@ -120,6 +122,7 @@ const Nav = () => {
           
           {/* LARGE SCREEN PAGE LIST */}
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          {user.info ? <>
             {pages.map((page) => (
               <Button
                 key={page.text}
@@ -131,6 +134,7 @@ const Nav = () => {
                   {page.text}
               </Button>
             ))}
+          </> : null }
           </Box>
 
           {user.info ? //   if logged in show avatar and menu

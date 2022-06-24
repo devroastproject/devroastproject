@@ -66,7 +66,7 @@ const ProjectForm = ({project}) => {
                         {repoInput}
                         {hostedInput}
                         {descriptionInput}
-                        <Button type="submit" variant="contained" disabled={!(title && description)}> {project.title === "" ? 'SUBMIT NEW PROJECT' : 'UPDATE PROJECT'}</Button>
+                        <Button type="submit" variant="contained" disabled={!(title && description)} id="ProjectSubmitButton"> {project.title === "" ? 'SUBMIT NEW PROJECT' : 'UPDATE PROJECT'}</Button>
                     </Stack>
                 </form>
                 <br/>
