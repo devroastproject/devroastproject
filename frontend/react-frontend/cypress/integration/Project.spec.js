@@ -116,9 +116,8 @@ describe('ProjectForm tests', () => {
     })
 
     it('requires a title and description for a new project', {retries: {runMode: 2, openMode: 1}}, () => {
-        cy.get('button[id="ProjectSubmitButton"]').should('be.disabled')
+        cy.get('button[id="ProjectSubmitButton"]').should('be.disabled').wait(500)
         .get('input[name="Title"]').type('Test Title')
-        .get('button[id="ProjectSubmitButton"]').should('be.disabled')
         .get('textarea[name="Description"]').type('Description')
         .get('button[id="ProjectSubmitButton"]').should('not.be.disabled')
     })
