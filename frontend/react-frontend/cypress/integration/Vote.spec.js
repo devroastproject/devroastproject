@@ -6,37 +6,45 @@ describe('Voting logged in', () => {
     })
 
     it('cannot vote on closed comment', () => {
-        cy.get('p:contains("this comment is closed")').parent().within(
+        cy.get('p:contains("this comment is closed")').parent().parent().within(
             () => {
-                cy.get('button:contains("-")').should('not.exist')
-                .get('button:contains("+")').should('not.exist')
+                cy.get('svg[data-testid="ThumbUpIcon"]').should('be.visible')
+                .parent().parent().should('be.disabled')
+                .get('svg[data-testid="ThumbDownIcon"]').should('be.visible')
+                .parent().parent().should('be.disabled')
             }
         )
     })
 
     it('when voted, vote is bold', {retries: {runMode: 2, openMode: 1}}, () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button:contains("+")').should('have.css', 'font-weight', '700')
-                cy.get('button:contains("-")').should('have.css', 'font-weight', '400')
+                cy.get('svg[data-testid="ThumbUpIcon"]').should('be.visible')
+                .parent().parent().should('have.class', 'MuiButton-contained')
+                .get('svg[data-testid="ThumbDownIcon"]').should('be.visible')
+                .parent().parent().should('have.class', 'MuiButton-text')
             }
         )
     })
 
     it('when voted, other is disabled', () => {
-        cy.get('p:contains("this is a reply to user2")').parent().parent().parent().within(
+        cy.get('p:contains("this is a reply to user2")').parent().parent().within(
             () => {
-                cy.get('button:contains("+")').should('not.be.disabled')
-                cy.get('button:contains("-")').should('be.disabled')
+                cy.get('svg[data-testid="ThumbUpIcon"]').should('be.visible')
+                .parent().parent().should('not.be.disabled')
+                .get('svg[data-testid="ThumbDownIcon"]').should('be.visible')
+                .parent().parent().should('be.disabled')
             }
         )
     })
 
     it('buttons show correct number of positive and negative votes', () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button:contains("+1")').should('exist')
-                cy.get('button:contains("-1")').should('exist')
+                cy.get('svg[data-testid="ThumbUpIcon"]').should('be.visible')
+                .parent().parent().should('contain', '1')
+                .get('svg[data-testid="ThumbDownIcon"]').should('be.visible')
+                .parent().parent().should('contain', '1')
             }
         )
     })
@@ -55,20 +63,26 @@ describe('Voting logged in', () => {
             "statusCode": 201
         }
         ).as('apiPostVote')
-        cy.get('p:contains("this yours")').parent().parent().parent().within(
+        cy.get('p:contains("this yours")').parent().parent().within(
             () => {
-                cy.get('button:contains("+0")').click().wait(['@apiPostVote'])
-                .get('button:contains("+1")').should('exist')
+                cy.get('svg[data-testid="ThumbUpIcon"]')
+                .parent().parent().should('contain', '0')
+                .click().wait(['@apiPostVote']).wait(500)
+                .get('svg[data-testid="ThumbUpIcon"]')
+                .parent().parent().should('contain', '1')
             }
         )
     })
 
     it('clicking button again decrements vote', () => {
         cy.intercept('DELETE', 'http://localhost:8000/api/votes/5/', {"statusCode": 204}).as('apiDeleteVote')
-        cy.get('p:contains("this is a reply to user2")').parent().parent().parent().within(
+        cy.get('p:contains("this is a reply to user2")').parent().parent().within(
             () => {
-                cy.get('button:contains("+1")').click().wait(['@apiDeleteVote'])
-                cy.get('button:contains("+0")').should('exist')
+                cy.get('svg[data-testid="ThumbUpIcon"]')
+                .parent().parent().should('contain', '1')
+                .click().wait(['@apiDeleteVote']).wait(500)
+                .get('svg[data-testid="ThumbUpIcon"]')
+                .parent().parent().should('contain', '0')
             }
         )
     })
@@ -81,18 +95,24 @@ describe('Voting logged out', () => {
     })
 
     it('cannot vote when logged out', () => {
-        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+        cy.get('p:contains("this is from user1")').parent().parent().within(
             () => {
-                cy.get('button:contains("-")').should('not.exist')
-                .get('p:contains("-")').should('exist')
-                .get('button:contains("+")').should('not.exist')
-                .get('p:contains("+")').should('exist')
+                cy.get('svg[data-testid="ThumbUpIcon"]').should('be.visible')
+                .parent().parent().should('be.disabled')
+                .get('svg[data-testid="ThumbDownIcon"]').should('be.visible')
+                .parent().parent().should('be.disabled')
             }
         )
     })
 
     it('can view votes when logged out', () => {
-        cy.get('p:contains("+")').should('have.length', 5)
-        cy.get('p:contains("-")').should('have.length', 5)
+        cy.get('p:contains("this is mine")').parent().parent().within(
+            () => {
+                cy.get('svg[data-testid="ThumbUpIcon"]').should('be.visible')
+                .parent().parent().should('contain', '1')
+                .get('svg[data-testid="ThumbDownIcon"]').should('be.visible')
+                .parent().parent().should('contain', '1')
+            }
+        )
     })
 })
