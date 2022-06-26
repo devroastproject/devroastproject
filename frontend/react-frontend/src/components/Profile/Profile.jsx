@@ -1,7 +1,7 @@
-import UserContext from "../../context/UserContext";
-import React, { useContext } from "react";
 import ChangePasswordForm from "./ChangePasswordForm"
+import UserContext from "../../context/UserContext";
 import AvatarButton from "../Utils/AvatarButton"
+import React, { useContext } from "react";
 import Loading from "../Utils/Loading";
 
 const Profile = () => {

@@ -2,10 +2,11 @@ import React, { useState, useContext } from "react";
 import UserContext from "../../context/UserContext";
 import CommentForm from "../Comment/CommentForm";
 import CommentWrapper from "./CommentWrapper";
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+
 import CancelOutlined from '@mui/icons-material/CancelOutlined';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 
 const CommentPanel = ({project}) => {
     

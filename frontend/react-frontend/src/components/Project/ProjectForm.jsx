@@ -1,13 +1,14 @@
-import React, { useContext } from "react";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
-import { useHistory } from "react-router";
 import { useInput } from "../Utils/useInput";
+import { useHistory } from "react-router";
+import React, { useContext } from "react";
 import Message from "../Utils/Message";
-import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
+
 import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
 
@@ -66,7 +67,9 @@ const ProjectForm = ({project}) => {
                         {repoInput}
                         {hostedInput}
                         {descriptionInput}
-                        <Button type="submit" variant="contained" disabled={!(title && description)} id="ProjectSubmitButton"> {project.title === "" ? 'SUBMIT NEW PROJECT' : 'UPDATE PROJECT'}</Button>
+                        <Button type="submit" variant="contained" disabled={!(title && description)} id="ProjectSubmitButton"> 
+                            {project.title === "" ? 'SUBMIT NEW PROJECT' : 'UPDATE PROJECT'}
+                        </Button>
                     </Stack>
                 </form>
                 <br/>

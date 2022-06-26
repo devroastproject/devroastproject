@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import VoteButton from "./VoteButton";
+
 import Stack from '@mui/material/Stack';
 
 const VoteWidget = ({comment_id, votes, closed}) => {

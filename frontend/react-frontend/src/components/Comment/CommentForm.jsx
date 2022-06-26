@@ -1,13 +1,14 @@
 import React, { useState, useContext } from "react";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
+import { useInput } from "../Utils/useInput";
 import { useHistory } from "react-router";
 import Message from "../Utils/Message";
-import { useInput } from "../Utils/useInput";
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
+
 import FormControlLabel from '@mui/material/FormControlLabel';
+import Container from '@mui/material/Container';
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
 const CommentForm = ({comment, project, reply=false}) => {

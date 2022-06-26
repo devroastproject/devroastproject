@@ -1,20 +1,21 @@
+import React, { useContext, useState } from "react";
 import UserContext from "../context/UserContext";
 import { logOut } from "../services/logout";
-import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
+
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
+import MenuItem from '@mui/material/MenuItem';
+import Toolbar from '@mui/material/Toolbar';
+import Tooltip from '@mui/material/Tooltip';
+import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import LoginIcon from '@mui/icons-material/Login';
+import Menu from '@mui/material/Menu';
+import Box from '@mui/material/Box';
 
 const pages = [{text: 'Add New Project', link: '/addproject'}];
 const settings = [{text: 'Profile', link: '/profile'}, {text: 'Logout', link: '/'} ];

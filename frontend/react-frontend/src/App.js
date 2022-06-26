@@ -1,16 +1,17 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProjectPage from "./components/Project/ProjectPage";
-import React, { useEffect, useState } from "react";
 import ProjectForm from "./components/Project/ProjectForm";
-import UserContext from './context/UserContext';
 import ProjectList from "./components/Project/ProjectList";
 import Profile from "./components/Profile/Profile";
-import { logOut } from "./services/logout";
+import React, { useEffect, useState } from "react";
+import UserContext from './context/UserContext';
 import { callApi } from "./services/callAPI";
+import { logOut } from "./services/logout";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
-import Grid from "@mui/material/Grid";
+
 import Container from '@mui/material/Container';
+import Grid from "@mui/material/Grid";
 
 function App() {
   

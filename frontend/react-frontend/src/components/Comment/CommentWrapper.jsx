@@ -1,23 +1,24 @@
 import UserContext from "../../context/UserContext";
+import DeleteButtons from "../Utils/DeleteButtons";
 import React, {useState, useContext} from "react";
 import { callApi } from "../../services/callAPI";
+import AvatarButton from "../Utils/AvatarButton"
+import EditButtons from "../Utils/EditButtons"
 import VoteWidget from "../Vote/VoteWidget";
 import TagWidget from "../Tags/TagWidget";
 import { useHistory } from "react-router";
 import CommentForm from "./CommentForm";
 import Message from "../Utils/Message";
-import Paper from '@mui/material/Paper';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+
 import ReplyOutlinedIcon from '@mui/icons-material/ReplyOutlined';
 import CancelOutlined from '@mui/icons-material/CancelOutlined';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import EditOutlined from '@mui/icons-material/EditOutlined';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import AvatarButton from "../Utils/AvatarButton";
-import EditButtons from "../Utils/EditButtons"
-import DeleteButtons from "../Utils/DeleteButtons";
 
 const CommentWrapper = ({comment, project}) => {
 

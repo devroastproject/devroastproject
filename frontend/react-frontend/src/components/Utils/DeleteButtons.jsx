@@ -1,10 +1,11 @@
 import React from "react";
-import Stack from '@mui/material/Stack';
-import Button from "@mui/material/Button";
-import CancelOutlined from '@mui/icons-material/CancelOutlined';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
+
 import DeleteForeverOutlined from '@mui/icons-material/DeleteForeverOutlined';
+import CancelOutlined from '@mui/icons-material/CancelOutlined';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from "@mui/material/Button";
+import Dialog from '@mui/material/Dialog';
+import Stack from '@mui/material/Stack';
 
 const DeleteButtons = ({deleting, setDeleting, deleteMethod}) => {
 

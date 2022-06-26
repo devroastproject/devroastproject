@@ -1,12 +1,12 @@
+import AvatarButton from "../Utils/AvatarButton";
 import { Link } from "react-router-dom";
-import React from "react";
-import Card from '@mui/material/Card';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
-import Grid from '@mui/material/Grid';
 import Tag from "../Tags/Tag";
+import React from "react";
+
+import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Card from '@mui/material/Card';
 
 const ProjectPreview = ({project}) => {
 
@@ -25,10 +25,7 @@ const ProjectPreview = ({project}) => {
                 </Grid>
                 <Grid container item direction='row' spacing={1} xs={12} alignItems="center" >
                     <Grid item>
-                        <Button>
-                            <Avatar sx={{'marginRight': '5px'}} alt={username} src="http://localhost:8000/staticfiles/monkeygun.jpg" />
-                            <Typography>{username}</Typography>
-                        </Button>
+                        <AvatarButton username={username}/>
                     </Grid>
                     <Grid item id={`${id}_comment_count`}>
                         <Typography><InsertCommentOutlinedIcon />{comment_count}</Typography>

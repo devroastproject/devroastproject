@@ -3,17 +3,18 @@ import { useHistory, useParams } from "react-router";
 import UserContext from "../../context/UserContext";
 import CommentPanel from "../Comment/CommentPanel";
 import { callApi } from "../../services/callAPI";
+import DeleteButtons from "../Utils/DeleteButtons";
+import EditButtons from "../Utils/EditButtons"
 import ProjectDetail from "./ProjectDetail";
 import ProjectForm from "./ProjectForm";
 import Message from "../Utils/Message";
 import Loading from "../Utils/Loading";
-import Button from "@mui/material/Button";
+
 import EditOutlined from '@mui/icons-material/EditOutlined';
-import Grid from '@mui/material/Grid';
+import Button from "@mui/material/Button";
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
-import EditButtons from "../Utils/EditButtons"
-import DeleteButtons from "../Utils/DeleteButtons";
+import Grid from '@mui/material/Grid';
 
 const ProjectPage = () => {
     let params = useParams()

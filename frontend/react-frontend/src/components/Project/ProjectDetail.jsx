@@ -1,11 +1,12 @@
+import AvatarButton from "../Utils/AvatarButton";
 import TagWidget from "../Tags/TagWidget";
 import React from "react";
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
-import GitHubIcon from '@mui/icons-material/GitHub';
+
 import StorageIcon from '@mui/icons-material/Storage';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
-import AvatarButton from "../Utils/AvatarButton";
+import Grid from '@mui/material/Grid';
 
 const ProjectDetail = ({project}) => {
 

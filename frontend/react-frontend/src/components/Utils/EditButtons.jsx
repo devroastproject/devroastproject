@@ -1,8 +1,9 @@
 import React from "react";
-import Stack from '@mui/material/Stack';
-import Button from "@mui/material/Button";
-import CancelOutlined from '@mui/icons-material/CancelOutlined';
+
 import DeleteOutlineOutlined from '@mui/icons-material/DeleteOutlineOutlined';
+import CancelOutlined from '@mui/icons-material/CancelOutlined';
+import Button from "@mui/material/Button";
+import Stack from '@mui/material/Stack';
 
 const EditButtons = ({edit, setEdit, deleting, setDeleting}) => {
 

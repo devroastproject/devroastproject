@@ -89,7 +89,7 @@ describe('Comment CRUD not logged in', () => {
     })
 
     it('only allows new comments when logged in', () => {
-        cy.get('button[id="NewCommentButton"]').should('not.exist')
+        cy.get('button[id="NewCommentButton"]').should('be.disabled')
     })
 
     it('only allows new replies when logged in', () => {
