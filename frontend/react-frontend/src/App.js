@@ -2,14 +2,17 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProjectPage from "./components/Project/ProjectPage";
 import ProjectForm from "./components/Project/ProjectForm";
 import ProjectList from "./components/Project/ProjectList";
+import ColorModeContext from './context/ColorModeContext'
 import Profile from "./components/Profile/Profile";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import UserContext from './context/UserContext';
 import { callApi } from "./services/callAPI";
 import { logOut } from "./services/logout";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
 
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import createTheme from '@mui/material/styles/createTheme';
 import Container from '@mui/material/Container';
 import Grid from "@mui/material/Grid";
 
@@ -20,9 +23,9 @@ function App() {
     token: null,
     info: null,
     message: null,
-    tags: []
+    tags: [],
   })
-  
+
   // get user info with token
   useEffect(() => {
     if (!user.token){ // check if token is in local storage
@@ -69,9 +72,33 @@ function App() {
     }
   }, [user])
 
+  // Color Themes
+  const [mode, setMode] = useState('light');
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+      },
+    }),
+    [],
+  );
+
+  const theme = React.useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode],
+  );
+
   return (
     <Router>
       <UserContext.Provider value={{user, setUser}}>  {/*user data provided as context to whole app*/}
+      <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
         <div className="App">
           <Grid container>
             <Grid item xs={0} md={1} lg={2}></Grid>
@@ -91,9 +118,10 @@ function App() {
             <Grid item xs={0} md={1} lg={2}></Grid>
           </Grid>
         </div>
+        </ThemeProvider>
+        </ColorModeContext.Provider>
         </UserContext.Provider>
     </Router>
-
   );
 }
 
