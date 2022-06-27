@@ -9,109 +9,109 @@ describe('Tag Tests Logged In', () => {
     })
 
     it('the tag form displays all tags currently assigned', () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('be.visible').click()
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
                 .get('input[name="tagSearch"]').should('be.visible')
-                .get('p:contains("Tag1")').should('be.visible')
+                .get('span:contains("Tag1")').should('be.visible')
             }
         )  
     })
 
     it('a tag can be added to a comment', () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('be.visible').click()
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
                 .get('input[name="tagSearch"]').should('be.visible')
-                .type('Tag2xyz').get('p:contains("Tag2xyz")').should('be.visible').click()
-                .get('button:contains("Done")').click()
-                .get('p:contains("Tag2xyz")').should('be.visible')
+                .type('Tag2xyz').wait(500).get('span:contains("Tag2xyz")').should('be.visible').click()
+                .get('svg[data-testid="CancelOutlinedIcon"]').click()
+                .get('span:contains("Tag2xyz")').should('be.visible')
             }
         )  
     })
 
     it('a tag can be removed from a comment', () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('be.visible').click()
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
                 .get('input[name="tagSearch"]').should('be.visible')
-                .get('p:contains("Tag1")').should('be.visible').click()
-                .get('button:contains("Done")').click()
-                .get('p:contains("Tag1")').should('not.exist')
+                .get('span:contains("Tag1")').should('be.visible').click()
+                .get('svg[data-testid="CancelOutlinedIcon"]').click()
+                .get('span:contains("Tag1")').should('not.exist')
             }
         )  
     })
 
     it('a tag can be added to a project', () => {
-        cy.get('h1:contains("User\'s Project")').parent().within(
+        cy.get('h3:contains("User\'s Project")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('be.visible').click()
-                .get('input[name="tagSearch"]').should('be.visible')
-                .type('Tag2xyz').get('p:contains("Tag2xyz")').should('be.visible').click()
-                .get('button:contains("Done")').click()
-                .get('p:contains("Tag2xyz")').should('be.visible')
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
+                .get('input[name="tagSearch"]').should('be.visible').type('Tag2xyz').wait(500)
+                .get('span:contains("Tag2xyz")').should('be.visible').click()
+                .get('svg[data-testid="CancelOutlinedIcon"]').click()
+                .get('span:contains("Tag2xyz")').should('be.visible')
             }
         )  
     })
 
     it('a tag can be removed from a project', () => {
-        cy.get('h1:contains("User\'s Project")').parent().within(
+        cy.get('h3:contains("User\'s Project")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('be.visible').click()
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
                 .get('input[name="tagSearch"]').should('be.visible')
-                .get('p:contains("Tag1")').should('be.visible').click()
-                .get('button:contains("Done")').click()
-                .get('p:contains("Tag1")').should('not.exist')
+                .get('span:contains("Tag1")').should('be.visible').click()
+                .get('svg[data-testid="CancelOutlinedIcon"]').click()
+                .get('span:contains("Tag1")').should('not.exist')
             }
         )  
     })
 
     it('a tag can be searched for within the form', () => {
-        cy.get('h1:contains("User\'s Project")').parent().within(
+        cy.get('h3:contains("User\'s Project")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('be.visible').click()
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
                 .get('input[name="tagSearch"]').should('be.visible')
-                .type('xyz').get('p:contains("Tag2xyz")').should('be.visible')
+                .type('xyz').get('span:contains("Tag2xyz")').should('be.visible')
             }
         )  
     }) 
 
     it('the tag form displays all tags being searched for', () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('be.visible').click()
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
                 .get('input[name="tagSearch"]').should('be.visible')
                 .type('T')
-                .get('p:contains("Tag2xyz")').should('be.visible')
-                .get('p:contains("Tag3")').should('be.visible')
-                .get('p:contains("Tag1")').should('be.visible')
+                .get('span:contains("Tag2xyz")').should('be.visible')
+                .get('span:contains("Tag3")').should('be.visible')
+                .get('span:contains("Tag1")').should('be.visible')
             }
         )  
     })
 
     it('tags UI changes when assigned/unassigned', () => {
-        cy.get('p:contains("this is mine")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('be.visible').click()
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
                 .get('input[name="tagSearch"]').should('be.visible')
-                .type('T')
-                .get('p:contains("Tag2xyz")').should('be.visible')
-                .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)').click()
-                .parent().parent()
-                .should('have.css', 'background-color', 'rgb(0, 128, 0)')
+                .type('T').wait(500)
+                .get('span:contains("Tag2xyz")').should('be.visible')
+                .parent()
+                .should('have.class', 'MuiChip-outlined').click()
+                .should('have.class', 'MuiChip-filled')
             }
         )  
     })
 
     it('tags can only be assigned when logged in and comment is owned', () => {
-        cy.get('p:contains("Tag1")').parent().parent().parent().within(
+        cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('exist')
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('exist')
             }
         )
-        cy.get('p:contains("Tag3")').parent().parent().parent().within(
+        cy.get('p:contains("this is from user1")').parent().parent().within(
             () => {
-                cy.get('button:contains("Modify")').should('not.exist')
+                cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('not.exist')
             }
         )
     })
@@ -125,10 +125,10 @@ describe('Tag Tests Logged Out', () => {
     })
 
     it('tags appear in a list when logged out', () => {
-        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+        cy.get('p:contains("this is from user1")').parent().parent().within(
             () => {
-                cy.get('div[class="TagList"]').should('be.visible')
-                .within(() => { cy.get('p:contains("Tag3")').should('be.visible')})
+                cy.get('.TagList').should('be.visible')
+                .within(() => { cy.get('span:contains("Tag3")').should('be.visible')})
             }
         )  
     })

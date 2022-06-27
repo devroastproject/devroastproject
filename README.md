@@ -147,3 +147,23 @@ A secondary staticfiles link was added to work within the compose. All API calls
 
 - Create new vote (POST): `/api/votes/`
 - Delete a vote (DELETE): `/api/votes/<int:pk>/`
+
+## TODO
+
+- image upload
+- Expand user profiles
+  - user info section
+  - avatar links to individual profiles
+  - "my projects"
+  - "my comments"
+  - "update email"
+  - update user info
+- add images to projects
+- expand project list
+  - sort by date
+  - pagination
+  - search
+- add tag filter to home page
+- rework login to require pw OR email
+
+- **deploy**

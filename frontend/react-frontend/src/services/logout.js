@@ -1,5 +1,5 @@
 export const logOut = (user, setUser) => {
-    localStorage.removeItem("user_token")
-    localStorage.removeItem("token_time")
+    localStorage.removeItem("devroast_user_token")
+    localStorage.removeItem("devroast_token_time")
     setUser({...user, token: null, info: null})
 }

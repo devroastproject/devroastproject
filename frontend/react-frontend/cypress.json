@@ -1,4 +1,5 @@
 {
     "baseUrl": "http://react:3000",
-    "blockHosts": "localhost:8000"
+    "blockHosts": "localhost:8000",
+    "retries": 2
 }

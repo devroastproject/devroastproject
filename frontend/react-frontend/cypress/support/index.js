@@ -38,8 +38,8 @@ Cypress.Commands.add('login', (url) => {
     // trigger login API call by placing token and timestamp in memory
     .visit(url, {
         onBeforeLoad(win){
-            win.localStorage.setItem('user_token', "Token usertoken")
-            win.localStorage.setItem('token_time', Date.now())
+            win.localStorage.setItem('devroast_user_token', "Token usertoken")
+            win.localStorage.setItem('devroast_token_time', Date.now())
         },
     })
    

@@ -3,6 +3,11 @@ import UserContext from "../../context/UserContext";
 import CommentForm from "../Comment/CommentForm";
 import CommentWrapper from "./CommentWrapper";
 
+import CancelOutlined from '@mui/icons-material/CancelOutlined';
+import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
 const CommentPanel = ({project}) => {
     
     const {comments} = project
@@ -10,17 +15,20 @@ const CommentPanel = ({project}) => {
     const {user} = useContext(UserContext)
 
     return (
-        <div className='prevPanel'>
-            <h3>Comments</h3>
+        <Stack spacing={2} className='prevPanel'>
+            <Button 
+                onClick={() => setNewComment(!newComment)} 
+                startIcon={newComment ? <CancelOutlined /> : <AddOutlinedIcon />}
+                variant='contained'
+                disabled={user.info ? false : true}
+                id='NewCommentButton'> 
+                    {newComment ? 'Cancel': 'New Comment'} 
+            </Button> 
             {newComment ? <CommentForm comment={null} project={project} /> : null}
-            {user.info ? <button onClick={() => setNewComment(!newComment)}> {newComment ? 'Cancel': 'New Comment'} </button> : null}
             {comments && comments.length > 0 ? comments.map((comment) => 
-            <div className="thread" key={comment.id}>
-                <CommentWrapper comment={comment} project={project}/>
-                <p>{null}</p>
-            </div>)
-            : 'No Comments Yet'}
-        </div>
+                <CommentWrapper key={comment.id} comment={comment} project={project}/>)
+            : null}
+        </Stack>
     )
 }
 

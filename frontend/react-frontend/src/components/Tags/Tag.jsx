@@ -1,13 +1,13 @@
 import React from "react";
 
-const Tag = ({tag}) => {
+import Chip from '@mui/material/Chip';
+
+const Tag = ({tag, onClick=()=>{}, clickable=false, assigned=false, size='medium'}) => {
     
     const {tagname} = tag
 
     return(
-        <div className="Tag">
-            <p>{tagname}</p>      
-        </div>
+        <Chip label={tagname} variant={assigned ? 'filled' : 'outlined'} onClick={onClick} clickable={clickable} size={size} />
     )
 };
 

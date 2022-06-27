@@ -4,6 +4,11 @@ import { callApi } from "../../services/callAPI";
 import TagForm from "./TagForm";
 import TagList from "./TagList";
 
+import LocalOfferOutlinedIcon from '@mui/icons-material/LocalOfferOutlined';
+import CancelOutlined from '@mui/icons-material/CancelOutlined';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+
 const TagWidget = ({tags, project_id = null, comment_id = null, username, closed=false}) => {
 
     const {user} = useContext(UserContext)
@@ -43,17 +48,17 @@ const TagWidget = ({tags, project_id = null, comment_id = null, username, closed
     }
 
     return(
-        <div className="TagWrapper">
-            { assigning ? 
-                <TagForm tags={allTags} assignTags={assignTags}/> 
-            :   <TagList tags={allTags} />
-            }
-            { user.info && !closed && username === user.info.username ? 
-                <button onClick={() => {setAssigning(!assigning)}}>
-                    {assigning ? "Done" : "Modify"}
-                </button> 
-            : null}
-        </div>
+            <Stack direction='row' spacing={1} className="TagWrapper">
+                { user.info && !closed && username === user.info.username ? 
+                    <IconButton onClick={() => {setAssigning(!assigning)}}>
+                        {assigning ? <CancelOutlined /> : <LocalOfferOutlinedIcon />}
+                    </IconButton> 
+                : null}
+                { assigning ? 
+                    <TagForm tags={allTags} assignTags={assignTags}/> 
+                :   <TagList tags={allTags} />
+                }
+            </Stack>
     )
 };
 

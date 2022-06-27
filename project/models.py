@@ -11,9 +11,9 @@ class Project(models.Model):
 	# The name of the website to be reviewed
     title = models.CharField(max_length=250, help_text="The name of your project.")
 	# The git repository for the website
-    repo_url = models.CharField(max_length=250, help_text="URL to your project's source code.")
+    repo_url = models.CharField(max_length=250, blank=True, help_text="URL to your project's source code.")
 	# The URL where a live version can be viewed
-    hosted_url = models.CharField(max_length=250, help_text="Your website's URL.")
+    hosted_url = models.CharField(max_length=250, blank=True, help_text="Your website's URL.")
 	# A summary of the project
     description = models.TextField(help_text="A brief description of your website.")
 
@@ -26,7 +26,7 @@ class Project(models.Model):
 class Comment(models.Model):
 
     # The project the comment belongs to
-    post = models.ForeignKey(Project, related_name='comments', on_delete=models.DO_NOTHING)
+    post = models.ForeignKey(Project, related_name='comments', on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     prompt = models.ForeignKey('self', on_delete=models.DO_NOTHING, related_name='replies', blank=True, null=True)
     body = models.TextField(help_text="Enter your comment here.")

@@ -1,14 +1,22 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProjectPage from "./components/Project/ProjectPage";
-import React, { useEffect, useState } from "react";
 import ProjectForm from "./components/Project/ProjectForm";
-import UserContext from './context/UserContext';
 import ProjectList from "./components/Project/ProjectList";
-import Profile from "./components/Profile";
-import { logOut } from "./services/logout";
+import ColorModeContext from './context/ColorModeContext'
+import Profile from "./components/Profile/Profile";
+import React, { useEffect, useState, useMemo } from "react";
+import UserContext from './context/UserContext';
 import { callApi } from "./services/callAPI";
+import { logOut } from "./services/logout";
 import Login from "./components/Login";
 import Nav from "./components/Nav";
+
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import createTheme from '@mui/material/styles/createTheme';
+import CssBaseline from '@mui/material/CssBaseline';
+import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
+import Grid from "@mui/material/Grid";
 
 function App() {
   
@@ -17,14 +25,14 @@ function App() {
     token: null,
     info: null,
     message: null,
-    tags: []
+    tags: [],
   })
-  
+
   // get user info with token
   useEffect(() => {
     if (!user.token){ // check if token is in local storage
-      let userToken = localStorage.getItem("user_token")
-      let tokenTime = localStorage.getItem("token_time")
+      let userToken = localStorage.getItem("devroast_user_token")
+      let tokenTime = localStorage.getItem("devroast_token_time")
       if (userToken && tokenTime) {
         let timeDiff = 30  //                              <----------  time in minutes until token expires
         let expired = (Date.now() - timeDiff*60000) > tokenTime
@@ -66,23 +74,58 @@ function App() {
     }
   }, [user])
 
+  // Color Themes
+  const [mode, setMode] = useState(localStorage.getItem("devroast_mode") ? localStorage.getItem("devroast_mode") : "light");
+
+  const colorMode = useMemo(
+    () => ({
+      toggleColorMode: () => {
+        setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        localStorage.setItem('devroast_mode', mode === 'light' ? 'dark' : 'light')
+      },
+    }),
+    [mode],
+  );
+
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+        },
+      }),
+    [mode],
+  );
+
   return (
     <Router>
       <UserContext.Provider value={{user, setUser}}>  {/*user data provided as context to whole app*/}
-        <div className="App">
-          {user.message ? user.message : null}
-          <Nav/>
-          <Switch>
-            <Route exact path="/" component={ProjectList} />
-            <Route path="/addproject" component={user.token ? ProjectForm : Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/profile" component={user.token ? Profile : Login}/>
-            <Route path="/project/:id" component={ProjectPage}/>
-          </Switch>
-        </div>
+      <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
+        <Paper elevation={0} className="App">
+          <Grid container>
+            <Grid item xs={0} md={1} lg={2}></Grid>
+            <Grid item xs={12} md={10} lg={8}>
+              <Container maxWidth="md">
+              <Nav/>
+                {user.message ? user.message : null}
+                <Switch>
+                  <Route exact path="/" component={ProjectList} />
+                  <Route path="/addproject" component={user.token ? ProjectForm : Login} />
+                  <Route path="/login" component={Login} />
+                  <Route path="/profile" component={user.token ? Profile : Login}/>
+                  <Route path="/project/:id" component={ProjectPage}/>
+                </Switch>
+              </Container>
+            </Grid>
+            <Grid item xs={0} md={1} lg={2}></Grid>
+          </Grid>
+        </Paper>
+        </ThemeProvider>
+        </ColorModeContext.Provider>
         </UserContext.Provider>
     </Router>
-
   );
 }
 
