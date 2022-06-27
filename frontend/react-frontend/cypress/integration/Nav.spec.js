@@ -1,4 +1,4 @@
-// test navbar display
+// // test navbar display
 const routes = ['/addproject', '/profile', '/login']
 
 describe('Nav not logged in', () => {
@@ -51,17 +51,21 @@ describe('Nav logged in', () => {
 
     it('logs out', () => {
         cy.visit('/')
-        .get('div[id="AvatarMenu"]').click()
-        .get('p:contains("Logout")').should('exist').click()
+        // .get('div[id="AvatarMenu"]').click()
         .should(() => {
-            expect(localStorage.getItem('user_token')).to.be.null
-            expect(localStorage.getItem('token_time')).to.be.null
+            expect(localStorage.getItem('devroast_user_token')).to.be.not.null
+            expect(localStorage.getItem('devroast_token_time')).to.be.not.null
+        })
+        .get('p:contains("Logout")').should('exist').click({force: true})
+        .should(() => {
+            expect(localStorage.getItem('devroast_user_token')).to.be.null
+            expect(localStorage.getItem('devroast_token_time')).to.be.null
         })
         .get('a[id="LogOutButton"]').should('be.visible')
     })
 
     it('collapses options into menu when screen is small', () => {
-        cy.viewport(800, 1300)
+        cy.viewport(800, 1300).wait(500)
         .get('svg[data-testid="MenuIcon"]').should('be.visible').click()
         .get('a:contains("Add New Project")').should('be.visible').should('have.attr', 'href', '/addproject')
         .get('a:contains("ADD NEW PROJECT")').should('not.exist')

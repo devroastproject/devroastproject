@@ -8,7 +8,7 @@ import Loading from "../Utils/Loading";
 
 const Profile = () => {
     
-  const {user, setUser} = useContext(UserContext)
+  const {user} = useContext(UserContext)
   
     return (
       <div id='Profile'>

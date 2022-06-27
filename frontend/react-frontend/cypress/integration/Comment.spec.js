@@ -29,8 +29,8 @@ describe('Comment CRUD logged in', () => {
     it('deletes a comment',{retries: {runMode: 2, openMode: 1}}, () => {
         cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
-                cy.get('button[id="EditButton"]').should('be.visible').click()
-                .get('button[id="DeleteButton"]').should('be.visible').click()
+                cy.get('button[id="EditButton"]').should('be.visible').click({force: true})
+                .get('button[id="DeleteButton"]').should('be.visible').click({force: true})
                 
             }
         ).get('div[id="DeleteConfirm"]').should('exist')
@@ -46,9 +46,10 @@ describe('Comment CRUD logged in', () => {
 
     it('posts a new reply', () => {
         cy.intercept('POST', 'http://localhost:8000/api/comments/', {status: 200}).as('apiPostReply')
-        cy.get('p:contains("this is from user1")').parent().parent().parent().within(
+        cy.get('p:contains("this is from user1")').parent().parent().parent().parent()
+        .within(
             () => {
-                cy.get('button[id="ReplyButton"]').click()
+                cy.get('button[id="ReplyButton"]').click({force: true})
                 .get('textarea[name="Comment"]').type('test reply')
                 .get('button[id="CommentSubmitButton"]').click()
                 .wait(['@apiPostReply']).then((intercept) => {
@@ -62,7 +63,7 @@ describe('Comment CRUD logged in', () => {
         cy.get('p:contains("this comment is closed")').parent().parent().parent().within(
             () => {
                 cy.get('button[id="ReplyButton"]').should('not.exist')
-                .get('button[id="EditButton"]').click()
+                .get('button[id="EditButton"]').click({force: true})
                 .get('input[id="ClosedCheck"]').should('be.checked')
             }
         )
@@ -71,7 +72,7 @@ describe('Comment CRUD logged in', () => {
     it('replies cannot be closed', () => {
         cy.get('p:contains("this is a reply to user2")').parent().parent().within(
             () => {
-                cy.get('button[id="EditButton"]').click()
+                cy.get('button[id="EditButton"]').click({force: true})
                 .get('input[id="ClosedCheck"]').should('not.exist')
             }
         )

@@ -30,3 +30,37 @@ describe('password update form validation', () => {
         .get('button:contains("UPDATE PASSWORD")').should('not.be.disabled')
     })
 })
+
+describe('dark mode tests logged in', () => {
+
+    beforeEach(() => {
+        cy.login('/profile')
+    })
+
+    it('toggles between light and dark modes', () => {
+        cy.get('header').should('have.class', 'css-hip9hq-MuiPaper-root-MuiAppBar-root')
+        .get('button[id="ModeToggle"]').click()
+        .get('header').should('have.class', 'css-1k0i2s9-MuiPaper-root-MuiAppBar-root')
+        .get('button[id="ModeToggle"]').click()
+        .get('header').should('have.class', 'css-hip9hq-MuiPaper-root-MuiAppBar-root')
+    })
+
+    it('mode choice persists on refresh', () => {
+        cy.get('header').should('have.class', 'css-hip9hq-MuiPaper-root-MuiAppBar-root')
+        .get('button[id="ModeToggle"]').click()
+        .get('header').should('have.class', 'css-1k0i2s9-MuiPaper-root-MuiAppBar-root')
+        .reload()
+        .get('header').should('have.class', 'css-1k0i2s9-MuiPaper-root-MuiAppBar-root')
+    })
+})
+
+describe('dark mode tests logged out', () => {
+    
+    it('mode choice persists when logged out', () => {
+        cy.visit('/')
+        .get('header').should('have.class', 'css-hip9hq-MuiPaper-root-MuiAppBar-root')
+        .then(() => localStorage.setItem('devroast_mode', 'dark'))
+        .reload()
+        .get('header').should('have.class', 'css-1k0i2s9-MuiPaper-root-MuiAppBar-root')
+    })
+})

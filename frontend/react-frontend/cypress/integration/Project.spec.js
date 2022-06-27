@@ -98,11 +98,11 @@ describe('ProjectPage tests', () => {
     })
        
     it('returns to the project page on edit', {retries: {runMode: 2, openMode: 1}}, () => {
-        cy.intercept('PUT', 'http://localhost:8000/api/projects/1/', {"statusCode": 200})
+        cy.intercept('PUT', 'http://localhost:8000/api/projects/1/', {"statusCode": 200}).as('Proj1Refresh')
         .get('div[id="projButtons"]')
-        .find('svg[data-testid="EditOutlinedIcon"]').click()
+        .find('svg[data-testid="EditOutlinedIcon"]').click({force: true})
         .get('input[name="Title"]').type('Edited Title')
-        .get('button[id="ProjectSubmitButton"]').click()
+        .get('button[id="ProjectSubmitButton"]').click().wait(['@Proj1Refresh'])
         .get('div[class="ProjectPage"]').should('exist')
         .get('div[class="ProjectForm"]').should('not.exist')
     })
