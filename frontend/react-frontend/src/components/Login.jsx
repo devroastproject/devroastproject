@@ -42,8 +42,8 @@ const Login = () => {
         if (res.key){        // if user token returned, add to context
             let userToken = `Token ${res.key}`
             setUser({...user, token: userToken})   
-            localStorage.setItem('user_token', userToken)
-            localStorage.setItem('token_time', Date.now() )
+            localStorage.setItem('devroast_user_token', userToken)
+            localStorage.setItem('devroast_token_time', Date.now() )
         } else {
             setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
         }

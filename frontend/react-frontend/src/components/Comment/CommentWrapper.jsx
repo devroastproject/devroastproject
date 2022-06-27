@@ -20,7 +20,7 @@ import Paper from '@mui/material/Paper';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 
-const CommentWrapper = ({comment, project}) => {
+const CommentWrapper = ({comment, project, elevation=1}) => {
 
     const {id, votes, tags, username, closed, replies, body} = comment
     const history = useHistory()
@@ -41,47 +41,50 @@ const CommentWrapper = ({comment, project}) => {
     }
 
     return(
-        <Paper elevation={1}>
+        <Paper elevation={elevation}>
+                <Paper elevation={2}>
+
             <Grid container  sx={{padding: '6px'}} direction='row'>
-
-                {/* Comment text and edit buttons */}
-                <Grid item xs={12} sm={11} >
-                    {editing ? /* switch between displaying the comment or edit form*/
-                        <CommentForm comment={comment} project={project}/> : <Typography> {closed ? <>CLOSED<br/></> : null} {body} </Typography>
-                    }
-                </Grid>
-                <Grid item xs='auto' sm={1}> 
-                    {user.info && (user.info.id === comment.user) ?
-                    <>
-                        { deleting ? 
-                            <DeleteButtons deleting={deleting} setDeleting={setDeleting} deleteMethod={deleteComment} />
-                        : editing ?
-                            <EditButtons edit={editing} setEdit={setEditing} deleting={deleting} setDeleting={setDeleting} />
-                        :
-                            <Button onClick={() => {setEditing(!editing)}} id="EditButton">  
-                                <EditOutlined /> 
-                            </Button> }
-                    </>
-                    : null}
-                </Grid>
-
-                {/* Avatar, tags and votes on lower line */}
-                <Grid item xs={12} sm='auto'>
-                    <AvatarButton username={username}/>
-                </Grid>
-                <Grid item>
-                    <VoteWidget comment_id={id} votes={votes} closed={closed} />
-                </Grid>
-                <Grid item>
-                    <TagWidget tags={tags} comment_id={id} username={username} closed={closed}/> 
-                </Grid>
+                    {/* Comment text and edit buttons */}
+                    <Grid item xs={12} sm={11} >
+                        {editing ? /* switch between displaying the comment or edit form*/
+                            <CommentForm comment={comment} project={project}/> 
+                        : 
+                            <Typography> {closed ? <>CLOSED<br/></> : null} {body} </Typography>
+                        }
+                    </Grid>
+                    <Grid item xs='auto' sm={1}> 
+                        {user.info && (user.info.id === comment.user) ?
+                        <>
+                            { deleting ? 
+                                <DeleteButtons deleting={deleting} setDeleting={setDeleting} deleteMethod={deleteComment} />
+                            : editing ?
+                                <EditButtons edit={editing} setEdit={setEditing} deleting={deleting} setDeleting={setDeleting} />
+                            :
+                                <Button onClick={() => {setEditing(!editing)}} id="EditButton">  
+                                    <EditOutlined /> 
+                                </Button> }
+                        </>
+                        : null}
+                    </Grid>
+                    {/* Avatar, tags and votes on lower line */}
+                    <Grid item xs={12} sm='auto'>
+                        <AvatarButton username={username}/>
+                    </Grid>
+                    <Grid item>
+                        <VoteWidget comment_id={id} votes={votes} closed={closed} />
+                    </Grid>
+                    <Grid item>
+                        <TagWidget tags={tags} comment_id={id} username={username} closed={closed}/> 
+                    </Grid>
             </Grid>
+            </Paper>
                 
             {/* Render reply thread */}
             <Grid container direction='row-reverse'>
                 {replies.map((reply) => 
                     <Grid item  key={reply.id} justifyContent="space-between" xs={12} sm={11}>
-                        <CommentWrapper comment={reply} project={project}/>
+                        <CommentWrapper comment={reply} project={project} elevation={2}/>
                     </Grid>
                 )}
             </Grid>

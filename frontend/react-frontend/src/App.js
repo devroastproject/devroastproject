@@ -13,7 +13,9 @@ import Nav from "./components/Nav";
 
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import createTheme from '@mui/material/styles/createTheme';
+import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
 import Grid from "@mui/material/Grid";
 
 function App() {
@@ -29,8 +31,8 @@ function App() {
   // get user info with token
   useEffect(() => {
     if (!user.token){ // check if token is in local storage
-      let userToken = localStorage.getItem("user_token")
-      let tokenTime = localStorage.getItem("token_time")
+      let userToken = localStorage.getItem("devroast_user_token")
+      let tokenTime = localStorage.getItem("devroast_token_time")
       if (userToken && tokenTime) {
         let timeDiff = 30  //                              <----------  time in minutes until token expires
         let expired = (Date.now() - timeDiff*60000) > tokenTime
@@ -73,18 +75,19 @@ function App() {
   }, [user])
 
   // Color Themes
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(localStorage.getItem("devroast_mode") ? localStorage.getItem("devroast_mode") : "light");
 
   const colorMode = useMemo(
     () => ({
       toggleColorMode: () => {
         setMode((prevMode) => (prevMode === 'light' ? 'dark' : 'light'));
+        localStorage.setItem('devroast_mode', mode === 'light' ? 'dark' : 'light')
       },
     }),
-    [],
+    [mode],
   );
 
-  const theme = React.useMemo(
+  const theme = useMemo(
     () =>
       createTheme({
         palette: {
@@ -99,7 +102,8 @@ function App() {
       <UserContext.Provider value={{user, setUser}}>  {/*user data provided as context to whole app*/}
       <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
-        <div className="App">
+      <CssBaseline />
+        <Paper elevation={0} className="App">
           <Grid container>
             <Grid item xs={0} md={1} lg={2}></Grid>
             <Grid item xs={12} md={10} lg={8}>
@@ -117,7 +121,7 @@ function App() {
             </Grid>
             <Grid item xs={0} md={1} lg={2}></Grid>
           </Grid>
-        </div>
+        </Paper>
         </ThemeProvider>
         </ColorModeContext.Provider>
         </UserContext.Provider>

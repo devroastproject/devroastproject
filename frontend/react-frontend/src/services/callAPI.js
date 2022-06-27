@@ -22,7 +22,7 @@ export const callApi = async (endpoint, method, body=null, token=null) => {
         if (response.status < 200 || response.status > 300) {
             console.log(`Error: status ${response.status}`)
         } else {
-            localStorage.setItem('token_time', Date.now()) // on successful request, refresh local token timeout
+            localStorage.setItem('devroast_token_time', Date.now()) // on successful request, refresh local token timeout
         }
 
         return data;
