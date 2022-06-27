@@ -8,7 +8,7 @@ describe('Tag Tests Logged In', () => {
 
     })
 
-    it('the tag form displays all tags currently assigned', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('the tag form displays all tags currently assigned', () => {
         cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
                 cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
@@ -18,7 +18,7 @@ describe('Tag Tests Logged In', () => {
         )  
     })
 
-    it('a tag can be added to a comment', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('a tag can be added to a comment', () => {
         cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
                 cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
@@ -66,7 +66,7 @@ describe('Tag Tests Logged In', () => {
         )  
     })
 
-    it('a tag can be searched for within the form', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('a tag can be searched for within the form', () => {
         cy.get('h3:contains("User\'s Project")').parent().parent().within(
             () => {
                 cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
@@ -76,7 +76,7 @@ describe('Tag Tests Logged In', () => {
         )  
     }) 
 
-    it('the tag form displays all tags being searched for', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('the tag form displays all tags being searched for', () => {
         cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
                 cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)
@@ -89,7 +89,7 @@ describe('Tag Tests Logged In', () => {
         )  
     })
 
-    it('tags UI changes when assigned/unassigned', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('tags UI changes when assigned/unassigned', () => {
         cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
                 cy.get('svg[data-testid="LocalOfferOutlinedIcon"]').should('be.visible').click().wait(500)

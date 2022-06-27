@@ -28,7 +28,7 @@ describe('Nav logged in', () => {
         cy.login('/')
     })
 
-    it('shows links for all routes', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('shows links for all routes', () => {
         cy.get('div[id="AvatarMenu"]').should('be.visible').click()
         .get('p:contains("Logout")').should('exist').parent().should('be.visible').should('have.attr', 'href', '/')
         .get('p:contains("Profile")').should('exist').parent().should('be.visible').should('have.attr', 'href', '/profile')

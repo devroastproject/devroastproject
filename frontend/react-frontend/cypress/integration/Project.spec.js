@@ -64,7 +64,7 @@ describe('ProjectPage tests', () => {
         .visit('/project/1/')
     })
 
-    it('does not delete project without confirmation', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('does not delete project without confirmation', () => {
         cy.get('div[id="projButtons"]').within(
             () => {
             cy.get('svg[data-testid="EditOutlinedIcon"]').click()
@@ -73,7 +73,7 @@ describe('ProjectPage tests', () => {
         .get('div[id="DeleteConfirm"]').should('exist')
     })
 
-    it('forwards to home on delete', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('forwards to home on delete', () => {
         cy.api_404()
         .get('div[id="projButtons"]').within(
             () => {
@@ -97,7 +97,7 @@ describe('ProjectPage tests', () => {
         })
     })
        
-    it('returns to the project page on edit', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('returns to the project page on edit', () => {
         cy.intercept('PUT', 'http://localhost:8000/api/projects/1/', {"statusCode": 200}).as('Proj1Refresh')
         .get('div[id="projButtons"]')
         .find('svg[data-testid="EditOutlinedIcon"]').click({force: true})
@@ -115,7 +115,7 @@ describe('ProjectForm tests', () => {
         cy.login('/addproject').wait(['@apiMe'])
     })
 
-    it('requires a title and description for a new project', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('requires a title and description for a new project', () => {
         cy.get('button[id="ProjectSubmitButton"]').should('be.disabled').wait(500)
         .get('input[name="Title"]').type('Test Title')
         .get('textarea[name="Description"]').type('Description')

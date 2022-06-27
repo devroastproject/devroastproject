@@ -17,7 +17,7 @@ describe('Comment CRUD logged in', () => {
         })
     })
     
-    it('edits an existing comment',{retries: {runMode: 2, openMode: 1}}, () => {
+    it('edits an existing comment', () => {
         cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
                 cy.get('button[id="EditButton"]').should('be.visible').click()
@@ -26,7 +26,7 @@ describe('Comment CRUD logged in', () => {
         )
     })
 
-    it('deletes a comment',{retries: {runMode: 2, openMode: 1}}, () => {
+    it('deletes a comment', () => {
         cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
                 cy.get('button[id="EditButton"]').should('be.visible').click({force: true})
@@ -59,7 +59,7 @@ describe('Comment CRUD logged in', () => {
         )
     })
 
-    it('new replies cannot be added when the prompt is closed', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('new replies cannot be added when the prompt is closed', () => {
         cy.get('p:contains("this comment is closed")').parent().parent().parent().within(
             () => {
                 cy.get('button[id="ReplyButton"]').should('not.exist')

@@ -16,7 +16,7 @@ describe('Voting logged in', () => {
         )
     })
 
-    it('when voted, vote is bold', {retries: {runMode: 2, openMode: 1}}, () => {
+    it('when voted, vote is bold', () => {
         cy.get('p:contains("this is mine")').parent().parent().within(
             () => {
                 cy.get('svg[data-testid="ThumbUpIcon"]').should('be.visible')
