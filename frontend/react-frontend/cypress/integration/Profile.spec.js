@@ -64,3 +64,5 @@ describe('dark mode tests logged out', () => {
         .get('header').should('have.class', 'css-1k0i2s9-MuiPaper-root-MuiAppBar-root')
     })
 })
+
+// Avatars in all cases lead to the correct profile

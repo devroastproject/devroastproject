@@ -10,7 +10,7 @@ import Card from '@mui/material/Card';
 
 const ProjectPreview = ({project}) => {
 
-    const {id, title, description, username, comment_count, tags} = project
+    const {id, title, description, user, username, comment_count, tags} = project
 
     return(
         <Card variant="outlined">
@@ -25,7 +25,7 @@ const ProjectPreview = ({project}) => {
                 </Grid>
                 <Grid container item direction='row' spacing={1} xs={12} alignItems="center" >
                     <Grid item>
-                        <AvatarButton username={username}/>
+                        <AvatarButton id={user} username={username}/>
                     </Grid>
                     <Grid item id={`${id}_comment_count`}>
                         <Typography><InsertCommentOutlinedIcon />{comment_count}</Typography>

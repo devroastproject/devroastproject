@@ -17,11 +17,13 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import Box from '@mui/material/Box';
 
-const pages = [{text: 'Add New Project', link: '/addproject'}];
-const settings = [{text: 'Profile', link: '/profile'}, {text: 'Logout', link: '/'} ];
-
 const Nav = () => {
+
   const {user, setUser} = useContext(UserContext)
+
+  const pages = [{text: 'Add New Project', link: '/addproject'}];
+  const settings = [{text: 'Profile', link: user.info ? `/profile/${user.info.id}` : '/profile'}, {text: 'Logout', link: '/'} ];
+  
 
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);

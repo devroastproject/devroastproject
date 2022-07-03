@@ -69,7 +69,7 @@ const CommentWrapper = ({comment, project, elevation=1}) => {
                     </Grid>
                     {/* Avatar, tags and votes on lower line */}
                     <Grid item xs={12} sm='auto'>
-                        <AvatarButton username={username}/>
+                        <AvatarButton id={comment.user} username={username}/>
                     </Grid>
                     <Grid item>
                         <VoteWidget comment_id={id} votes={votes} closed={closed} />
