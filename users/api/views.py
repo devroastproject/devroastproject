@@ -71,4 +71,8 @@ class ProfileViewSet(
 
     queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
-    permission_classes = [IsAuthenticated, IsOwnProfileOrReadOnly]
+    permission_classes = [IsOwnProfileOrReadOnly]
+
+    # overwrite method to retrieve profile by user not PK 
+    def get_object(self):
+        return  Profile.objects.get(user=self.kwargs['pk'])

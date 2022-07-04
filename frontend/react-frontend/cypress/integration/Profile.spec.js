@@ -66,3 +66,20 @@ describe('dark mode tests logged out', () => {
 })
 
 // Avatars in all cases lead to the correct profile
+
+// when logged out, profile information is shown
+
+// when viewing another's profile, profile information is shown
+
+// when logged in options to change own profile are available
+
+// profile can be edited
+// profile form validation
+
+// email can be updated
+// email form validation
+
+// username can be changed 
+
+//BE
+//profile returned for correct user

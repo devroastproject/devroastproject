@@ -13,10 +13,10 @@ class Profile(models.Model):
     )
 
     user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
-    role = models.CharField(max_length=255, help_text="Web Developer, Data Engineer, etc")
-    location = models.CharField(max_length=255, help_text="What city your located in")
-    pronouns = models.CharField(max_length=10, choices=PRONOUN_OPTIONS)
-    about = models.TextField(default="Personal summary.", help_text="A little bit about yourself.")
+    role = models.CharField(max_length=255, help_text="Web Developer, Data Engineer, etc", null=True)
+    location = models.CharField(max_length=255, help_text="What city your located in", null=True)
+    pronouns = models.CharField(max_length=10, choices=PRONOUN_OPTIONS, null=True)
+    about = models.TextField(default="Personal summary.", help_text="A little bit about yourself.", null=True)
     website = models.URLField(help_text="URL for your personal website.", null=True)
     twitter = models.URLField(help_text="URL for your Twitter feed.", null=True)
     github = models.URLField(help_text="URL for your GitHub.", null=True)
@@ -24,4 +24,4 @@ class Profile(models.Model):
 
     def __str__(self):
 
-        return self.username
+        return self.user.username

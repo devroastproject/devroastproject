@@ -1,27 +1,31 @@
 import ChangePasswordForm from "./ChangePasswordForm";
-import { useHistory, useParams } from "react-router";
+import { useParams } from "react-router";
 import UserContext from "../../context/UserContext";
-import AvatarButton from "../Utils/AvatarButton"
+import { callApi } from "../../services/callAPI";
 import DarkmodeToggle from "./DarkModeToggle";
 import React, { useContext, useState, useEffect } from "react";
-import Loading from "../Utils/Loading";
+import ProfileForm from "./ProfileForm";
+import ProfileDetail from "./ProfileDetail";
+import Message from "../Utils/Message";
 
+import EditOutlined from '@mui/icons-material/EditOutlined';
+import Button from "@mui/material/Button";
 
 const Profile = () => {
 
   const {user} = useContext(UserContext)
   let params = useParams()
-  let history = useHistory()
   const [profile, setProfile] = useState(null)
+  const [edit, setEdit] = useState(false)
 
   useEffect(() => {
     if (!profile) {
       (async () => {
         const detail = await callApi(`profiles/${params.id}/`, "GET")
-        if (detail.code === 404){    // if item has been deleted, go to home
-            history.push('/') 
+        if (detail.code === 200){    // if item has been deleted, go to home
+          setProfile(detail)
         } else {
-            setProfile(detail)
+          console.log(detail.code)
         }
       })()
     }
@@ -29,21 +33,26 @@ const Profile = () => {
 
     return (
       <div id='Profile'>
-        { profile ?
+        { !edit && profile ? 
+        
           <>
-            { user.info ? 
+            <ProfileDetail profile={profile}/>
+            { user.info && user.info.id == params.id ? 
               <>
+                <Button onClick={() => {setEdit(!edit)}}>  
+                  <EditOutlined /> 
+                </Button>
                 <ChangePasswordForm />
                 <DarkmodeToggle/>
               </>
             : 
-              <Loading/>
+              null
             }
-            </>
-          :
-            null
+          </>
+        :
+          <ProfileForm profile={profile}/>
         }
-          
+
       </div>
     );
   };
