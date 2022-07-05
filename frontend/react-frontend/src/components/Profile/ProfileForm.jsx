@@ -67,7 +67,7 @@ const ProfileForm = ({profile}) => {
             <Stack spacing={2}>
                 <Box mt={2}>
                     <Typography varient="h4" align='center' fontFamily='monospace'>
-                        {profile.user === "" ? 'PROFILE SETUP' : 'EDIT PROFILE'}
+                        {profile === 404 ? 'PROFILE SETUP' : 'EDIT PROFILE'}
                     </Typography>
                 </Box>
                 <form onSubmit={updateProfile}>
@@ -91,13 +91,3 @@ const ProfileForm = ({profile}) => {
     )
 };
 export default ProfileForm;
-
-// user = models.OneToOneField(User, on_delete=models.DO_NOTHING)
-// role = models.CharField(max_length=255, help_text="Web Developer, Data Engineer, etc")
-// location = models.CharField(max_length=255, help_text="What city your located in")
-// pronouns = models.CharField(max_length=10, choices=PRONOUN_OPTIONS)
-// about = models.TextField(default="Personal summary.", help_text="A little bit about yourself.")
-// website = models.URLField(help_text="URL for your personal website.", null=True)
-// twitter = models.URLField(help_text="URL for your Twitter feed.", null=True)
-// github = models.URLField(help_text="URL for your GitHub.", null=True)
-// linkedin = models.URLField(help_text="URL for your LinkedIn page.", null=True)

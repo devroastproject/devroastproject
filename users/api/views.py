@@ -5,7 +5,7 @@ from rest_framework.viewsets import ReadOnlyModelViewSet, GenericViewSet, ViewSe
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK
+from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_200_OK, HTTP_404_NOT_FOUND
 from .serializers import UserSerializer, PasswordSerializer, ProfileSerializer
 from .permissions import IsOwnerOrReadOnly, IsOwnProfileOrReadOnly
 from users.models import Profile
@@ -75,4 +75,14 @@ class ProfileViewSet(
 
     # overwrite method to retrieve profile by user not PK 
     def get_object(self):
-        return  Profile.objects.get(user=self.kwargs['pk'])
+        try:
+            return Profile.objects.get(user=self.kwargs['pk'])
+        except:
+            return None
+    
+    def retrieve(self, request, pk):
+        profile = self.get_object()
+        if profile:
+            return Response(data=ProfileSerializer(profile).data)
+        else:
+            return Response(data='Profile Has Not Been Set Up', status=HTTP_404_NOT_FOUND)

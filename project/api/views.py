@@ -1,4 +1,3 @@
-import re
 from rest_framework.response import Response
 from project.models import Project, Comment, Vote, Tag
 from rest_framework.mixins import RetrieveModelMixin, UpdateModelMixin, ListModelMixin, DestroyModelMixin, CreateModelMixin

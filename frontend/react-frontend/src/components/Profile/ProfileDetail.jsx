@@ -7,14 +7,20 @@ const ProfileDetail = ({profile}) => {
 
     return(
         <div id='ProfileDetail'>
-            <p>{role}</p>
-            <p>{location}</p>
-            <p>{pronouns}</p>
-            <p>{about}</p>
-            <p>{website}</p>
-            <p>{twitter}</p>
-            <p>{github}</p>
-            <p>{linkedin}</p>
+            { profile === 404 ?
+                <p>Profile Not Set Up Yet</p>
+            :
+                <>
+                    <p>{role}</p>
+                    <p>{location}</p>
+                    <p>{pronouns}</p>
+                    <p>{about}</p>
+                    <p>{website}</p>
+                    <p>{twitter}</p>
+                    <p>{github}</p>
+                    <p>{linkedin}</p>
+                </>
+            }
         </div>
     )
 };

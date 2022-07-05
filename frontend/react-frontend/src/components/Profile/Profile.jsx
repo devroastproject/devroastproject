@@ -1,13 +1,14 @@
+import React, { useContext, useState, useEffect } from "react";
 import ChangePasswordForm from "./ChangePasswordForm";
-import { useParams } from "react-router";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import DarkmodeToggle from "./DarkModeToggle";
-import React, { useContext, useState, useEffect } from "react";
-import ProfileForm from "./ProfileForm";
 import ProfileDetail from "./ProfileDetail";
-import Message from "../Utils/Message";
+import { useParams } from "react-router";
+import ProfileForm from "./ProfileForm";
+import Loading from "../Utils/Loading";
 
+import CancelOutlined from '@mui/icons-material/CancelOutlined';
 import EditOutlined from '@mui/icons-material/EditOutlined';
 import Button from "@mui/material/Button";
 
@@ -22,37 +23,48 @@ const Profile = () => {
     if (!profile) {
       (async () => {
         const detail = await callApi(`profiles/${params.id}/`, "GET")
-        if (detail.code === 200){    // if item has been deleted, go to home
+        if (detail.code === 200){ 
           setProfile(detail)
         } else {
-          console.log(detail.code)
+          setProfile(404)
         }
       })()
     }
-  });
+  }, []);
 
     return (
       <div id='Profile'>
-        { !edit && profile ? 
-        
+        { profile ? // show loading until profile is retrieved
           <>
-            <ProfileDetail profile={profile}/>
-            { user.info && user.info.id == params.id ? 
+          { user.info && user.info.id === parseInt(params.id) ? // if user's profile, render forms and control buttons
+            <>
+            { profile === 404 ? // if profile doesn't exist, render create form
+              <ProfileForm profile={profile} /> 
+            : edit ?  // if profile exists, use `edit` to toggle between display and edit forms
               <>
-                <Button onClick={() => {setEdit(!edit)}}>  
-                  <EditOutlined /> 
-                </Button>
-                <ChangePasswordForm />
-                <DarkmodeToggle/>
+              <ProfileForm profile={profile} />
+              <Button onClick={() => {setEdit(!edit)}}>  
+                <CancelOutlined/>
+              </Button>
               </>
-            : 
-              null
+              :  
+              <>
+              <ProfileDetail profile={profile}/> 
+              <Button onClick={() => {setEdit(!edit)}}>  
+                <EditOutlined />
+              </Button>
+              </>
             }
-          </>
+              <ChangePasswordForm />
+              <DarkmodeToggle/>
+            </>
+          : // if not the user's profile, display profile info        
+            <ProfileDetail profile={profile}/>
+          }
+        </>
         :
-          <ProfileForm profile={profile}/>
+          <Loading/>
         }
-
       </div>
     );
   };

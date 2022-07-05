@@ -35,7 +35,7 @@ const ProjectPage = () => {
             }
           })()
         }
-    });
+    }, []);
 
     const deleteProject = async () => {
             
