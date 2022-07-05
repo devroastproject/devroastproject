@@ -1,10 +1,10 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import React, { useEffect, useState, useMemo } from "react";
 import ProjectPage from "./components/Project/ProjectPage";
 import ProjectForm from "./components/Project/ProjectForm";
 import ProjectList from "./components/Project/ProjectList";
 import ColorModeContext from './context/ColorModeContext'
 import Profile from "./components/Profile/Profile";
-import React, { useEffect, useState, useMemo } from "react";
 import UserContext from './context/UserContext';
 import { callApi } from "./services/callAPI";
 import { logOut } from "./services/logout";

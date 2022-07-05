@@ -35,6 +35,7 @@ const ProjectPage = () => {
             }
           })()
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const deleteProject = async () => {

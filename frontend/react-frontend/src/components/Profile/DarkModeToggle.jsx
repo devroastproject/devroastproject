@@ -24,7 +24,7 @@ const DarkmodeToggle = () => {
                 p: 3,
             }}
             >
-            {theme.palette.mode} mode
+            {theme.palette.mode === 'dark' ? 'Dark' : 'Light'} Mode 
             <IconButton sx={{ ml: 1 }} onClick={colorMode.toggleColorMode} color="inherit" id="ModeToggle">
                 {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
             </IconButton>
