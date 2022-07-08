@@ -152,12 +152,9 @@ A secondary staticfiles link was added to work within the compose. All API calls
 
 - image upload
 - Expand user profiles
-  - user info section
-  - avatar links to individual profiles
   - "my projects"
   - "my comments"
   - "update email"
-  - update user info
 - add images to projects
 - expand project list
   - sort by date

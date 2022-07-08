@@ -7,9 +7,12 @@ import Message from "../Utils/Message";
 
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
+import { MenuItem } from "@mui/material";
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
+import { useState } from "react";
 
 const ProfileForm = ({profile}) => {
 
@@ -29,7 +32,8 @@ const ProfileForm = ({profile}) => {
 
     const [role, roleInput] = useInput({type: 'text', label: 'Role', defaultValue: profile.role});
     const [location, locationInput] = useInput({type: 'text', label: 'Location', defaultValue: profile.location});
-    const [pronouns, pronounsInput] = useInput({type: 'text', label: 'Pronouns', defaultValue: profile.pronouns});
+    // const [pronouns, pronounsInput] = useInput({type: 'text', label: 'Pronouns', defaultValue: profile.pronouns});
+    const [pronouns, setPronouns] = useState('They/Them')
     const [about, aboutInput] = useInput({type: 'text', label: 'About', defaultValue: profile.about});
     const [website, websiteInput] = useInput({type: 'text', label: 'Website', defaultValue: profile.website});
     const [twitter, twitterInput] = useInput({type: 'text', label: 'Twitter', defaultValue: profile.twitter});
@@ -62,6 +66,12 @@ const ProfileForm = ({profile}) => {
         }
     }
 
+    const handleChange = (event) => {
+        setPronouns(event.target.value);
+    };
+
+    const pronounOptions = ['He/Him', 'She/Her', 'They/Them']
+
     return(
         <Container maxWidth="sm" id='ProfileForm'>
             <Stack spacing={2}>
@@ -73,9 +83,17 @@ const ProfileForm = ({profile}) => {
                 <form onSubmit={updateProfile}>
                     <Stack spacing={1}> 
                         {roleInput}
-                        {locationInput}
-                        {pronounsInput}
                         {aboutInput}
+                        <Select
+                            value={pronouns}
+                            label='Pronouns'
+                            onChange={handleChange}
+                        >
+                            {pronounOptions.map((pronoun) => {
+                                return (<MenuItem value={pronoun} key={pronoun}>{pronoun}</MenuItem>)
+                            })}
+                        </Select>
+                        {locationInput}
                         {websiteInput}
                         {twitterInput}
                         {githubInput}

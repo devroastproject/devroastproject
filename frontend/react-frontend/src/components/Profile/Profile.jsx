@@ -10,7 +10,12 @@ import Loading from "../Utils/Loading";
 import PropTypes from 'prop-types';
 
 import CancelOutlined from '@mui/icons-material/CancelOutlined';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import EditOutlined from '@mui/icons-material/EditOutlined';
+import Typography from '@mui/material/Typography';
+import Accordion from '@mui/material/Accordion';
 import Button from "@mui/material/Button";
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
@@ -20,6 +25,9 @@ const Profile = () => {
 
   const {user} = useContext(UserContext)
   let params = useParams()
+
+  const [ownProfile, setOwnProfile] = useState(false)
+
   const [profile, setProfile] = useState(null)
   const [edit, setEdit] = useState(false)
   const [tab, setTab] = useState(0);
@@ -38,6 +46,11 @@ const Profile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setOwnProfile(user.info && user.info.id === parseInt(params.id))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
+
   const handleChange = (event, newValue) => {
     setTab(newValue);
   };
@@ -47,47 +60,76 @@ const Profile = () => {
       
       { profile ? // show loading until profile is retrieved
         <>
-        { user.info && user.info.id === parseInt(params.id) ? // if user's profile, render forms and control buttons
-          <>
           <Tabs value={tab} onChange={handleChange} 
             TabIndicatorProps={{ sx: { display: 'none' } }}
             sx={{'& .MuiTabs-flexContainer': { flexWrap: 'wrap'}}}
           >
-            <Tab label={`${user.info.username}'s Profile`} {...a11yProps(0)} />
-            <Tab label="Change Password" {...a11yProps(1)} />
-            <Tab label="App Settings" {...a11yProps(2)} />
+            <Tab label={
+              ownProfile ? 'My Profile' :
+              profile === 404 ? 'Profile Not Set Up Yet'
+              : profile.username + "'s Profile"
+              } 
+              {...a11yProps(0)} />
+            {ownProfile && ([
+              <Tab label="Account Settings" {...a11yProps(1)} key={1}/>,
+              <Tab label="App Settings" {...a11yProps(2)} key={2}/> 
+            ])}
           </Tabs>
           <TabPanel value={tab} index={0}> 
-            { profile === 404 ? // if profile doesn't exist, render create form
-              <ProfileForm profile={profile} /> 
-            : edit ?  // if profile exists, use `edit` to toggle between display and edit forms
-              <>
-              <ProfileForm profile={profile} />
-              <Button onClick={() => {setEdit(!edit)}}>  
-                <CancelOutlined/>
-              </Button>
-              </>
-              :  
-              <>
+            { (profile === 404 && ownProfile) || edit ? // if owned profile doesn't exist, render create form
+              <ProfileForm profile={profile} />         // if profile exists, use `edit` to toggle between display and edit forms
+            :  
               <ProfileDetail profile={profile}/> 
-              <Button onClick={() => {setEdit(!edit)}}>  
-                <EditOutlined />
-              </Button>
-              </>
+            }
+            { ownProfile && profile !== 404 && // if profile exists and is owned, show edit button
+              (<Button onClick={() => {setEdit(!edit)}}>  
+                {edit ? <CancelOutlined/> : <EditOutlined />}
+              </Button>)
             }
           </TabPanel>
+
           <TabPanel value={tab} index={1}>
-            <ChangePasswordForm />
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography>Change Username</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <p>TODO</p>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel2a-content"
+                id="panel2a-header"
+              >
+                <Typography>Change Password</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <ChangePasswordForm />
+              </AccordionDetails>
+            </Accordion>
+            <Accordion>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography>Update Email</Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <p>TODO</p>
+              </AccordionDetails>
+            </Accordion>
           </TabPanel>
+
           <TabPanel value={tab} index={2}>
             <DarkmodeToggle/>
           </TabPanel>
-          </>
-        : // if not the user's profile, display profile info      
-          <TabPanel value={tab} index={0}>  
-            <ProfileDetail profile={profile}/>
-          </TabPanel>
-        }
       </>
       :
         <Loading/>

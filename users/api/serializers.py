@@ -29,8 +29,12 @@ class PasswordSerializer(Serializer):
 # Serializer for the Profile model
 class ProfileSerializer(ModelSerializer):
 
+    username = SerializerMethodField()
+
     class Meta:
 
         model = Profile
         fields = "__all__"
-        
+    
+    def get_username(self, obj):
+        return User.objects.get(username=obj.user).username
