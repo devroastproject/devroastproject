@@ -66,6 +66,9 @@ describe('dark mode tests logged out', () => {
 })
 
 // Avatars in all cases lead to the correct profile
+    // home page from project preview
+    // project detail
+    // comment
 
 // when logged out, profile information is shown
 

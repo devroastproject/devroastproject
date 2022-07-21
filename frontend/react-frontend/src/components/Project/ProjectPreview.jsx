@@ -16,7 +16,7 @@ const ProjectPreview = ({project}) => {
         <Card variant="outlined">
             <Grid container spacing={1} sx={{padding: '6px'}}>
                 <Grid item xs={12}>
-                    <Link to={{pathname: `project/${id}`, query: {"id": id}}} style={{ textDecoration: 'none' }}>
+                    <Link to={{pathname: `/project/${id}`, query: {"id": id}}} style={{ textDecoration: 'none' }}>
                         <Typography variant='h5'>{title}</Typography>
                     </Link>
                 </Grid>

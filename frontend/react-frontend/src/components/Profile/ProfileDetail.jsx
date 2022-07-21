@@ -30,9 +30,9 @@ const ProfileDetail = ({profile}) => {
             <ProfileRow>
                 Role: {role}
             </ProfileRow>
-            <ProfileRow>
+            <Stack spacing={2}>
                 About: <br/> {about}
-            </ProfileRow>
+            </Stack>
             <ProfileRow>
                 Pronouns: {pronouns}
             </ProfileRow>

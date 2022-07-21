@@ -9,7 +9,7 @@ const AvatarButton = ({id, username}) => {
 
     return (
         <Button component={Link}
-            to={{pathname: `profile/${id}`, query: {"id": id}}} style={{ textDecoration: 'none' }}
+            to={{pathname: `/profile/${id}`, query: {"id": id}}} style={{ textDecoration: 'none' }}
         >
             <Avatar sx={{'marginRight': '5px'}} alt={username} src="http://localhost:8000/staticfiles/monkeygun.jpg" />
             <Typography>{username}</Typography>
