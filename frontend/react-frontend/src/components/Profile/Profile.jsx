@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import ChangePasswordForm from "./ChangePasswordForm";
+import ChangeEmailForm from "./ChangeEmailForm";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import DarkmodeToggle from "./DarkModeToggle";
@@ -122,7 +123,7 @@ const Profile = () => {
                 <Typography>Update Email</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <p>TODO</p>
+                <ChangeEmailForm />
               </AccordionDetails>
             </Accordion>
           </TabPanel>
