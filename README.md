@@ -154,7 +154,6 @@ A secondary staticfiles link was added to work within the compose. All API calls
 - Expand user profiles
   - "my projects"
   - "my comments"
-  - "update email"
 - add images to projects
 - expand project list
   - sort by date

@@ -8,37 +8,38 @@ import Message from "../Utils/Message";
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 
-const ChangeEmailForm = () => {
+const UpdateUserForm = ({element}) => {
+    
     const {user, setUser} = useContext(UserContext)
     const history = useHistory()
-    const [email, emailInput] = useInput({type: 'email', label: 'New Email'});
+    const [ele, eleInput] = useInput({type: element, label: `New ${element}`, defaultValue: user.info[element]});
     
 
-    const changeEmail = async e => {
+    const changeElement = async e => {
       e.preventDefault()
       let data = {
         'id': user.info.id,
-        'email': email,
+        [element]: ele,
       }
-      
+
       const res = await callApi(`users/${user.info.id}/`, 'PATCH', data, user.token)
 
-      if (res.code === 200){    // forward to home on success
+      if (res.code === 200){
         setUser({...user, message: <Message message={res.message} type="success"/>})   
-        history.push("/")
+        history.go(0)           // refresh page on post success
       } else {
         setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
       }
     }
 
     return (
-        <form  onSubmit={changeEmail}>
+        <form  onSubmit={changeElement}>
             <Stack spacing={1}> 
-                {emailInput}
-                <Button type="submit" variant='contained' disabled={!email}>UPDATE EMAIL</Button>
+                {eleInput}
+                <Button type="submit" variant='contained' disabled={!ele}>UPDATE {element}</Button>
             </Stack>
         </form>
     );
   };
   
-  export default ChangeEmailForm;
+  export default UpdateUserForm;

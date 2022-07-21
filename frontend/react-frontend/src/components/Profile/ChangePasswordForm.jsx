@@ -25,9 +25,9 @@ const ChangePasswordForm = () => {
       
       const res = await callApi("users/me/change_password/", 'PUT', data, user.token)
 
-      if (res.code === 200){    // forward to home on success
+      if (res.code === 200){
         setUser({...user, message: <Message message={res.message} type="success"/>})   
-        history.push("/")
+        history.go(0)           // refresh page on post success
       } else {
         setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
       }

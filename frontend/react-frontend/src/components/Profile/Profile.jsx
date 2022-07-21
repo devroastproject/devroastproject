@@ -1,9 +1,9 @@
 import React, { useContext, useState, useEffect } from "react";
 import ChangePasswordForm from "./ChangePasswordForm";
-import ChangeEmailForm from "./ChangeEmailForm";
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
 import DarkmodeToggle from "./DarkModeToggle";
+import UpdateUserForm from "./UpdateUserForm";
 import ProfileDetail from "./ProfileDetail";
 import { useParams } from "react-router";
 import ProfileForm from "./ProfileForm";
@@ -99,7 +99,7 @@ const Profile = () => {
                 <Typography>Change Username</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <p>TODO</p>
+                <UpdateUserForm element='username' />
               </AccordionDetails>
             </Accordion>
             <Accordion>
@@ -123,7 +123,7 @@ const Profile = () => {
                 <Typography>Update Email</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <ChangeEmailForm />
+                <UpdateUserForm element='email' />
               </AccordionDetails>
             </Accordion>
           </TabPanel>
