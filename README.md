@@ -151,15 +151,20 @@ A secondary staticfiles link was added to work within the compose. All API calls
 ## TODO
 
 - image upload
+
+  - add images to projects
+
 - Expand user profiles
+
   - "my projects"
   - "my comments"
-- add images to projects
+
 - expand project list
+
   - sort by date
   - pagination
   - search
+
 - add tag filter to home page
-- rework login to require pw OR email
 
 - **deploy**

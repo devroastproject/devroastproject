@@ -20,20 +20,21 @@ const Login = () => {
     let history = useHistory()
     const [username, userInput] = useInput({type: 'text', label: 'User Name'});
     const [email, emailInput] = useInput({type: 'email', label: 'Email'});
+    const [nameOrEmail, nameOrEmailInput] = useInput({type: 'text', label: 'User Name or Email'});
     const [password1, pw1Input] = useInput({type: 'password', label: 'Password'});
     const [password2, pw2Input] = useInput({type: 'password', label: 'Confirm Password'});
   
 
     const loginUser = async e => {
         e.preventDefault()
-        let data = {
-            'username': username,
-            'email': email,
-        }
+        let data = {}
         if (newUser) {
+            data['username'] = username
+            data['email'] = email
             data['password1'] = password1
             data['password2'] = password2
         } else { 
+            data['username'] = nameOrEmail
             data['password'] = password1
         }
         let url = newUser ? 'auth/registration/' : 'auth/login/'
@@ -63,14 +64,23 @@ const Login = () => {
                 </Box>
                 <form onSubmit={loginUser}>
                     <Stack spacing={1}>
-                        {userInput}
-                        {emailInput}
-                        {newUser ? <> {pw1Input} {pw2Input} </> : pw1Input}
+                        {newUser ? 
+                        <> 
+                            {userInput}
+                            {emailInput}
+                            {pw1Input} 
+                            {pw2Input} 
+                        </> : 
+                        <> 
+                            {nameOrEmailInput}
+                            {pw1Input}
+                        </>
+                        }
                         <Button type="submit" variant="contained" 
                             disabled={ !(
                                     (newUser && username && email && password1 && password2 && password1 === password2)
                                     ||
-                                    (!newUser && username && email && password1)
+                                    (!newUser && nameOrEmail && password1)
                                 )}
                                 id="LoginButton">
                             {newUser ? 'Register' : "Log In"}
