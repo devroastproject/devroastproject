@@ -22,7 +22,7 @@ import Box from '@mui/material/Box';
 
 const CommentWrapper = ({comment, project, elevation=1}) => {
 
-    const {id, votes, tags, username, closed, replies, body} = comment
+    const {id, votes, tags, username, closed, replies, body, avatar} = comment
     const history = useHistory()
     const {user, setUser} = useContext(UserContext)
     const [editing, setEditing] = useState(false)
@@ -69,7 +69,7 @@ const CommentWrapper = ({comment, project, elevation=1}) => {
                     </Grid>
                     {/* Avatar, tags and votes on lower line */}
                     <Grid item xs={12} sm='auto'>
-                        <AvatarButton id={comment.user} username={username}/>
+                        <AvatarButton id={comment.user} username={username} avatar={avatar}/>
                     </Grid>
                     <Grid item>
                         <VoteWidget comment_id={id} votes={votes} closed={closed} />

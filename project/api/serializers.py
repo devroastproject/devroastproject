@@ -27,6 +27,7 @@ class CommentSerializer(ModelSerializer):
     username = SerializerMethodField()
     votes = SerializerMethodField()
     tags = SerializerMethodField()
+    avatar = SerializerMethodField()
 
     class Meta:
 
@@ -53,6 +54,12 @@ class CommentSerializer(ModelSerializer):
     
     def get_tags(self, obj):
         return TagSerializer(Tag.objects.filter(comment=obj), many=True).data
+
+    def get_avatar(self, obj):
+        try:
+            return Profile.objects.get(user=obj.user).avatar.url
+        except:
+            return None
 
 class ProjectSerializer(ModelSerializer):
 

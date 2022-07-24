@@ -10,7 +10,7 @@ import Grid from '@mui/material/Grid';
 
 const ProjectDetail = ({project}) => {
 
-    const {id, title, description, user, username, repo_url, hosted_url, tags} = project
+    const {id, title, description, user, username, repo_url, hosted_url, tags, avatar} = project
     
     function prepURL(url){
         let prepped = ' ' + url.replace(/(^\w+:|^)\/\//, '').slice(0, 17);
@@ -24,7 +24,7 @@ const ProjectDetail = ({project}) => {
                     <Typography variant="h3" style={{wordWrap: 'break-word'}}>{title}</Typography>
                 </Grid>
                 <Grid item>
-                    <AvatarButton id={user} username={username}/>
+                    <AvatarButton id={user} username={username} avatar={avatar}/>
                 </Grid>
                 {repo_url ? 
                     <Grid item>

@@ -144,7 +144,7 @@ const Nav = () => {
           <Box sx={{ flexGrow: 0 }} id='AvatarMenu'> {/* AVATER MENU */}
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }} >
-                <Avatar alt={user.info.username} src="http://localhost:8000/staticfiles/monkeygun.jpg" />
+                <Avatar alt={user.info.username} src={`http://localhost:8000${user.info.avatar}`} />
               </IconButton>
             </Tooltip>
             <Menu

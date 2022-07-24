@@ -86,3 +86,4 @@ describe('dark mode tests logged out', () => {
 
 //BE
 //profile returned for correct user
+// profile can be created for a user

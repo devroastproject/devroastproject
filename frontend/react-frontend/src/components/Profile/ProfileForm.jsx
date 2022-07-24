@@ -58,7 +58,7 @@ const ProfileForm = ({profile}) => {
         }
         
         const res = await callApi(url, method, data, user.token)
-        if (res.code >= 200 || res.code < 300){   
+        if (res.code >= 200 && res.code < 300){   
             setUser({...user, message: <Message message={res.message} type="success"/>})   
             history.go(0)
         } else {
