@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.fields import related
-
 
 # Model for an individual post
 class Project(models.Model):

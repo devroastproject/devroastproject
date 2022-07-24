@@ -137,6 +137,7 @@ frontend/react-frontend/.config
 
 # collected static files
 staticfiles/
+mediafiles/
 
 # email logs
 emails/
@@ -146,3 +147,4 @@ e2e/cypress/videos
 e2e/cypress/screenshots
 
 /project/migrations/
+/users/migrations/

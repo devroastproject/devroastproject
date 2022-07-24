@@ -27,4 +27,5 @@ urlpatterns = [
     path("api/", include("project.api.urls")),
     path("api/auth/registration/", include("rest_auth.registration.urls")),
     path("accounts/", include('allauth.urls'))
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # Adds static file route, ONLY WORKS IN DEBUG MODE
+# ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) # Adds static file route, ONLY WORKS IN DEBUG MODE
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # Adds media file route, ONLY WORKS IN DEBUG MODE
