@@ -1,5 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
+
+def random_filename(self, filename):
+    ext = filename.split('.')[-1]
+    return f'{uuid.uuid4()}.{ext}'
 
 # Model for user profile info
 class Profile(models.Model):
@@ -20,7 +25,7 @@ class Profile(models.Model):
     twitter = models.URLField(help_text="URL for your Twitter feed.", null=True)
     github = models.URLField(help_text="URL for your GitHub.", null=True)
     linkedin = models.URLField(help_text="URL for your LinkedIn page.", null=True)
-    avatar = models.ImageField('Avatar', null=True)
+    avatar = models.ImageField('Avatar', null=True, upload_to=random_filename)
 
     def __str__(self):
 

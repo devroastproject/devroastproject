@@ -1,5 +1,6 @@
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
+from users.api.serializers import ProfileSerializer
 from project.models import Project, Comment, Tag, User, Vote
 from users.models import Profile
 
@@ -79,5 +80,7 @@ class ProjectSerializer(ModelSerializer):
         return TagSerializer(Tag.objects.filter(project=obj), many=True).data
     
     def get_avatar(self, obj):
-        print(Profile.objects.get(user=obj.user).avatar)
-        return Profile.objects.get(user=obj.user).avatar
+        try:
+            return Profile.objects.get(user=obj.user).avatar.url
+        except:
+            return None
