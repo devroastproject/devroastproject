@@ -6,13 +6,14 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import Typography from '@mui/material/Typography';
+import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 
-const ProfileRow = ({children}) => {
+const ProfileRow = ({children, noWrap=true}) => {
     return(
         <Stack direction='row' spacing={2}>
             {children.map((child) => { return (
-                <Typography key={child} style={{wordWrap: 'break-word'}}>
+                <Typography key={child} noWrap={noWrap}>
                     {child}
                 </Typography>  
             )})}
@@ -22,36 +23,51 @@ const ProfileRow = ({children}) => {
 
 const ProfileDetail = ({profile}) => {
     
-    const{role, location, pronouns, about, website, twitter, github, linkedin} = profile
+    const{role, location, pronouns, about, website, twitter, github, linkedin, avatar} = profile
 
     return(
         profile !== 404 && (
-        <Stack id='ProfileDetail' spacing={1}>
-            <ProfileRow>
-                Role: {role}
-            </ProfileRow>
-            <Stack spacing={2}>
-                About: <br/> {about}
+        <Stack id='ProfileDetail' spacing={2}>   
+            <Avatar 
+                src={`http://localhost:8000${avatar}`}
+                sx={{ width: 150, height: 150 }}
+            />
+            <Stack  spacing={1}>
+            {role && 
+                <ProfileRow>
+                    Role: {role}
+                </ProfileRow> }
+            {about && 
+                <Stack >
+                    About: <br/> 
+                    <Typography sx={{wordWrap:"break-word"}} noWrap={false}>{about}</Typography>
+                </Stack> }
+            {pronouns && 
+                <ProfileRow>
+                    Pronouns: {pronouns}
+                </ProfileRow> }
+            {location && 
+                <ProfileRow>
+                    <LocationOnOutlinedIcon/>{location}
+                </ProfileRow> }
+            {website && 
+                <ProfileRow>
+                    <LanguageOutlinedIcon/>{website}
+                </ProfileRow> }
+            {twitter &&
+                <ProfileRow>
+                    <TwitterIcon/>{twitter}
+                </ProfileRow> }
+            {github &&
+                <ProfileRow>
+                    <GitHubIcon/>{github}
+                </ProfileRow> }
+            {linkedin && 
+                <ProfileRow>
+                    <LinkedInIcon/>{linkedin}
+                </ProfileRow> }
             </Stack>
-            <ProfileRow>
-                Pronouns: {pronouns}
-            </ProfileRow>
-            <ProfileRow>
-                <LocationOnOutlinedIcon/>{location}
-            </ProfileRow>
-            <ProfileRow>
-                <LanguageOutlinedIcon/>{website}
-            </ProfileRow>
-            <ProfileRow>
-                <TwitterIcon/>{twitter}
-            </ProfileRow>
-            <ProfileRow>
-                <GitHubIcon/>{github}
-            </ProfileRow>
-            <ProfileRow>
-                <LinkedInIcon/>{linkedin}
-            </ProfileRow>
-        </Stack>
+        </Stack> 
         )
     )
 };

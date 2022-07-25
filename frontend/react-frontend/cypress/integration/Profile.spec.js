@@ -84,6 +84,8 @@ describe('dark mode tests logged out', () => {
 
 // username can be changed 
 
+// avatar upload only accepts image files
+
 //BE
 //profile returned for correct user
 // profile can be created for a user
