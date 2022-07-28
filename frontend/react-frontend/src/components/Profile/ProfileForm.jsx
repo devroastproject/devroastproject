@@ -13,13 +13,43 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
+import Backdrop from '@mui/material/Backdrop';
+import Avatar from '@mui/material/Avatar';
+import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+
+const AvatarBackGround = ({open, setUpdate}) => {
+    
+    const handleUpload = (e) => {
+        setUpdate(e.target.files[0])
+    }
+
+    return (
+        <Backdrop open={open} 
+            sx={{ 
+                color: '#fff', 
+                zIndex: (theme) => theme.zIndex.drawer + 1,
+                position: 'absolute'
+            }}
+        >
+        <label htmlFor="icon-button-file">
+            <Input accept="image/*" id="icon-button-file" type="file" sx={{display: 'none'}} onChange={handleUpload} />
+            <IconButton color="primary" aria-label="upload picture" component="span">
+                <AddPhotoAlternateOutlinedIcon/> 
+            </IconButton>
+        </label>
+        </Backdrop>
+    )
+}
+
 const ProfileForm = ({profile}) => {
 
     const {user, setUser} = useContext(UserContext)
 
     // determine if form is used for creating or updating 
     let url = "", method = ""
-    const newProfile = !Boolean(profile)
+    const newProfile = Boolean(profile === 404)
     if (newProfile){
         url = "profiles/"
         method = "POST"
@@ -37,7 +67,9 @@ const ProfileForm = ({profile}) => {
     const [twitter, twitterInput] = useInput({type: 'text', label: 'Twitter', defaultValue: profile.twitter});
     const [github, githubInput] = useInput({type: 'text', label: 'Github', defaultValue: profile.github});
     const [linkedin, linkedinInput] = useInput({type: 'text', label: 'LinkedIn', defaultValue: profile.linkedin});
-    // const [avatar, setAvatar] = useState(profile.avatar);
+    const [avatar, setAvatar] = useState(profile.avatar);
+
+    const [open, setOpen] = useState(false)
 
     let history = useHistory()
 
@@ -66,11 +98,6 @@ const ProfileForm = ({profile}) => {
         }
     }
 
-    // const handleAvatar = (event) => {
-    //     console.log(event.target.files[0])
-    //     setAvatar(event.target.files[0])
-    // }
-
     const pronounOptions = ['He/Him', 'She/Her', 'They/Them']
 
     return(
@@ -83,6 +110,17 @@ const ProfileForm = ({profile}) => {
                 </Box>
                 <form onSubmit={updateProfile}>
                     <Stack spacing={1}> 
+                        <Avatar 
+                            onMouseEnter={() => setOpen(true)}
+                            onMouseLeave={() => setOpen(false)}
+                            src={`http://localhost:8000${avatar}`}
+                            sx={{ width: 150, height: 150 }}
+                        >
+                        <>
+                            {user.info.username[0]} 
+                            <AvatarBackGround open={open} setUpdate={setAvatar} />
+                        </>
+                        </Avatar>
                         {roleInput}
                         {aboutInput}
                         <TextField
@@ -101,10 +139,6 @@ const ProfileForm = ({profile}) => {
                         {twitterInput}
                         {githubInput}
                         {linkedinInput}
-                        {/* <Button variant="contained" component="label">
-                            Upload Avatar
-                            <input type="file" hidden accept="image/*" onChange={handleAvatar}/>
-                        </Button> */}
                         <Button type="submit" variant="contained" id="ProfileSubmitButton"> 
                             {profile === 404 ? 'SUBMIT PROFILE' : 'UPDATE PROFILE'}
                         </Button>
