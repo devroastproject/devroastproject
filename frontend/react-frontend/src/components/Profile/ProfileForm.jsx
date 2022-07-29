@@ -18,6 +18,7 @@ import Avatar from '@mui/material/Avatar';
 import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
+import { callApiUpload } from "../../services/callApiUpload";
 
 const AvatarBackGround = ({open, setUpdate}) => {
     
@@ -59,14 +60,14 @@ const ProfileForm = ({profile}) => {
         method = "PUT" 
     }
 
-    const [role, roleInput] = useInput({type: 'text', label: 'Role', defaultValue: profile.role});
-    const [location, locationInput] = useInput({type: 'text', label: 'Location', defaultValue: profile.location});
-    const [pronouns, setPronouns] = useState(profile.pronouns)
-    const [about, aboutInput] = useInput({type: 'text', label: 'About', defaultValue: profile.about});
-    const [website, websiteInput] = useInput({type: 'text', label: 'Website', defaultValue: profile.website});
-    const [twitter, twitterInput] = useInput({type: 'text', label: 'Twitter', defaultValue: profile.twitter});
-    const [github, githubInput] = useInput({type: 'text', label: 'Github', defaultValue: profile.github});
-    const [linkedin, linkedinInput] = useInput({type: 'text', label: 'LinkedIn', defaultValue: profile.linkedin});
+    const [role, roleInput] = useInput({type: 'text', label: 'Role', defaultValue: profile.role ? profile.role : ''});
+    const [location, locationInput] = useInput({type: 'text', label: 'Location', defaultValue: profile.location ? profile.location : ''});
+    const [pronouns, setPronouns] = useState(profile.pronouns ? profile.pronouns : '')
+    const [about, aboutInput] = useInput({type: 'text', label: 'About', defaultValue: profile.about ? profile.about : ''});
+    const [website, websiteInput] = useInput({type: 'text', label: 'Website', defaultValue: profile.website ? profile.website : ''});
+    const [twitter, twitterInput] = useInput({type: 'text', label: 'Twitter', defaultValue: profile.twitter ? profile.twitter : ''});
+    const [github, githubInput] = useInput({type: 'text', label: 'Github', defaultValue: profile.github ? profile.github : ''});
+    const [linkedin, linkedinInput] = useInput({type: 'text', label: 'LinkedIn', defaultValue: profile.linkedin ? profile.linkedin : ''});
     const [avatar, setAvatar] = useState(profile.avatar);
 
     const [open, setOpen] = useState(false)
@@ -100,6 +101,17 @@ const ProfileForm = ({profile}) => {
 
     const pronounOptions = ['He/Him', 'She/Her', 'They/Them']
 
+    const handleUpload = async (e) => {
+
+        const res = await callApiUpload(url, method, e.target.files[0], user.token, profile.id)
+        if (res.code >= 200 && res.code < 300){   
+            setUser({...user, message: <Message message={res.message} type="success"/>})   
+            history.go(0)
+        } else {
+            setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
+        }
+    }
+
     return(
         <Container maxWidth="sm" id='ProfileForm'>
             <Stack spacing={2}>
@@ -113,12 +125,25 @@ const ProfileForm = ({profile}) => {
                         <Avatar 
                             onMouseEnter={() => setOpen(true)}
                             onMouseLeave={() => setOpen(false)}
-                            src={`http://localhost:8000${avatar}`}
+                            src={(avatar && `http://localhost:8000${avatar}`)}
                             sx={{ width: 150, height: 150 }}
                         >
                         <>
                             {user.info.username[0]} 
-                            <AvatarBackGround open={open} setUpdate={setAvatar} />
+                            <Backdrop open={open} 
+                                sx={{ 
+                                    color: '#fff', 
+                                    zIndex: (theme) => theme.zIndex.drawer + 1,
+                                    position: 'absolute'
+                                }}
+                            >
+                            <label htmlFor="icon-button-file">
+                                <Input accept="image/*" id="icon-button-file" type="file" sx={{display: 'none'}} onChange={handleUpload} />
+                                <IconButton color="primary" aria-label="upload picture" component="span">
+                                    <AddPhotoAlternateOutlinedIcon/> 
+                                </IconButton>
+                            </label>
+                            </Backdrop>
                         </>
                         </Avatar>
                         {roleInput}

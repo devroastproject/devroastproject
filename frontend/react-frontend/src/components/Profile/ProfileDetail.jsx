@@ -23,7 +23,7 @@ const ProfileRow = ({children, noWrap=true}) => {
 
 const ProfileDetail = ({profile}) => {
     
-    const{role, location, pronouns, about, website, twitter, github, linkedin, avatar} = profile
+    const{role, location, pronouns, about, website, twitter, github, linkedin, avatar, username} = profile
 
     return(
         profile !== 404 && (
@@ -31,7 +31,10 @@ const ProfileDetail = ({profile}) => {
             <Avatar 
                 src={`http://localhost:8000${avatar}`}
                 sx={{ width: 150, height: 150 }}
-            />
+            >
+                {username[0]} 
+            </Avatar>
+            
             <Stack  spacing={1}>
             {role && 
                 <ProfileRow>
