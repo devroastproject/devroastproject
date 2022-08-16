@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import UserContext from "../../context/UserContext"
 import { callApi } from "../../services/callAPI";
+import ImageUpload from "../Utils/ImageUpload";
 import { useInput } from "../Utils/useInput";
 import { useHistory } from "react-router";
 import Message from "../Utils/Message";
@@ -13,37 +14,6 @@ import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
-import Backdrop from '@mui/material/Backdrop';
-import Avatar from '@mui/material/Avatar';
-import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternateOutlined';
-import IconButton from '@mui/material/IconButton';
-import Input from '@mui/material/Input';
-import { callApiUpload } from "../../services/callApiUpload";
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-
-const AvatarBackGround = ({open, setUpdate}) => {
-    
-    const handleUpload = (e) => {
-        setUpdate(e.target.files[0])
-    }
-
-    return (
-        <Backdrop open={open} 
-            sx={{ 
-                color: '#fff', 
-                zIndex: (theme) => theme.zIndex.drawer + 1,
-                position: 'absolute'
-            }}
-        >
-        <label htmlFor="icon-button-file">
-            <Input accept="image/*" id="icon-button-file" type="file" sx={{display: 'none'}} onChange={handleUpload} />
-            <IconButton color="primary" aria-label="upload picture" component="span">
-                <AddPhotoAlternateOutlinedIcon/> 
-            </IconButton>
-        </label>
-        </Backdrop>
-    )
-}
 
 const ProfileForm = ({profile}) => {
 
@@ -69,8 +39,6 @@ const ProfileForm = ({profile}) => {
     const [twitter, twitterInput] = useInput({type: 'text', label: 'Twitter', defaultValue: profile.twitter ? profile.twitter : ''});
     const [github, githubInput] = useInput({type: 'text', label: 'Github', defaultValue: profile.github ? profile.github : ''});
     const [linkedin, linkedinInput] = useInput({type: 'text', label: 'LinkedIn', defaultValue: profile.linkedin ? profile.linkedin : ''});
-
-    const [open, setOpen] = useState(false)
 
     let history = useHistory()
 
@@ -100,17 +68,6 @@ const ProfileForm = ({profile}) => {
 
     const pronounOptions = ['He/Him', 'She/Her', 'They/Them']
 
-    const handleUpload = async (e) => {
-        let arg = profile.avatar ? '' : e.target.files[0]
-        const res = await callApiUpload(url, method, arg, user.token, user.info.id)
-        if (res.code >= 200 && res.code < 300){   
-            setUser({...user, message: <Message message={res.message} type="success"/>})   
-            history.go(0)
-        } else {
-            setUser({...user, message: <Message message="Something Went Wrong" type="error"/>})   
-        }
-    }
-
     return(
         <Container maxWidth="sm" id='ProfileForm'>
             <Stack spacing={2}>
@@ -121,35 +78,7 @@ const ProfileForm = ({profile}) => {
                 </Box>
                 <form onSubmit={updateProfile}>
                     <Stack spacing={1}> 
-                        <Avatar 
-                            onMouseEnter={() => setOpen(true)}
-                            onMouseLeave={() => setOpen(false)}
-                            src={profile.avatar && !open ? `http://localhost:8000${profile.avatar}` : ''}
-                            sx={{ width: 150, height: 150 }}
-                        ><>
-                            {user.info.username[0]} 
-                            <Backdrop open={open} 
-                            sx={{ 
-                                color: '#fff', 
-                                zIndex: (theme) => theme.zIndex.drawer + 2,
-                                position: 'absolute'
-                            }}
-                        >
-                            { profile.avatar ? 
-                                <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleUpload}>
-                                    <DeleteForeverIcon/> 
-                                </IconButton>
-                            :
-                                <label htmlFor="icon-button-file">
-                                    <Input accept="image/*" id="icon-button-file" type="file" sx={{display: 'none'}} onChange={handleUpload} />
-                                    <IconButton color="primary" aria-label="upload picture" component="span">
-                                        <AddPhotoAlternateOutlinedIcon/>
-                                    </IconButton>
-                                </label>
-                            }
-                            </Backdrop>
-                        </>
-                        </Avatar>
+                        <ImageUpload image={profile.avatar} url={url} method={method}/>
                         {roleInput}
                         {aboutInput}
                         <TextField
