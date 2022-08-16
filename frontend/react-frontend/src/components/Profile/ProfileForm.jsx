@@ -19,6 +19,7 @@ import AddPhotoAlternateOutlinedIcon from '@mui/icons-material/AddPhotoAlternate
 import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
 import { callApiUpload } from "../../services/callApiUpload";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const AvatarBackGround = ({open, setUpdate}) => {
     
@@ -68,7 +69,6 @@ const ProfileForm = ({profile}) => {
     const [twitter, twitterInput] = useInput({type: 'text', label: 'Twitter', defaultValue: profile.twitter ? profile.twitter : ''});
     const [github, githubInput] = useInput({type: 'text', label: 'Github', defaultValue: profile.github ? profile.github : ''});
     const [linkedin, linkedinInput] = useInput({type: 'text', label: 'LinkedIn', defaultValue: profile.linkedin ? profile.linkedin : ''});
-    const [avatar, setAvatar] = useState(profile.avatar);
 
     const [open, setOpen] = useState(false)
 
@@ -87,7 +87,6 @@ const ProfileForm = ({profile}) => {
             'twitter': twitter, 
             'github': github, 
             'linkedin': linkedin,
-            // 'avatar': avatar
         }
         
         const res = await callApi(url, method, data, user.token)
@@ -102,8 +101,8 @@ const ProfileForm = ({profile}) => {
     const pronounOptions = ['He/Him', 'She/Her', 'They/Them']
 
     const handleUpload = async (e) => {
-
-        const res = await callApiUpload(url, method, e.target.files[0], user.token, profile.id)
+        let arg = profile.avatar ? '' : e.target.files[0]
+        const res = await callApiUpload(url, method, arg, user.token, user.info.id)
         if (res.code >= 200 && res.code < 300){   
             setUser({...user, message: <Message message={res.message} type="success"/>})   
             history.go(0)
@@ -125,24 +124,29 @@ const ProfileForm = ({profile}) => {
                         <Avatar 
                             onMouseEnter={() => setOpen(true)}
                             onMouseLeave={() => setOpen(false)}
-                            src={(avatar && `http://localhost:8000${avatar}`)}
+                            src={profile.avatar && !open ? `http://localhost:8000${profile.avatar}` : ''}
                             sx={{ width: 150, height: 150 }}
-                        >
-                        <>
+                        ><>
                             {user.info.username[0]} 
                             <Backdrop open={open} 
-                                sx={{ 
-                                    color: '#fff', 
-                                    zIndex: (theme) => theme.zIndex.drawer + 1,
-                                    position: 'absolute'
-                                }}
-                            >
-                            <label htmlFor="icon-button-file">
-                                <Input accept="image/*" id="icon-button-file" type="file" sx={{display: 'none'}} onChange={handleUpload} />
-                                <IconButton color="primary" aria-label="upload picture" component="span">
-                                    <AddPhotoAlternateOutlinedIcon/> 
+                            sx={{ 
+                                color: '#fff', 
+                                zIndex: (theme) => theme.zIndex.drawer + 2,
+                                position: 'absolute'
+                            }}
+                        >
+                            { profile.avatar ? 
+                                <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleUpload}>
+                                    <DeleteForeverIcon/> 
                                 </IconButton>
-                            </label>
+                            :
+                                <label htmlFor="icon-button-file">
+                                    <Input accept="image/*" id="icon-button-file" type="file" sx={{display: 'none'}} onChange={handleUpload} />
+                                    <IconButton color="primary" aria-label="upload picture" component="span">
+                                        <AddPhotoAlternateOutlinedIcon/>
+                                    </IconButton>
+                                </label>
+                            }
                             </Backdrop>
                         </>
                         </Avatar>
