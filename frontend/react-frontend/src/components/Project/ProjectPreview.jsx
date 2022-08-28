@@ -7,10 +7,11 @@ import InsertCommentOutlinedIcon from '@mui/icons-material/InsertCommentOutlined
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
+import Box from "@mui/system/Box";
 
 const ProjectPreview = ({project}) => {
 
-    const {id, title, description, user, username, comment_count, tags, avatar} = project
+    const {id, title, description, user, username, comment_count, tags, avatar, cover} = project
 
     return(
         <Card variant="outlined">
@@ -20,6 +21,18 @@ const ProjectPreview = ({project}) => {
                         <Typography variant='h5'>{title}</Typography>
                     </Link>
                 </Grid>
+                { cover &&
+                    <Grid item xs={12}>
+                        <Box component='img' 
+                            src={`http://localhost:8000${cover}`} 
+                            alt='' 
+                            sx={{
+                                'maxWidth': '200px', 
+                                'maxHeight': '200px'
+                            }}
+                        />
+                    </Grid>
+                }
                 <Grid item xs={12}>
                     <Typography noWrap>{description}</Typography>
                 </Grid>

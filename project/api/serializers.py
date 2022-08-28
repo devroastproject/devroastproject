@@ -94,4 +94,7 @@ class ProjectSerializer(ModelSerializer):
             return None
     
     def get_cover(self, obj):
-        return obj.cover.url
+        try:
+            return obj.cover.url
+        except:
+            return None
