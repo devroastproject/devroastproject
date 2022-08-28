@@ -150,9 +150,7 @@ A secondary staticfiles link was added to work within the compose. All API calls
 
 ## TODO
 
-- image upload
-
-  - add images to projects
+- add images to projects
 
 - Expand user profiles
 
