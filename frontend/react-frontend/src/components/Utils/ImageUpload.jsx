@@ -11,7 +11,7 @@ import Backdrop from '@mui/material/Backdrop';
 import Avatar from '@mui/material/Avatar';
 import Input from '@mui/material/Input';
 
-const ImageUpload = ({image, url, method}) => {
+const ImageUpload = ({image, url, method, id}) => {
 
     const {user, setUser} = useContext(UserContext)
     let history = useHistory()
@@ -19,7 +19,7 @@ const ImageUpload = ({image, url, method}) => {
 
     const handleUpload = async (e) => {
         let arg = image ? '' : e.target.files[0]
-        const res = await callApiUpload(url, method, arg, user.token, user.info.id)
+        const res = await callApiUpload(url, method, arg, user.token, id)
         if (res.code >= 200 && res.code < 300){   
             setUser({...user, message: <Message message={res.message} type="success"/>})   
             history.go(0)
@@ -35,6 +35,7 @@ const ImageUpload = ({image, url, method}) => {
             onMouseLeave={() => setOpen(false)}
             src={image && !open ? `http://localhost:8000${image}` : ''}
             sx={{ width: 150, height: 150 }}
+            variant='square'
         >
         <>
             {user.info.username[0]} 

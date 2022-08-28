@@ -1,5 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+import uuid
+
+def random_filename(self, filename):
+    ext = filename.split('.')[-1]
+    return f'{uuid.uuid4()}.{ext}'
 
 # Model for an individual post
 class Project(models.Model):
@@ -14,6 +19,8 @@ class Project(models.Model):
     hosted_url = models.CharField(max_length=250, blank=True, help_text="Your website's URL.")
 	# A summary of the project
     description = models.TextField(help_text="A brief description of your website.")
+    
+    cover = models.ImageField('Cover Image', null=True, blank=True, upload_to=random_filename)
 
     def __str__(self):
 

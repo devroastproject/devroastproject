@@ -1,5 +1,6 @@
 import UserContext from "../../context/UserContext";
 import { callApi } from "../../services/callAPI";
+import ImageUpload from "../Utils/ImageUpload";
 import { useInput } from "../Utils/useInput";
 import { useHistory } from "react-router";
 import React, { useContext } from "react";
@@ -19,7 +20,7 @@ const ProjectForm = ({project}) => {
     if (newProject){
         url = "projects/"
         method = "POST"
-        project = {"title": "", "repo_url": "", "hosted_url": "", "description": ""}
+        project = {"title": "", "cover": "", "repo_url": "", "hosted_url": "", "description": ""}
     } else {
         url = `projects/${project.id}/`  
         method = "PUT" 
@@ -63,6 +64,7 @@ const ProjectForm = ({project}) => {
                 </Box>
                 <form onSubmit={updateProject}>
                     <Stack spacing={1}> 
+                        <ImageUpload image={project.cover} url={url} method={method} id={project.id}/>
                         {titleInput}
                         {repoInput}
                         {hostedInput}

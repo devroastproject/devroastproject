@@ -1,3 +1,5 @@
+import { parseResponse } from "./parseResponse";
+
 export const callApiUpload = async (endpoint, method, file, token=null, id) => {
 
     const formData = new FormData();

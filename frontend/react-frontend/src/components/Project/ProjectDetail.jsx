@@ -7,10 +7,11 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
 import Grid from '@mui/material/Grid';
+import Box from "@mui/system/Box";
 
 const ProjectDetail = ({project}) => {
 
-    const {id, title, description, user, username, repo_url, hosted_url, tags, avatar} = project
+    const {id, title, cover, description, user, username, repo_url, hosted_url, tags, avatar} = project
     
     function prepURL(url){
         let prepped = ' ' + url.replace(/(^\w+:|^)\/\//, '').slice(0, 17);
@@ -23,6 +24,17 @@ const ProjectDetail = ({project}) => {
                 <Grid item xs={12}>
                     <Typography variant="h3" style={{wordWrap: 'break-word'}}>{title}</Typography>
                 </Grid>
+                { cover &&
+                    <Grid item xs={12}>
+                        <Box component='img' 
+                            src={`http://localhost:8000${cover}`} 
+                            alt='' 
+                            sx={{
+                                'maxWidth': {xs:'250px', md: '500px'}, 
+                                'height': 'auto'
+                        }}/>
+                    </Grid>
+                }
                 <Grid item>
                     <AvatarButton id={user} username={username} avatar={avatar}/>
                 </Grid>

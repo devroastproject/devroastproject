@@ -78,7 +78,7 @@ const ProfileForm = ({profile}) => {
                 </Box>
                 <form onSubmit={updateProfile}>
                     <Stack spacing={1}> 
-                        <ImageUpload image={profile.avatar} url={url} method={method}/>
+                        <ImageUpload image={profile.avatar} url={url} method={method} id={user.info.id}/>
                         {roleInput}
                         {aboutInput}
                         <TextField

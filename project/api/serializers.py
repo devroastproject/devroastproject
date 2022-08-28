@@ -68,6 +68,7 @@ class ProjectSerializer(ModelSerializer):
     username = SerializerMethodField()
     tags = SerializerMethodField()
     avatar = SerializerMethodField()
+    cover = SerializerMethodField()
 
     class Meta:
     
@@ -91,3 +92,6 @@ class ProjectSerializer(ModelSerializer):
             return Profile.objects.get(user=obj.user).avatar.url
         except:
             return None
+    
+    def get_cover(self, obj):
+        return obj.cover.url
